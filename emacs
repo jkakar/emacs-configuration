@@ -15,6 +15,7 @@
 (load-library "flymake-cursor")
 (load-library "highlight-80+.el")
 (require 'go-mode-load)
+(require 'clojure-mode)
 
 ;; Local settings
 
