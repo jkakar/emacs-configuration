@@ -66,7 +66,7 @@
       '(lambda () "Defaults for Go mode." (setq fill-column 78)))
 (add-hook 'go-mode-hook 'highlight-80+-mode)
 (add-hook 'go-mode-hook
-      '(lambda () "Use spaces instead of tabs." (setq indent-tabs-mode nil)))
+      '(lambda () "Reset tab width." (setq default-tab-width 8)))
 
 
 ;; org-mode
@@ -75,6 +75,11 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+
+
+;; Markdown
+
+(setq auto-mode-alist (cons '("\\.md$" . markdown-mode) auto-mode-alist))
 
 
 (provide 'programming)
