@@ -16,6 +16,7 @@
 (load-library "highlight-80+.el")
 (require 'go-mode-load)
 (require 'clojure-mode)
+(load-library "less-css-mode.el")
 
 ;; Local settings
 

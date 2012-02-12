@@ -62,11 +62,25 @@
 
 ;; Go
 
+;; FIXME Figure out how to pass other local .go files to 6g to avoid
+;; spurious errors.
+
+;; (defvar go-compiler "6g")
+
+;; (defun flymake-go-init ()
+;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                      'flymake-create-temp-inplace))
+;;          (local-file (file-relative-name
+;;                       temp-file
+;;                       (file-name-directory buffer-file-name))))
+;;     (list go-compiler (list "-o" "/dev/null" temp-file))))
+
+;; (push '(".+\\.go$" flymake-go-init) flymake-allowed-file-name-masks)
+;; (add-hook 'go-mode-hook 'flymake-mode)
+
 (setq go-mode-hook
       '(lambda () "Defaults for Go mode." (setq fill-column 78)))
 (add-hook 'go-mode-hook 'highlight-80+-mode)
-(add-hook 'go-mode-hook
-      '(lambda () "Reset tab width." (setq default-tab-width 8)))
 
 
 ;; org-mode
