@@ -17,7 +17,7 @@
  '(js2-mirror-mode nil)
  '(js2-mode-escape-quotes nil)
  '(python-honour-comment-indentation t)
- '(safe-local-variable-values (quote ((test-case-name . twisted\.test\.test_protocols) (test-case-name . twisted\.words\.test\.test_irc) (test-case-name . twisted\.test\.test_factories\,twisted\.internet\.test\.test_protocol) (test-case-name . twisted\.web\.test\.test_web) (test-case-name . twisted\.test\.test_application\,twisted\.test\.test_cooperator) (test-case-name . twisted\.web\.test\.test_http) (test-case-name . twisted\.test\.test_defer\,twisted\.test\.test_defgen\,twisted\.internet\.test\.test_inlinecb))))
+ '(safe-local-variable-values (quote ((test-case-name . pyflakes) (test-case-name . twisted\.test\.test_protocols) (test-case-name . twisted\.words\.test\.test_irc) (test-case-name . twisted\.test\.test_factories\,twisted\.internet\.test\.test_protocol) (test-case-name . twisted\.web\.test\.test_web) (test-case-name . twisted\.test\.test_application\,twisted\.test\.test_cooperator) (test-case-name . twisted\.web\.test\.test_http) (test-case-name . twisted\.test\.test_defer\,twisted\.test\.test_defgen\,twisted\.internet\.test\.test_inlinecb))))
  '(show-paren-delay 0)
  '(show-paren-mode 1)
  '(show-paren-style (quote expression)))
@@ -27,7 +27,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#000000" :foreground "#aaaaaa" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 124 :width normal :foundry "unknown" :family "Ubuntu Mono"))))
+ '(default ((t (:stipple nil :background "#000000" :foreground "#aaaaaa" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 155 :width normal :foundry "unknown" :family "Ubuntu Mono"))))
  '(diff-added ((t (:inherit diff-changed :foreground "#729fcf"))))
  '(diff-context ((((class color grayscale) (min-colors 88)) (:inherit shadow))))
  '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:foreground "#ef2929"))))

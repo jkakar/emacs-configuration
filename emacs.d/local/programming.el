@@ -56,8 +56,10 @@
 
 ;; XML
 
-(setq auto-mode-alist (cons '("\\.zcml$" . xml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.pt$" . html-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.rdf$" . xml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.xul$" . xml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.zcml$" . xml-mode) auto-mode-alist))
 
 
 ;; Go
