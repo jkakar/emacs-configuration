@@ -99,4 +99,9 @@
 (setq auto-mode-alist (cons '("\\.markdown$" . markdown-mode) auto-mode-alist))
 
 
+;; Puppet
+
+(setq auto-mode-alist (cons '("\\.pp$" . conf-mode) auto-mode-alist))
+
+
 (provide 'programming)
