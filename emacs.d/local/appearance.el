@@ -32,7 +32,8 @@
   (add-hook 'js2-mode-hook 'highlight-80+-mode)
   (add-hook 'java-mode-hook 'highlight-80+-mode)
   (add-hook 'html-mode-hook 'highlight-80+-mode)
-  (add-hook 'shell-script-mode-hook 'highlight-80+-mode))
+  (add-hook 'shell-script-mode-hook 'highlight-80+-mode)
+  (add-hook 'ruby-mode-hook 'highlight-80+-mode))
 
 (defun scrolling-behaviour ()
   (setq scroll-conservatively 1))
