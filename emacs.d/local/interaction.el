@@ -45,6 +45,6 @@
 
 (usability-settings)
 (set-key-bindings)
-(integrate-copy-and-paste)
+;;(integrate-copy-and-paste)
 
 (provide 'interaction)
