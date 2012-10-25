@@ -31,6 +31,14 @@
 (setq auto-mode-alist (cons '("\\.tac$" . python-mode) auto-mode-alist))
 (setq tags-table-list-default '("~/.etags/twisted" "~/.etags/txamqp"))
 
+
+;; Ruby
+
+(add-hook 'ruby-mode-hook
+      '(lambda () "Defaults for Ruby mode." (setq fill-column 78)))
+
+
+
 ;; Javascript
 
 (setq javascript-mode-hook

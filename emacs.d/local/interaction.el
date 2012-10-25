@@ -33,6 +33,10 @@
 	    (lambda ()
 	      (define-key py-mode-map
 		"\C-^" 'py-test-run)))
+  (add-hook 'ruby-mode-hook
+	    (lambda ()
+	      (define-key ruby-mode-map
+		[?\C-j] 'join-next-line)))
   (global-set-key [?\C-j] 'join-next-line))
 
 
