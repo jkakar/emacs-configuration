@@ -16,11 +16,13 @@
   (setq tramp-default-method "scp")
   (iswitchb-mode t)
   (toggle-uniquify-buffer-names)
-  (put 'narrow-to-region 'disabled nil))
+  (put 'narrow-to-region 'disabled nil)
+  (setq ring-bell-function #'ignore))
 
 (defun integrate-copy-and-paste ()
   (setq x-select-enable-clipboard t)
   (setq interprogram-paste-function 'x-cut-buffer-or-selection-value))
+
 
 ;; Keybindings
 
@@ -50,5 +52,6 @@
 (usability-settings)
 (set-key-bindings)
 ;;(integrate-copy-and-paste)
+
 
 (provide 'interaction)
