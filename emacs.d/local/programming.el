@@ -1,42 +1,52 @@
 ;; Python
 
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      (list "/home/jkakar/.emacs.d/plugins/epylint.py" (list local-file))))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pyflakes-init))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.tac\\'" flymake-pyflakes-init)))
+;; (when (load "flymake" t)
+;;   (defun flymake-pyflakes-init ()
+;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                        'flymake-create-temp-inplace))
+;;            (local-file (file-relative-name
+;;                         temp-file
+;;                         (file-name-directory buffer-file-name))))
+;;       (list "/home/jkakar/.emacs.d/plugins/epylint.py" (list local-file))))
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;;                '("\\.py\\'" flymake-pyflakes-init))
+;;   (add-to-list 'flymake-allowed-file-name-masks
+;;                '("\\.tac\\'" flymake-pyflakes-init)))
 
-(defun python-outline-settings ()
-  (outline-setup "^class \\|[ 	]*def \\|^#"))
+;; (defun python-outline-settings ()
+;;   (outline-setup "^class \\|[ 	]*def \\|^#"))
 
-(defun my-flymake-find-file-hook ()
-  (if (file-writable-p buffer-file-name)
-      (flymake-find-file-hook)))
+;; (defun my-flymake-find-file-hook ()
+;;   (if (file-writable-p buffer-file-name)
+;;       (flymake-find-file-hook)))
 
 (defun unset-python-newline-and-indent ()
   (local-unset-key [?\C-j]))
 
-(add-hook 'find-file-hook 'my-flymake-find-file-hook)
-(add-hook 'python-mode-hook 'python-outline-settings)
+;; (add-hook 'find-file-hook 'my-flymake-find-file-hook)
+;; (add-hook 'python-mode-hook 'python-outline-settings)
 (add-hook 'python-mode-hook
-      '(lambda () "Defaults for Python mode." (setq fill-column 78)))
+      '(lambda () "Defaults for Python mode." (setq fill-column 78
+                                                    python-guess-indent nil
+                                                    python-indent 4)))
 (add-hook 'python-mode-hook 'unset-python-newline-and-indent)
 (setq auto-mode-alist (cons '("\\.tac$" . python-mode) auto-mode-alist))
 (setq tags-table-list-default '("~/.etags/twisted" "~/.etags/txamqp"))
-
 
 ;; Ruby
 
 (add-hook 'ruby-mode-hook
       '(lambda () "Defaults for Ruby mode." (setq fill-column 78)))
+(setq auto-mode-alist (cons '("\\.rb$" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.gemspec$" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("Gemfile" . ruby-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
 
+
+;; CoffeeScript
+
+(add-hook 'coffee-mode-hook
+      '(lambda () "Defaults for Coffee mode." (setq fill-column 78)))
 
 
 ;; Javascript
@@ -64,6 +74,7 @@
 
 ;; XML
 
+(setq auto-mode-alist (cons '("\\.erb$" . html-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.pt$" . html-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.rdf$" . xml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.xul$" . xml-mode) auto-mode-alist))
@@ -89,8 +100,13 @@
 ;; (add-hook 'go-mode-hook 'flymake-mode)
 
 (setq go-mode-hook
-      '(lambda () "Defaults for Go mode." (setq fill-column 78)))
+      '(lambda () "Defaults for Go mode." (setq fill-column 78
+												tab-width 4
+												indent-tabs-mode 0)))
 (add-hook 'go-mode-hook 'highlight-80+-mode)
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/go/bin"))
+(setq exec-path (append exec-path '("/usr/local/go/bin")))
+;; (add-hook 'before-save-hook #'gofmt-before-save)
 
 
 ;; org-mode
@@ -107,9 +123,9 @@
 (setq auto-mode-alist (cons '("\\.markdown$" . markdown-mode) auto-mode-alist))
 
 
-;; Puppet
+;; Scala
 
-(setq auto-mode-alist (cons '("\\.pp$" . conf-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.sbt$" . scala-mode) auto-mode-alist))
 
 
 (provide 'programming)
