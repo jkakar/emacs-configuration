@@ -1,29 +1,29 @@
 ;; Python
 
-;; (when (load "flymake" t)
-;;   (defun flymake-pyflakes-init ()
-;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;                        'flymake-create-temp-inplace))
-;;            (local-file (file-relative-name
-;;                         temp-file
-;;                         (file-name-directory buffer-file-name))))
-;;       (list "/home/jkakar/.emacs.d/plugins/epylint.py" (list local-file))))
-;;   (add-to-list 'flymake-allowed-file-name-masks
-;;                '("\\.py\\'" flymake-pyflakes-init))
-;;   (add-to-list 'flymake-allowed-file-name-masks
-;;                '("\\.tac\\'" flymake-pyflakes-init)))
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "/Users/jkakar/.emacs.d/plugins/epylint.py" (list local-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pyflakes-init))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.tac\\'" flymake-pyflakes-init)))
 
 ;; (defun python-outline-settings ()
 ;;   (outline-setup "^class \\|[ 	]*def \\|^#"))
 
-;; (defun my-flymake-find-file-hook ()
-;;   (if (file-writable-p buffer-file-name)
-;;       (flymake-find-file-hook)))
+(defun my-flymake-find-file-hook ()
+  (if (file-writable-p buffer-file-name)
+      (flymake-find-file-hook)))
 
 (defun unset-python-newline-and-indent ()
   (local-unset-key [?\C-j]))
 
-;; (add-hook 'find-file-hook 'my-flymake-find-file-hook)
+(add-hook 'find-file-hook 'my-flymake-find-file-hook)
 ;; (add-hook 'python-mode-hook 'python-outline-settings)
 (add-hook 'python-mode-hook
       '(lambda () "Defaults for Python mode." (setq fill-column 78

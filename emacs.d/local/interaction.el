@@ -72,6 +72,16 @@ point reaches the beginning or end of the buffer, stop there."
   (global-set-key [?\C-j] 'join-next-line))
 
 
+;; Spell checking
+
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setq exec-path (append exec-path '("/usr/local/bin")))
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
+
+
 ;; Edit server
 
 (server-start)
