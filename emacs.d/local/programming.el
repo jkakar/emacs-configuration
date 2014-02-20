@@ -106,8 +106,7 @@
 (add-hook 'go-mode-hook 'highlight-80+-mode)
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/go/bin"))
 (setq exec-path (append exec-path '("/usr/local/go/bin")))
-;; (add-hook 'before-save-hook #'gofmt-before-save)
-
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; org-mode
 

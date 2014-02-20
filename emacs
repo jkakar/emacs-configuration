@@ -2,6 +2,7 @@
 
 (setq load-path (cons "~/.emacs.d/plugins" load-path))
 (setq load-path (cons "~/.emacs.d/local" load-path))
+(setq load-path (cons "/usr/local/go/misc/emacs" load-path))
 
 
 ;; Standard packages
@@ -21,6 +22,13 @@
 
 ;; Local settings
 
+(setenv "PATH" (concat (getenv "PATH") ":" (concat (getenv "HOME") "/src/go/bin")))
+
+(add-to-list 'load-path (concat (getenv "HOME")  "/src/go/src/github.com/golang/lint/misc/emacs"))
+(require 'golint)
+(setq gofmt-command "goimports")
+(require 'go-mode-load)
+
 (require 'appearance)
 (require 'interaction)
 (require 'programming)
@@ -28,7 +36,5 @@
 (require 'package)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;;(add-to-list 'package-archives
-;;              '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 (require 'elixir-mode)
