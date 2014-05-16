@@ -1,3 +1,33 @@
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+
+;; Go
+
+;; FIXME Figure out how to pass other local .go files to 6g to avoid
+;; spurious errors.
+
+;; (defvar go-compiler "6g")
+
+;; (defun flymake-go-init ()
+;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+;;                      'flymake-create-temp-inplace))
+;;          (local-file (file-relative-name
+;;                       temp-file
+;;                       (file-name-directory buffer-file-name))))
+;;     (list go-compiler (list "-o" "/dev/null" temp-file))))
+
+;; (push '(".+\\.go$" flymake-go-init) flymake-allowed-file-name-masks)
+;; (add-hook 'go-mode-hook 'flymake-mode)
+
+(setq go-mode-hook
+      '(lambda () "Defaults for Go mode." (setq fill-column 78
+												tab-width 4
+												indent-tabs-mode 0)))
+(add-hook 'go-mode-hook 'highlight-80+-mode)
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/go/bin"))
+(setq exec-path (append exec-path '("/usr/local/go/bin")))
+(add-hook 'before-save-hook 'gofmt-before-save)
+
+
 ;; Python
 
 ;; (when (load "flymake" t)
@@ -80,33 +110,6 @@
 (setq auto-mode-alist (cons '("\\.xul$" . xml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.zcml$" . xml-mode) auto-mode-alist))
 
-
-;; Go
-
-;; FIXME Figure out how to pass other local .go files to 6g to avoid
-;; spurious errors.
-
-;; (defvar go-compiler "6g")
-
-;; (defun flymake-go-init ()
-;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;                      'flymake-create-temp-inplace))
-;;          (local-file (file-relative-name
-;;                       temp-file
-;;                       (file-name-directory buffer-file-name))))
-;;     (list go-compiler (list "-o" "/dev/null" temp-file))))
-
-;; (push '(".+\\.go$" flymake-go-init) flymake-allowed-file-name-masks)
-;; (add-hook 'go-mode-hook 'flymake-mode)
-
-(setq go-mode-hook
-      '(lambda () "Defaults for Go mode." (setq fill-column 78
-												tab-width 4
-												indent-tabs-mode 0)))
-(add-hook 'go-mode-hook 'highlight-80+-mode)
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/go/bin"))
-(setq exec-path (append exec-path '("/usr/local/go/bin")))
-(add-hook 'before-save-hook 'gofmt-before-save)
 
 ;; org-mode
 
