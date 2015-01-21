@@ -1,0 +1,218 @@
+.TH math 3 "stdlib 2.0" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+math \- Mathematical Functions
+.SH DESCRIPTION
+.LP
+This module provides an interface to a number of mathematical functions\&.
+.LP
+
+.RS -4
+.B
+Note:
+.RE
+Not all functions are implemented on all platforms\&. In particular, the \fIerf/1\fR\& and \fIerfc/1\fR\& functions are not implemented on Windows\&.
+
+.SH EXPORTS
+.LP
+.nf
+
+.B
+pi() -> float()
+.br
+.fi
+.br
+.RS
+.LP
+A useful number\&.
+.RE
+.LP
+.nf
+
+.B
+sin(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+cos(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+tan(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+asin(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+acos(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+atan(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+atan2(Y, X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+sinh(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+cosh(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+tanh(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+asinh(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+acosh(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+atanh(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+exp(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+log(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+log10(X) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+pow(X, Y) -> float()
+.br
+.fi
+.br
+.nf
+
+.B
+sqrt(X) -> float()
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Y = X = number()
+.br
+.RE
+.RE
+.RS
+.LP
+A collection of math functions which return floats\&. Arguments are numbers\&.
+.RE
+.LP
+.nf
+
+.B
+erf(X) -> float()
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+X = number()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns the error function of \fIX\fR\&, where
+.LP
+.nf
+
+erf(X) = 2/sqrt(pi)*integral from 0 to X of exp(-t*t) dt.        
+.fi
+.RE
+.LP
+.nf
+
+.B
+erfc(X) -> float()
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+X = number()
+.br
+.RE
+.RE
+.RS
+.LP
+\fIerfc(X)\fR\& returns \fI1\&.0 - erf(X)\fR\&, computed by methods that avoid cancellation for large \fIX\fR\&\&.
+.RE
+.SH "BUGS"
+
+.LP
+As these are the C library, the bugs are the same\&.

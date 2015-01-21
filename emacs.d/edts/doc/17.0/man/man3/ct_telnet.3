@@ -1,0 +1,450 @@
+.TH ct_telnet 3 "common_test 1.8" "" "Erlang Module Definition"
+.SH NAME
+ct_telnet \- Common Test specific layer on top of telnet client ct_telnet_client.erl
+.SH DESCRIPTION
+.LP
+Common Test specific layer on top of telnet client \fIct_telnet_client\&.erl\fR\&
+.LP
+Use this module to set up telnet connections, send commands and perform string matching on the result\&. See the \fIunix_telnet\fR\& manual page for information about how to use \fIct_telnet\fR\&, and configure connections, specifically for unix hosts\&.
+.LP
+The following default values are defined in \fIct_telnet\fR\&:
+.LP
+.nf
+
+  Connection timeout = 10 sec (time to wait for connection)
+  Command timeout = 10 sec (time to wait for a command to return)
+  Max no of reconnection attempts = 3
+  Reconnection interval = 5 sek (time to wait in between reconnection attempts)
+  Keep alive = true (will send NOP to the server every 10 sec if connection is idle)
+.fi
+.LP
+These parameters can be altered by the user with the following configuration term:
+.LP
+.nf
+
+  {telnet_settings, [{connect_timeout,Millisec},
+                     {command_timeout,Millisec},
+                     {reconnection_attempts,N},
+                     {reconnection_interval,Millisec},
+                     {keep_alive,Bool}]}.
+.fi
+.LP
+\fIMillisec = integer(), N = integer()\fR\&
+.LP
+Enter the \fItelnet_settings\fR\& term in a configuration file included in the test and ct_telnet will retrieve the information automatically\&. Note that \fIkeep_alive\fR\& may be specified per connection if required\&. See \fIunix_telnet\fR\& for details\&.
+.LP
+\fI\fBLogging\fR\&\fR\&
+.LP
+The default logging behaviour of \fIct_telnet\fR\& is to print information to the test case HTML log about performed operations and commands and their corresponding results\&. What won\&'t be printed to the HTML log are text strings sent from the telnet server that are not explicitly received by means of a \fIct_telnet\fR\& function such as \fIexpect/3\fR\&\&. \fIct_telnet\fR\& may however be configured to use a special purpose event handler, implemented in \fIct_conn_log_h\fR\&, for logging \fIall\fR\& telnet traffic\&. To use this handler, you need to install a Common Test hook named \fIcth_conn_log\fR\&\&. Example (using the test suite info function):
+.LP
+.nf
+  suite() ->
+      [{ct_hooks, [{cth_conn_log, [{conn_mod(),hook_options()}]}]}].
+.fi
+.LP
+\fIconn_mod()\fR\& is the name of the common_test module implementing the connection protocol, i\&.e\&. \fIct_telnet\fR\&\&.
+.LP
+The \fIcth_conn_log\fR\& hook performs unformatted logging of telnet data to a separate text file\&. All telnet communication is captured and printed, including arbitrary data sent from the server\&. The link to this text file can be found on the top of the test case HTML log\&.
+.LP
+By default, data for all telnet connections is logged in one common file (named \fIdefault\fR\&), which might get messy e\&.g\&. if multiple telnet sessions are running in parallel\&. It is therefore possible to create a separate log file for each connection\&. To configure this, use the hook option \fIhosts\fR\& and list the names of the servers/connections that will be used in the suite\&. Note that the connections must be named for this to work (see the \fIopen\fR\& function below)\&.
+.LP
+The hook option named \fIlog_type\fR\& may be used to change the \fIcth_conn_log\fR\& behaviour\&. The default value of this option is \fIraw\fR\&, which results in the behaviour described above\&. If the value is set to \fIhtml\fR\&, all telnet communication is printed to the test case HTML log instead\&.
+.LP
+All \fIcth_conn_log\fR\& hook options described above can also be specified in a configuration file with the configuration variable \fIct_conn_log\fR\&\&. Example:
+.LP
+.nf
+  {ct_conn_log, [{ct_telnet,[{log_type,raw},
+                             {hosts,[key_or_name()]}]}]}
+.fi
+.LP
+\fINote\fR\& that hook options specified in a configuration file will overwrite any hardcoded hook options in the test suite!
+.LP
+\fI\fBLogging example\fR\&\fR\&
+.LP
+The following \fIct_hooks\fR\& statement will cause printing of telnet traffic to separate logs for the connections named \fIserver1\fR\& and \fIserver2\fR\&\&. Traffic for any other connections will be logged in the default telnet log\&.
+.LP
+.nf
+  suite() ->
+      [{ct_hooks,
+        [{cth_conn_log, [{ct_telnet,[{hosts,[server1,server2]}]}]}]}].
+.fi
+.LP
+As previously explained, the above specification could also be provided by means of an entry like this in a configuration file:
+.LP
+.nf
+  {ct_conn_log, [{ct_telnet,[{hosts,[server1,server2]}]}]}.
+.fi
+.LP
+in which case the \fIct_hooks\fR\& statement in the test suite may simply look like this:
+.LP
+.nf
+  suite() ->
+      [{ct_hooks, [{cth_conn_log, []}]}].
+.fi
+.LP
+
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIconnection() = handle() | {target_name() (see module ct), connection_type()} | target_name() (see module ct)\fR\&:
+
+.TP 2
+.B
+\fIconnection_type() = telnet | ts1 | ts2\fR\&:
+
+.TP 2
+.B
+\fIhandle() = handle() (see module ct_gen_conn)\fR\&:
+
+.RS 2
+.LP
+Handle for a specific telnet connection\&.
+.RE
+.TP 2
+.B
+\fIprompt_regexp() = string()\fR\&:
+
+.RS 2
+.LP
+A regular expression which matches all possible prompts for a specific type of target\&. The regexp must not have any groups i\&.e\&. when matching, re:run/3 shall return a list with one single element\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+close(Connection) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Connection = connection() (see module ct_telnet)
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Close the telnet connection and stop the process managing it\&.
+.LP
+A connection may be associated with a target name and/or a handle\&. If \fIConnection\fR\& has no associated target name, it may only be closed with the handle value (see the \fIopen/4\fR\& function)\&.
+.RE
+.LP
+.B
+cmd(Connection, Cmd) -> {ok, Data} | {error, Reason}
+.br
+.RS
+.LP
+Equivalent to \fBcmd(Connection, Cmd, DefaultTimeout)\fR\&\&.
+.RE
+.LP
+.B
+cmd(Connection, Cmd, Timeout) -> {ok, Data} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Connection = connection() (see module ct_telnet)
+.br
+Cmd = string()
+.br
+Timeout = integer()
+.br
+Data = [string()]
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Send a command via telnet and wait for prompt\&.
+.RE
+.LP
+.B
+cmdf(Connection, CmdFormat, Args) -> {ok, Data} | {error, Reason}
+.br
+.RS
+.LP
+Equivalent to \fBcmdf(Connection, CmdFormat, Args, DefaultTimeout)\fR\&\&.
+.RE
+.LP
+.B
+cmdf(Connection, CmdFormat, Args, Timeout) -> {ok, Data} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Connection = connection() (see module ct_telnet)
+.br
+CmdFormat = string()
+.br
+Args = list()
+.br
+Timeout = integer()
+.br
+Data = [string()]
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Send a telnet command and wait for prompt (uses a format string and list of arguments to build the command)\&.
+.RE
+.LP
+.B
+expect(Connection, Patterns) -> term()
+.br
+.RS
+.LP
+Equivalent to \fBexpect(Connections, Patterns, [])\fR\&\&.
+.RE
+.LP
+.B
+expect(Connection, Patterns, Opts) -> {ok, Match} | {ok, MatchList, HaltReason} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Connection = connection() (see module ct_telnet)
+.br
+Patterns = Pattern | [Pattern]
+.br
+Pattern = string() | {Tag, string()} | prompt | {prompt, Prompt}
+.br
+Prompt = string()
+.br
+Tag = term()
+.br
+Opts = [Opt]
+.br
+Opt = {idle_timeout, IdleTimeout} | {total_timeout, TotalTimeout} | repeat | {repeat, N} | sequence | {halt, HaltPatterns} | ignore_prompt | no_prompt_check
+.br
+IdleTimeout = infinity | integer()
+.br
+TotalTimeout = infinity | integer()
+.br
+N = integer()
+.br
+HaltPatterns = Patterns
+.br
+MatchList = [Match]
+.br
+Match = RxMatch | {Tag, RxMatch} | {prompt, Prompt}
+.br
+RxMatch = [string()]
+.br
+HaltReason = done | Match
+.br
+Reason = timeout | {prompt, Prompt}
+.br
+.RE
+.RE
+.RS
+.LP
+Get data from telnet and wait for the expected pattern\&.
+.LP
+\fIPattern\fR\& can be a POSIX regular expression\&. If more than one pattern is given, the function returns when the first match is found\&.
+.LP
+\fIRxMatch\fR\& is a list of matched strings\&. It looks like this: \fI[FullMatch, SubMatch1, SubMatch2, \&.\&.\&.]\fR\& where \fIFullMatch\fR\& is the string matched by the whole regular expression and \fISubMatchN\fR\& is the string that matched subexpression no \fIN\fR\&\&. Subexpressions are denoted with \&'(\&' \&')\&' in the regular expression
+.LP
+If a \fITag\fR\& is given, the returned \fIMatch\fR\& will also include the matched \fITag\fR\&\&. Else, only \fIRxMatch\fR\& is returned\&.
+.LP
+The \fIidle_timeout\fR\& option indicates that the function shall return if the telnet client is idle (i\&.e\&. if no data is received) for more than \fIIdleTimeout\fR\& milliseconds\&. Default timeout is 10 seconds\&.
+.LP
+The \fItotal_timeout\fR\& option sets a time limit for the complete expect operation\&. After \fITotalTimeout\fR\& milliseconds, \fI{error,timeout}\fR\& is returned\&. The default value is \fIinfinity\fR\& (i\&.e\&. no time limit)\&.
+.LP
+The function will always return when a prompt is found, unless any of the \fIignore_prompt\fR\& or \fIno_prompt_check\fR\& options are used, in which case it will return when a match is found or after a timeout\&.
+.LP
+If the \fIignore_prompt\fR\& option is used, \fIct_telnet\fR\& will ignore any prompt found\&. This option is useful if data sent by the server could include a pattern that would match the prompt regexp (as returned by \fITargedMod:get_prompt_regexp/0\fR\&), but which should not cause the function to return\&.
+.LP
+If the \fIno_prompt_check\fR\& option is used, \fIct_telnet\fR\& will not search for a prompt at all\&. This is useful if, for instance, the \fIPattern\fR\& itself matches the prompt\&.
+.LP
+The \fIrepeat\fR\& option indicates that the pattern(s) shall be matched multiple times\&. If \fIN\fR\& is given, the pattern(s) will be matched \fIN\fR\& times, and the function will return with \fIHaltReason = done\fR\&\&.
+.LP
+The \fIsequence\fR\& option indicates that all patterns shall be matched in a sequence\&. A match will not be concluded untill all patterns are matched\&.
+.LP
+Both \fIrepeat\fR\& and \fIsequence\fR\& can be interrupted by one or more \fIHaltPatterns\fR\&\&. When \fIsequence\fR\& or \fIrepeat\fR\& is used, there will always be a \fIMatchList\fR\& returned, i\&.e\&. a list of \fIMatch\fR\& instead of only one \fIMatch\fR\&\&. There will also be a \fIHaltReason\fR\& returned\&.
+.LP
+\fIExamples:\fR\&
+.br
+\fIexpect(Connection,[{abc,"ABC"},{xyz,"XYZ"}],\fR\& \fI[sequence,{halt,[{nnn,"NNN"}]}])\&.\fR\&
+.br
+will try to match "ABC" first and then "XYZ", but if "NNN" appears the function will return \fI{error,{nnn,["NNN"]}}\fR\&\&. If both "ABC" and "XYZ" are matched, the function will return \fI{ok,[AbcMatch,XyzMatch]}\fR\&\&.
+.LP
+\fIexpect(Connection,[{abc,"ABC"},{xyz,"XYZ"}],\fR\& \fI[{repeat,2},{halt,[{nnn,"NNN"}]}])\&.\fR\&
+.br
+will try to match "ABC" or "XYZ" twice\&. If "NNN" appears the function will return with \fIHaltReason = {nnn,["NNN"]}\fR\&\&.
+.LP
+The \fIrepeat\fR\& and \fIsequence\fR\& options can be combined in order to match a sequence multiple times\&.
+.RE
+.LP
+.B
+format_data(How, X2) -> term() 
+.br
+.RS
+.RE
+.LP
+.B
+get_data(Connection) -> {ok, Data} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Connection = connection() (see module ct_telnet)
+.br
+Data = [string()]
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Get all data which has been received by the telnet client since last command was sent\&.
+.RE
+.LP
+.B
+open(Name) -> {ok, Handle} | {error, Reason}
+.br
+.RS
+.LP
+Equivalent to \fBopen(Name, telnet)\fR\&\&.
+.RE
+.LP
+.B
+open(Name, ConnType) -> {ok, Handle} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = target_name()
+.br
+ConnType = connection_type() (see module ct_telnet)
+.br
+Handle = handle() (see module ct_telnet)
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Open a telnet connection to the specified target host\&.
+.RE
+.LP
+.B
+open(KeyOrName, ConnType, TargetMod) -> {ok, Handle} | {error, Reason}
+.br
+.RS
+.LP
+Equivalent to \fBopen(KeyOrName, ConnType, TargetMod, [])\fR\&\&.
+.RE
+.LP
+.B
+open(KeyOrName, ConnType, TargetMod, Extra) -> {ok, Handle} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+KeyOrName = Key | Name
+.br
+Key = atom()
+.br
+Name = target_name() (see module ct)
+.br
+ConnType = connection_type()
+.br
+TargetMod = atom()
+.br
+Extra = term()
+.br
+Handle = handle()
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Open a telnet connection to the specified target host\&.
+.LP
+The target data must exist in a configuration file\&. The connection may be associated with either \fIName\fR\& and/or the returned \fIHandle\fR\&\&. To allocate a name for the target, use \fIct:require/2\fR\& in a test case, or use a \fIrequire\fR\& statement in the suite info function (\fIsuite/0\fR\&), or in a test case info function\&. If you want the connection to be associated with \fIHandle\fR\& only (in case you need to open multiple connections to a host for example), simply use \fIKey\fR\&, the configuration variable name, to specify the target\&. Note that a connection that has no associated target name can only be closed with the handle value\&.
+.LP
+\fITargetMod\fR\& is a module which exports the functions \fIconnect(Ip,Port,KeepAlive,Extra)\fR\& and \fIget_prompt_regexp()\fR\& for the given \fITargetType\fR\& (e\&.g\&. \fIunix_telnet\fR\&)\&.
+.LP
+\fISee also:\fR\& \fBct:require/2\fR\&\&.
+.RE
+.LP
+.B
+send(Connection, Cmd) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Connection = connection() (see module ct_telnet)
+.br
+Cmd = string()
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Send a telnet command and return immediately\&.
+.LP
+The resulting output from the command can be read with \fIget_data/1\fR\& or \fIexpect/2/3\fR\&\&.
+.RE
+.LP
+.B
+sendf(Connection, CmdFormat, Args) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Connection = connection() (see module ct_telnet)
+.br
+CmdFormat = string()
+.br
+Args = list()
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Send a telnet command and return immediately (uses a format string and a list of arguments to build the command)\&.
+.RE
+.SH "SEE ALSO"
+
+.LP
+\fBunix_telnet\fR\&
+.SH AUTHORS
+.LP
+
+.I
+<>

@@ -1,0 +1,266 @@
+.TH wxGridCellEditor 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxGridCellEditor \- See external documentation: wxGridCellEditor.
+.SH DESCRIPTION
+.LP
+See external documentation: wxGridCellEditor\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxGridCellEditor()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+create(This, Parent, Id, EvtHandler) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Id = integer()
+.br
+EvtHandler = wxEvtHandler() (see module wxEvtHandler)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isCreated(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSize(This, Rect) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+Rect = {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+show(This, Show) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+Show = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBshow(This, Show, [])\fR\&\&.
+.RE
+.LP
+.B
+show(This, Show, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+Show = boolean()
+.br
+Option = {attr, wxGridCellAttr() (see module wxGridCellAttr)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+paintBackground(This, RectCell, Attr) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+RectCell = {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+Attr = wxGridCellAttr() (see module wxGridCellAttr)
+.br
+.RE
+.RE
+.RS
+.LP
+\fIThis function is deprecated: \fR\&deprecated function not available in wxWidgets-2\&.9 and later
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+beginEdit(This, Row, Col, Grid) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Grid = wxGrid() (see module wxGrid)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+endEdit(This, Row, Col, Grid) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Grid = wxGrid() (see module wxGrid)
+.br
+.RE
+.RE
+.RS
+.LP
+\fIThis function is deprecated: \fR\&deprecated function not available in wxWidgets-2\&.9 and later
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+reset(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+startingKey(This, Event) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+Event = wxKeyEvent() (see module wxKeyEvent)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+startingClick(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+handleReturn(This, Event) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellEditor()
+.br
+Event = wxKeyEvent() (see module wxKeyEvent)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

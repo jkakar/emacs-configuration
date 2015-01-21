@@ -1,0 +1,181 @@
+.TH wxEvent 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxEvent \- See external documentation: wxEvent.
+.SH DESCRIPTION
+.LP
+See external documentation: wxEvent\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxEvent()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+getId(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSkipped(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTimestamp(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isCommandEvent(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+resumePropagation(This, PropagationLevel) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+PropagationLevel = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+shouldPropagate(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+skip(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBskip(This, [])\fR\&\&.
+.RE
+.LP
+.B
+skip(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+Option = {skip, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+stopPropagation(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

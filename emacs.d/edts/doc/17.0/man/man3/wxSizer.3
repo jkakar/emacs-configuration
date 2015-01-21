@@ -1,0 +1,1099 @@
+.TH wxSizer 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxSizer \- See external documentation: wxSizer.
+.SH DESCRIPTION
+.LP
+See external documentation: wxSizer\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxSizer()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+add(This, Window) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow) | wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBadd(This, Window, [])\fR\&\&.
+.RE
+.LP
+.B
+add(This, Width, Height) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+add(This, Window, [Option]) -> wxSizerItem:wxSizerItem() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer(),
+.br
+Option :: {proportion, integer()}
+.br
+| {flag, integer()}
+.br
+| {border, integer()}
+.br
+| {userData, wx:wx_object()};
+.br
+(This, Window, Flags) -> wxSizerItem:wxSizerItem() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer(), Flags::wxSizerFlags:wxSizerFlags()\&.
+.br
+
+.RE
+.LP
+.B
+add(This, Width, Height, Option::[Option]) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+Option = {proportion, integer()} | {flag, integer()} | {border, integer()} | {userData, wx_object() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+addSpacer(This, Size) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Size = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+addStretchSpacer(This) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBaddStretchSpacer(This, [])\fR\&\&.
+.RE
+.LP
+.B
+addStretchSpacer(This, Option::[Option]) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Option = {prop, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+calcMin(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clear(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBclear(This, [])\fR\&\&.
+.RE
+.LP
+.B
+clear(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Option = {delete_windows, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+detach(This, Index) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+detach(This, Window) -> boolean() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer()\&.
+.br
+
+.RE
+.LP
+.B
+fit(This, Window) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+fitInside(This, Window) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getChildren(This) -> [wxSizerItem() (see module wxSizerItem)]
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getItem(This, Window) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow) | wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+getItem(This, Index) -> wxSizerItem:wxSizerItem() when
+.br
+This::wxSizer(), Index::integer()\&.
+.br
+
+.RE
+.LP
+.B
+getItem(This, Window, Option::[Option]) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow) | wxSizer()
+.br
+Option = {recursive, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSize(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPosition(This) -> {X::integer(), Y::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMinSize(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hide(This, Window) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow) | wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+hide(This, Index) -> boolean() when
+.br
+This::wxSizer(), Index::integer()\&.
+.br
+
+.RE
+.LP
+.B
+hide(This, Window, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow) | wxSizer()
+.br
+Option = {recursive, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+insert(This, Index, Item) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+Item = wxSizerItem() (see module wxSizerItem)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+insert(This, Index, Width, Height) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+insert(This, Index, Window, [Option]) -> wxSizerItem:wxSizerItem() when
+.br
+This::wxSizer(), Index::integer(), Window::wxWindow:wxWindow() | wxSizer(),
+.br
+Option :: {proportion, integer()}
+.br
+| {flag, integer()}
+.br
+| {border, integer()}
+.br
+| {userData, wx:wx_object()};
+.br
+(This, Index, Window, Flags) -> wxSizerItem:wxSizerItem() when
+.br
+This::wxSizer(), Index::integer(), Window::wxWindow:wxWindow() | wxSizer(), Flags::wxSizerFlags:wxSizerFlags()\&.
+.br
+
+.RE
+.LP
+.B
+insert(This, Index, Width, Height, Option::[Option]) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+Option = {proportion, integer()} | {flag, integer()} | {border, integer()} | {userData, wx_object() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+insertSpacer(This, Index, Size) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+Size = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+insertStretchSpacer(This, Index) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBinsertStretchSpacer(This, Index, [])\fR\&\&.
+.RE
+.LP
+.B
+insertStretchSpacer(This, Index, Option::[Option]) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+Option = {prop, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isShown(This, Index) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+isShown(This, Window) -> boolean() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer()\&.
+.br
+
+.RE
+.LP
+.B
+layout(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+prepend(This, Item) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Item = wxSizerItem() (see module wxSizerItem)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+prepend(This, Width, Height) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+prepend(This, Window, [Option]) -> wxSizerItem:wxSizerItem() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer(),
+.br
+Option :: {proportion, integer()}
+.br
+| {flag, integer()}
+.br
+| {border, integer()}
+.br
+| {userData, wx:wx_object()};
+.br
+(This, Window, Flags) -> wxSizerItem:wxSizerItem() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer(), Flags::wxSizerFlags:wxSizerFlags()\&.
+.br
+
+.RE
+.LP
+.B
+prepend(This, Width, Height, Option::[Option]) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+Option = {proportion, integer()} | {flag, integer()} | {border, integer()} | {userData, wx_object() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+prependSpacer(This, Size) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Size = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+prependStretchSpacer(This) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBprependStretchSpacer(This, [])\fR\&\&.
+.RE
+.LP
+.B
+prependStretchSpacer(This, Option::[Option]) -> wxSizerItem() (see module wxSizerItem)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Option = {prop, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+recalcSizes(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+remove(This, Index) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+remove(This, Sizer) -> boolean() when
+.br
+This::wxSizer(), Sizer::wxSizer()\&.
+.br
+
+.RE
+.LP
+.B
+replace(This, Oldwin, Newwin) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Oldwin = wxWindow() (see module wxWindow) | wxSizer()
+.br
+Newwin = wxWindow() (see module wxWindow) | wxSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+replace(This, Index, Newitem) -> boolean() when
+.br
+This::wxSizer(), Index::integer(), Newitem::wxSizerItem:wxSizerItem()\&.
+.br
+
+.RE
+.LP
+.B
+replace(This, Oldwin, Newwin, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Oldwin = wxWindow() (see module wxWindow) | wxSizer()
+.br
+Newwin = wxWindow() (see module wxWindow) | wxSizer()
+.br
+Option = {recursive, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDimension(This, X, Y, Width, Height) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMinSize(This, Size) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Size = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMinSize(This, Width, Height) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setItemMinSize(This, Index, Size) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+Size = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setItemMinSize(This, Window, Size) -> boolean() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer(), Size::{W::integer(), H::integer()}\&.
+.br
+
+.RE
+.LP
+.B
+setItemMinSize(This, Index, Width, Height) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setItemMinSize(This, Window, Width, Height) -> boolean() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer(), Width::integer(), Height::integer()\&.
+.br
+
+.RE
+.LP
+.B
+setSizeHints(This, Window) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setVirtualSizeHints(This, Window) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Window = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+show(This, Index) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+show(This, Window) -> boolean() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer();
+.br
+(This, Show) -> ok when
+.br
+This::wxSizer(), Show::boolean()\&.
+.br
+
+.RE
+.LP
+.B
+show(This, Index, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxSizer()
+.br
+Index = integer()
+.br
+Option = {show, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+show(This, Window, [Option]) -> boolean() when
+.br
+This::wxSizer(), Window::wxWindow:wxWindow() | wxSizer(),
+.br
+Option :: {show, boolean()}
+.br
+| {recursive, boolean()}\&.
+.br
+
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

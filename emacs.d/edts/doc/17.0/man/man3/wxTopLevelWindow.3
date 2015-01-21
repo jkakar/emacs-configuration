@@ -1,0 +1,445 @@
+.TH wxTopLevelWindow 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxTopLevelWindow \- See external documentation: wxTopLevelWindow.
+.SH DESCRIPTION
+.LP
+See external documentation: wxTopLevelWindow\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxWindow\fR\& 
+.br
+\fBwxEvtHandler\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxTopLevelWindow()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+getIcon(This) -> wxIcon() (see module wxIcon)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getIcons(This) -> wxIconBundle() (see module wxIconBundle)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTitle(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isActive(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+iconize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBiconize(This, [])\fR\&\&.
+.RE
+.LP
+.B
+iconize(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Option = {iconize, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isFullScreen(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isIconized(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isMaximized(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+maximize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBmaximize(This, [])\fR\&\&.
+.RE
+.LP
+.B
+maximize(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Option = {maximize, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+requestUserAttention(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBrequestUserAttention(This, [])\fR\&\&.
+.RE
+.LP
+.B
+requestUserAttention(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Option = {flags, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setIcon(This, Icon) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Icon = wxIcon() (see module wxIcon)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setIcons(This, Icons) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Icons = wxIconBundle() (see module wxIconBundle)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+centerOnScreen(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcenterOnScreen(This, [])\fR\&\&.
+.RE
+.LP
+.B
+centerOnScreen(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Option = {dir, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+centreOnScreen(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcentreOnScreen(This, [])\fR\&\&.
+.RE
+.LP
+.B
+centreOnScreen(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Option = {dir, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setShape(This, Region) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Region = wxRegion() (see module wxRegion)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setTitle(This, Title) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Title = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+showFullScreen(This, Show) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Show = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBshowFullScreen(This, Show, [])\fR\&\&.
+.RE
+.LP
+.B
+showFullScreen(This, Show, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxTopLevelWindow()
+.br
+Show = boolean()
+.br
+Option = {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

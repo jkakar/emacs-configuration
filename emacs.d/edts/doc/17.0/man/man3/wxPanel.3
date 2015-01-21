@@ -1,0 +1,168 @@
+.TH wxPanel 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxPanel \- See external documentation: wxPanel.
+.SH DESCRIPTION
+.LP
+See external documentation: wxPanel\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxWindow\fR\& 
+.br
+\fBwxEvtHandler\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxPanel()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new() -> wxPanel()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Parent) -> wxPanel()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnew(Parent, [])\fR\&\&.
+.RE
+.LP
+.B
+new(Parent, Option::[Option]) -> wxPanel()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+Option = {winid, integer()} | {pos, {X::integer(), Y::integer()}} | {size, {W::integer(), H::integer()}} | {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Parent, X, Y, Width, Height) -> wxPanel()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnew(Parent, X, Y, Width, Height, [])\fR\&\&.
+.RE
+.LP
+.B
+new(Parent, X, Y, Width, Height, Option::[Option]) -> wxPanel()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+Option = {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+initDialog(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxPanel()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFocusIgnoringChildren(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxPanel()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroy(This::wxPanel()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

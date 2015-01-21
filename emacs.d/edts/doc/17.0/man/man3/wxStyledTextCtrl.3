@@ -1,0 +1,8328 @@
+.TH wxStyledTextCtrl 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxStyledTextCtrl \- See external documentation: wxStyledTextCtrl.
+.SH DESCRIPTION
+.LP
+See external documentation: wxStyledTextCtrl\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxControl\fR\& 
+.br
+\fBwxWindow\fR\& 
+.br
+\fBwxEvtHandler\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxStyledTextCtrl()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new() -> wxStyledTextCtrl()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Parent) -> wxStyledTextCtrl()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnew(Parent, [])\fR\&\&.
+.RE
+.LP
+.B
+new(Parent, Option::[Option]) -> wxStyledTextCtrl()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+Option = {id, integer()} | {pos, {X::integer(), Y::integer()}} | {size, {W::integer(), H::integer()}} | {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+create(This, Parent) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcreate(This, Parent, [])\fR\&\&.
+.RE
+.LP
+.B
+create(This, Parent, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Option = {id, integer()} | {pos, {X::integer(), Y::integer()}} | {size, {W::integer(), H::integer()}} | {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+addText(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+addStyledText(This, Data) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Data = wx_object() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+insertText(This, Pos, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clearAll(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clearDocumentStyle(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLength(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCharAt(This, Pos) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCurrentPos(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getAnchor(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getStyleAt(This, Pos) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+redo(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setUndoCollection(This, CollectUndo) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+CollectUndo = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+selectAll(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSavePoint(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getStyledText(This, StartPos, EndPos) -> wx_object() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+StartPos = integer()
+.br
+EndPos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+canRedo(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerLineFromHandle(This, Handle) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Handle = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerDeleteHandle(This, Handle) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Handle = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getUndoCollection(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getViewWhiteSpace(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setViewWhiteSpace(This, ViewWS) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+ViewWS = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+positionFromPoint(This, Pt) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pt = {X::integer(), Y::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+positionFromPointClose(This, X, Y) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+gotoLine(This, Line) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+gotoPos(This, Pos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setAnchor(This, PosAnchor) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+PosAnchor = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCurLine(This) -> Result
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Result = {Res::charlist() (see module unicode), LinePos::integer()}
+.br
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getEndStyled(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+convertEOLs(This, EolMode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+EolMode = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getEOLMode(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setEOLMode(This, EolMode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+EolMode = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+startStyling(This, Pos, Mask) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+Mask = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setStyling(This, Length, Style) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Length = integer()
+.br
+Style = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getBufferedDraw(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setBufferedDraw(This, Buffered) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Buffered = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setTabWidth(This, TabWidth) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+TabWidth = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTabWidth(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCodePage(This, CodePage) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+CodePage = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerDefine(This, MarkerNumber, MarkerSymbol) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MarkerNumber = integer()
+.br
+MarkerSymbol = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBmarkerDefine(This, MarkerNumber, MarkerSymbol, [])\fR\&\&.
+.RE
+.LP
+.B
+markerDefine(This, MarkerNumber, MarkerSymbol, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MarkerNumber = integer()
+.br
+MarkerSymbol = integer()
+.br
+Option = {foreground, wx_colour() (see module wx)} | {background, wx_colour() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerSetForeground(This, MarkerNumber, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MarkerNumber = integer()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerSetBackground(This, MarkerNumber, Back) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MarkerNumber = integer()
+.br
+Back = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerAdd(This, Line, MarkerNumber) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+MarkerNumber = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerDelete(This, Line, MarkerNumber) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+MarkerNumber = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerDeleteAll(This, MarkerNumber) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MarkerNumber = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerGet(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerNext(This, LineStart, MarkerMask) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+LineStart = integer()
+.br
+MarkerMask = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerPrevious(This, LineStart, MarkerMask) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+LineStart = integer()
+.br
+MarkerMask = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerDefineBitmap(This, MarkerNumber, Bmp) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MarkerNumber = integer()
+.br
+Bmp = wxBitmap() (see module wxBitmap)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerAddSet(This, Line, Set) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+Set = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+markerSetAlpha(This, MarkerNumber, Alpha) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MarkerNumber = integer()
+.br
+Alpha = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMarginType(This, Margin, MarginType) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Margin = integer()
+.br
+MarginType = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMarginType(This, Margin) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Margin = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMarginWidth(This, Margin, PixelWidth) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Margin = integer()
+.br
+PixelWidth = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMarginWidth(This, Margin) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Margin = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMarginMask(This, Margin, Mask) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Margin = integer()
+.br
+Mask = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMarginMask(This, Margin) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Margin = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMarginSensitive(This, Margin, Sensitive) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Margin = integer()
+.br
+Sensitive = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMarginSensitive(This, Margin) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Margin = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleClearAll(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetForeground(This, Style, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetBackground(This, Style, Back) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Back = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetBold(This, Style, Bold) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Bold = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetItalic(This, Style, Italic) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Italic = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetSize(This, Style, SizePoints) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+SizePoints = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetFaceName(This, Style, FontName) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+FontName = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetEOLFilled(This, Style, Filled) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Filled = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleResetDefault(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetUnderline(This, Style, Underline) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Underline = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetCase(This, Style, CaseForce) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+CaseForce = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetHotSpot(This, Style, Hotspot) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Hotspot = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelForeground(This, UseSetting, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseSetting = boolean()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelBackground(This, UseSetting, Back) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseSetting = boolean()
+.br
+Back = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelAlpha(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelAlpha(This, Alpha) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Alpha = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCaretForeground(This, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+cmdKeyAssign(This, Key, Modifiers, Cmd) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Key = integer()
+.br
+Modifiers = integer()
+.br
+Cmd = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+cmdKeyClear(This, Key, Modifiers) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Key = integer()
+.br
+Modifiers = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+cmdKeyClearAll(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setStyleBytes(This, Length) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Length = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetVisible(This, Style, Visible) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Visible = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCaretPeriod(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCaretPeriod(This, PeriodMilliseconds) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+PeriodMilliseconds = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWordChars(This, Characters) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Characters = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+beginUndoAction(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+endUndoAction(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+indicatorSetStyle(This, Indic, Style) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Indic = integer()
+.br
+Style = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+indicatorGetStyle(This, Indic) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Indic = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+indicatorSetForeground(This, Indic, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Indic = integer()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+indicatorGetForeground(This, Indic) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Indic = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWhitespaceForeground(This, UseSetting, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseSetting = boolean()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWhitespaceBackground(This, UseSetting, Back) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseSetting = boolean()
+.br
+Back = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getStyleBits(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLineState(This, Line, State) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+State = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLineState(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMaxLineState(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCaretLineVisible(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCaretLineVisible(This, Show) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Show = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCaretLineBackground(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCaretLineBackground(This, Back) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Back = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompShow(This, LenEntered, ItemList) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+LenEntered = integer()
+.br
+ItemList = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompCancel(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompActive(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompPosStart(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompComplete(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompStops(This, CharacterSet) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+CharacterSet = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetSeparator(This, SeparatorCharacter) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+SeparatorCharacter = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetSeparator(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSelect(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetCancelAtStart(This, Cancel) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Cancel = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetCancelAtStart(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetFillUps(This, CharacterSet) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+CharacterSet = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetChooseSingle(This, ChooseSingle) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+ChooseSingle = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetChooseSingle(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetIgnoreCase(This, IgnoreCase) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+IgnoreCase = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetIgnoreCase(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+userListShow(This, ListType, ItemList) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+ListType = integer()
+.br
+ItemList = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetAutoHide(This, AutoHide) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+AutoHide = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetAutoHide(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetDropRestOfWord(This, DropRestOfWord) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+DropRestOfWord = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetDropRestOfWord(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+registerImage(This, Type, Bmp) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Type = integer()
+.br
+Bmp = wxBitmap() (see module wxBitmap)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clearRegisteredImages(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetTypeSeparator(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetTypeSeparator(This, SeparatorCharacter) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+SeparatorCharacter = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetMaxWidth(This, CharacterCount) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+CharacterCount = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetMaxWidth(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompSetMaxHeight(This, RowCount) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+RowCount = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetMaxHeight(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setIndent(This, IndentSize) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+IndentSize = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getIndent(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setUseTabs(This, UseTabs) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseTabs = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getUseTabs(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLineIndentation(This, Line, IndentSize) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+IndentSize = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLineIndentation(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLineIndentPosition(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getColumn(This, Pos) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setUseHorizontalScrollBar(This, Show) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Show = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getUseHorizontalScrollBar(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setIndentationGuides(This, Show) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Show = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getIndentationGuides(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHighlightGuide(This, Column) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Column = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHighlightGuide(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLineEndPosition(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCodePage(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCaretForeground(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getReadOnly(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCurrentPos(This, Pos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelectionStart(This, Pos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectionStart(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelectionEnd(This, Pos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectionEnd(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setPrintMagnification(This, Magnification) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Magnification = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPrintMagnification(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setPrintColourMode(This, Mode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Mode = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPrintColourMode(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+findText(This, MinPos, MaxPos, Text) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MinPos = integer()
+.br
+MaxPos = integer()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBfindText(This, MinPos, MaxPos, Text, [])\fR\&\&.
+.RE
+.LP
+.B
+findText(This, MinPos, MaxPos, Text, Option::[Option]) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+MinPos = integer()
+.br
+MaxPos = integer()
+.br
+Text = chardata() (see module unicode)
+.br
+Option = {flags, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+formatRange(This, DoDraw, StartPos, EndPos, Draw, Target, RenderRect, PageRect) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+DoDraw = boolean()
+.br
+StartPos = integer()
+.br
+EndPos = integer()
+.br
+Draw = wxDC() (see module wxDC)
+.br
+Target = wxDC() (see module wxDC)
+.br
+RenderRect = {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+PageRect = {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getFirstVisibleLine(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLine(This, Line) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLineCount(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMarginLeft(This, PixelWidth) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+PixelWidth = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMarginLeft(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMarginRight(This, PixelWidth) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+PixelWidth = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMarginRight(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getModify(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelection(This, Start, End) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Start = integer()
+.br
+End = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectedText(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTextRange(This, StartPos, EndPos) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+StartPos = integer()
+.br
+EndPos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hideSelection(This, Normal) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Normal = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineFromPosition(This, Pos) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+positionFromLine(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineScroll(This, Columns, Lines) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Columns = integer()
+.br
+Lines = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+ensureCaretVisible(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+replaceSelection(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setReadOnly(This, ReadOnly) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+ReadOnly = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+canPaste(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+canUndo(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+emptyUndoBuffer(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+undo(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+cut(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+copy(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+paste(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clear(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setText(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getText(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTextLength(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getOvertype(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCaretWidth(This, PixelWidth) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+PixelWidth = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCaretWidth(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setTargetStart(This, Pos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTargetStart(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setTargetEnd(This, Pos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTargetEnd(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+replaceTarget(This, Text) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+searchInTarget(This, Text) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSearchFlags(This, Flags) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Flags = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSearchFlags(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipShow(This, Pos, Definition) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+Definition = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipCancel(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipActive(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipPosAtStart(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipSetHighlight(This, Start, End) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Start = integer()
+.br
+End = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipSetBackground(This, Back) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Back = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipSetForeground(This, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipSetForegroundHighlight(This, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+callTipUseStyle(This, TabSize) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+TabSize = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+visibleFromDocLine(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+docLineFromVisible(This, LineDisplay) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+LineDisplay = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wrapCount(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFoldLevel(This, Line, Level) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+Level = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getFoldLevel(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLastChild(This, Line, Level) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+Level = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getFoldParent(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+showLines(This, LineStart, LineEnd) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+LineStart = integer()
+.br
+LineEnd = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hideLines(This, LineStart, LineEnd) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+LineStart = integer()
+.br
+LineEnd = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLineVisible(This, Line) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFoldExpanded(This, Line, Expanded) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+Expanded = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getFoldExpanded(This, Line) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+toggleFold(This, Line) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+ensureVisible(This, Line) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFoldFlags(This, Flags) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Flags = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+ensureVisibleEnforcePolicy(This, Line) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setTabIndents(This, TabIndents) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+TabIndents = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTabIndents(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setBackSpaceUnIndents(This, BsUnIndents) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+BsUnIndents = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getBackSpaceUnIndents(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMouseDwellTime(This, PeriodMilliseconds) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+PeriodMilliseconds = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMouseDwellTime(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordStartPosition(This, Pos, OnlyWordCharacters) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+OnlyWordCharacters = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordEndPosition(This, Pos, OnlyWordCharacters) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+OnlyWordCharacters = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWrapMode(This, Mode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Mode = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getWrapMode(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWrapVisualFlags(This, WrapVisualFlags) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+WrapVisualFlags = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getWrapVisualFlags(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWrapVisualFlagsLocation(This, WrapVisualFlagsLocation) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+WrapVisualFlagsLocation = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getWrapVisualFlagsLocation(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWrapStartIndent(This, Indent) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Indent = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getWrapStartIndent(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLayoutCache(This, Mode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Mode = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLayoutCache(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setScrollWidth(This, PixelWidth) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+PixelWidth = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getScrollWidth(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+textWidth(This, Style, Text) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getEndAtLastLine(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+textHeight(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setUseVerticalScrollBar(This, Show) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Show = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getUseVerticalScrollBar(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+appendText(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTwoPhaseDraw(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setTwoPhaseDraw(This, TwoPhase) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+TwoPhase = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+targetFromSelection(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+linesJoin(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+linesSplit(This, PixelWidth) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+PixelWidth = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFoldMarginColour(This, UseSetting, Back) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseSetting = boolean()
+.br
+Back = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFoldMarginHiColour(This, UseSetting, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseSetting = boolean()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineDown(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineDownExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineUp(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineUpExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+charLeft(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+charLeftExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+charRight(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+charRightExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordLeft(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordLeftExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordRight(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordRightExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+home(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+homeExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineEnd(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineEndExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+documentStart(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+documentStartExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+documentEnd(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+documentEndExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageUp(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageUpExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageDown(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageDownExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+editToggleOvertype(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+cancel(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+deleteBack(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+tab(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+backTab(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+newLine(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+formFeed(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+vCHome(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+vCHomeExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+zoomIn(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+zoomOut(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+delWordLeft(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+delWordRight(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineCut(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineDelete(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineTranspose(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineDuplicate(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lowerCase(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+upperCase(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineScrollDown(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineScrollUp(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+deleteBackNotLine(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+homeDisplay(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+homeDisplayExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineEndDisplay(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineEndDisplayExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+homeWrapExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineEndWrap(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineEndWrapExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+vCHomeWrap(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+vCHomeWrapExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineCopy(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCaretInsideView(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineLength(This, Line) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+braceHighlight(This, Pos1, Pos2) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos1 = integer()
+.br
+Pos2 = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+braceBadLight(This, Pos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+braceMatch(This, Pos) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getViewEOL(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setViewEOL(This, Visible) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Visible = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setModEventMask(This, Mask) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Mask = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getEdgeColumn(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setEdgeColumn(This, Column) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Column = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setEdgeMode(This, Mode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Mode = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getEdgeMode(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getEdgeColour(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setEdgeColour(This, EdgeColour) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+EdgeColour = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+searchAnchor(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+searchNext(This, Flags, Text) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Flags = integer()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+searchPrev(This, Flags, Text) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Flags = integer()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+linesOnScreen(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+usePopUp(This, AllowPopUp) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+AllowPopUp = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+selectionIsRectangle(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setZoom(This, Zoom) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Zoom = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getZoom(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getModEventMask(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSTCFocus(This, Focus) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Focus = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSTCFocus(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setStatus(This, StatusCode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+StatusCode = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getStatus(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMouseDownCaptures(This, Captures) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Captures = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMouseDownCaptures(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSTCCursor(This, CursorType) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+CursorType = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSTCCursor(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setControlCharSymbol(This, Symbol) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Symbol = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getControlCharSymbol(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordPartLeft(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordPartLeftExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordPartRight(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordPartRightExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setVisiblePolicy(This, VisiblePolicy, VisibleSlop) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+VisiblePolicy = integer()
+.br
+VisibleSlop = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+delLineLeft(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+delLineRight(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getXOffset(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+chooseCaretX(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setXCaretPolicy(This, CaretPolicy, CaretSlop) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+CaretPolicy = integer()
+.br
+CaretSlop = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setYCaretPolicy(This, CaretPolicy, CaretSlop) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+CaretPolicy = integer()
+.br
+CaretSlop = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPrintWrapMode(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHotspotActiveForeground(This, UseSetting, Fore) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseSetting = boolean()
+.br
+Fore = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHotspotActiveBackground(This, UseSetting, Back) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseSetting = boolean()
+.br
+Back = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHotspotActiveUnderline(This, Underline) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Underline = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHotspotSingleLine(This, SingleLine) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+SingleLine = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+paraDownExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+paraUp(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+paraUpExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+positionBefore(This, Pos) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+positionAfter(This, Pos) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+copyRange(This, Start, End) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Start = integer()
+.br
+End = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+copyText(This, Length, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Length = integer()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelectionMode(This, Mode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Mode = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectionMode(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineDownRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineUpRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+charLeftRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+charRightRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+homeRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+vCHomeRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineEndRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageUpRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageDownRectExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+stutteredPageUp(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+stutteredPageUpExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+stutteredPageDown(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+stutteredPageDownExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordLeftEnd(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordLeftEndExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordRightEnd(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+wordRightEndExtend(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWhitespaceChars(This, Characters) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Characters = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCharsDefault(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoCompGetCurrent(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+allocate(This, Bytes) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Bytes = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+findColumn(This, Line, Column) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+Column = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCaretSticky(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCaretSticky(This, UseCaretStickyBehaviour) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+UseCaretStickyBehaviour = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+toggleCaretSticky(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setPasteConvertEndings(This, Convert) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Convert = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPasteConvertEndings(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+selectionDuplicate(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCaretLineBackAlpha(This, Alpha) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Alpha = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCaretLineBackAlpha(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+startRecord(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+stopRecord(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLexer(This, Lexer) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Lexer = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLexer(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+colourise(This, Start, End) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Start = integer()
+.br
+End = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setProperty(This, Key, Value) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Key = chardata() (see module unicode)
+.br
+Value = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setKeyWords(This, KeywordSet, KeyWords) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+KeywordSet = integer()
+.br
+KeyWords = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLexerLanguage(This, Language) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Language = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getProperty(This, Key) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Key = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getStyleBitsNeeded(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCurrentLine(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetSpec(This, StyleNum, Spec) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+StyleNum = integer()
+.br
+Spec = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetFont(This, StyleNum, Font) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+StyleNum = integer()
+.br
+Font = wxFont() (see module wxFont)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetFontAttr(This, StyleNum, Size, FaceName, Bold, Italic, Underline) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+StyleNum = integer()
+.br
+Size = integer()
+.br
+FaceName = chardata() (see module unicode)
+.br
+Bold = boolean()
+.br
+Italic = boolean()
+.br
+Underline = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBstyleSetFontAttr(This, StyleNum, Size, FaceName, Bold, Italic, Underline, [])\fR\&\&.
+.RE
+.LP
+.B
+styleSetFontAttr(This, StyleNum, Size, FaceName, Bold, Italic, Underline, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+StyleNum = integer()
+.br
+Size = integer()
+.br
+FaceName = chardata() (see module unicode)
+.br
+Bold = boolean()
+.br
+Italic = boolean()
+.br
+Underline = boolean()
+.br
+Option = {encoding, wx_enum() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Encoding = ?wxFONTENCODING_SYSTEM | ?wxFONTENCODING_DEFAULT | ?wxFONTENCODING_ISO8859_1 | ?wxFONTENCODING_ISO8859_2 | ?wxFONTENCODING_ISO8859_3 | ?wxFONTENCODING_ISO8859_4 | ?wxFONTENCODING_ISO8859_5 | ?wxFONTENCODING_ISO8859_6 | ?wxFONTENCODING_ISO8859_7 | ?wxFONTENCODING_ISO8859_8 | ?wxFONTENCODING_ISO8859_9 | ?wxFONTENCODING_ISO8859_10 | ?wxFONTENCODING_ISO8859_11 | ?wxFONTENCODING_ISO8859_12 | ?wxFONTENCODING_ISO8859_13 | ?wxFONTENCODING_ISO8859_14 | ?wxFONTENCODING_ISO8859_15 | ?wxFONTENCODING_ISO8859_MAX | ?wxFONTENCODING_KOI8 | ?wxFONTENCODING_KOI8_U | ?wxFONTENCODING_ALTERNATIVE | ?wxFONTENCODING_BULGARIAN | ?wxFONTENCODING_CP437 | ?wxFONTENCODING_CP850 | ?wxFONTENCODING_CP852 | ?wxFONTENCODING_CP855 | ?wxFONTENCODING_CP866 | ?wxFONTENCODING_CP874 | ?wxFONTENCODING_CP932 | ?wxFONTENCODING_CP936 | ?wxFONTENCODING_CP949 | ?wxFONTENCODING_CP950 | ?wxFONTENCODING_CP1250 | ?wxFONTENCODING_CP1251 | ?wxFONTENCODING_CP1252 | ?wxFONTENCODING_CP1253 | ?wxFONTENCODING_CP1254 | ?wxFONTENCODING_CP1255 | ?wxFONTENCODING_CP1256 | ?wxFONTENCODING_CP1257 | ?wxFONTENCODING_CP12_MAX | ?wxFONTENCODING_UTF7 | ?wxFONTENCODING_UTF8 | ?wxFONTENCODING_EUC_JP | ?wxFONTENCODING_UTF16BE | ?wxFONTENCODING_UTF16LE | ?wxFONTENCODING_UTF32BE | ?wxFONTENCODING_UTF32LE | ?wxFONTENCODING_MACROMAN | ?wxFONTENCODING_MACJAPANESE | ?wxFONTENCODING_MACCHINESETRAD | ?wxFONTENCODING_MACKOREAN | ?wxFONTENCODING_MACARABIC | ?wxFONTENCODING_MACHEBREW | ?wxFONTENCODING_MACGREEK | ?wxFONTENCODING_MACCYRILLIC | ?wxFONTENCODING_MACDEVANAGARI | ?wxFONTENCODING_MACGURMUKHI | ?wxFONTENCODING_MACGUJARATI | ?wxFONTENCODING_MACORIYA | ?wxFONTENCODING_MACBENGALI | ?wxFONTENCODING_MACTAMIL | ?wxFONTENCODING_MACTELUGU | ?wxFONTENCODING_MACKANNADA | ?wxFONTENCODING_MACMALAJALAM | ?wxFONTENCODING_MACSINHALESE | ?wxFONTENCODING_MACBURMESE | ?wxFONTENCODING_MACKHMER | ?wxFONTENCODING_MACTHAI | ?wxFONTENCODING_MACLAOTIAN | ?wxFONTENCODING_MACGEORGIAN | ?wxFONTENCODING_MACARMENIAN | ?wxFONTENCODING_MACCHINESESIMP | ?wxFONTENCODING_MACTIBETAN | ?wxFONTENCODING_MACMONGOLIAN | ?wxFONTENCODING_MACETHIOPIC | ?wxFONTENCODING_MACCENTRALEUR | ?wxFONTENCODING_MACVIATNAMESE | ?wxFONTENCODING_MACARABICEXT | ?wxFONTENCODING_MACSYMBOL | ?wxFONTENCODING_MACDINGBATS | ?wxFONTENCODING_MACTURKISH | ?wxFONTENCODING_MACCROATIAN | ?wxFONTENCODING_MACICELANDIC | ?wxFONTENCODING_MACROMANIAN | ?wxFONTENCODING_MACCELTIC | ?wxFONTENCODING_MACGAELIC | ?wxFONTENCODING_MACKEYBOARD | ?wxFONTENCODING_MAX | ?wxFONTENCODING_MACMIN | ?wxFONTENCODING_MACMAX | ?wxFONTENCODING_UTF16 | ?wxFONTENCODING_UTF32 | ?wxFONTENCODING_UNICODE | ?wxFONTENCODING_GB2312 | ?wxFONTENCODING_BIG5 | ?wxFONTENCODING_SHIFT_JIS
+.RE
+.LP
+.B
+styleSetCharacterSet(This, Style, CharacterSet) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+CharacterSet = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+styleSetFontEncoding(This, Style, Encoding) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Style = integer()
+.br
+Encoding = wx_enum() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Encoding = ?wxFONTENCODING_SYSTEM | ?wxFONTENCODING_DEFAULT | ?wxFONTENCODING_ISO8859_1 | ?wxFONTENCODING_ISO8859_2 | ?wxFONTENCODING_ISO8859_3 | ?wxFONTENCODING_ISO8859_4 | ?wxFONTENCODING_ISO8859_5 | ?wxFONTENCODING_ISO8859_6 | ?wxFONTENCODING_ISO8859_7 | ?wxFONTENCODING_ISO8859_8 | ?wxFONTENCODING_ISO8859_9 | ?wxFONTENCODING_ISO8859_10 | ?wxFONTENCODING_ISO8859_11 | ?wxFONTENCODING_ISO8859_12 | ?wxFONTENCODING_ISO8859_13 | ?wxFONTENCODING_ISO8859_14 | ?wxFONTENCODING_ISO8859_15 | ?wxFONTENCODING_ISO8859_MAX | ?wxFONTENCODING_KOI8 | ?wxFONTENCODING_KOI8_U | ?wxFONTENCODING_ALTERNATIVE | ?wxFONTENCODING_BULGARIAN | ?wxFONTENCODING_CP437 | ?wxFONTENCODING_CP850 | ?wxFONTENCODING_CP852 | ?wxFONTENCODING_CP855 | ?wxFONTENCODING_CP866 | ?wxFONTENCODING_CP874 | ?wxFONTENCODING_CP932 | ?wxFONTENCODING_CP936 | ?wxFONTENCODING_CP949 | ?wxFONTENCODING_CP950 | ?wxFONTENCODING_CP1250 | ?wxFONTENCODING_CP1251 | ?wxFONTENCODING_CP1252 | ?wxFONTENCODING_CP1253 | ?wxFONTENCODING_CP1254 | ?wxFONTENCODING_CP1255 | ?wxFONTENCODING_CP1256 | ?wxFONTENCODING_CP1257 | ?wxFONTENCODING_CP12_MAX | ?wxFONTENCODING_UTF7 | ?wxFONTENCODING_UTF8 | ?wxFONTENCODING_EUC_JP | ?wxFONTENCODING_UTF16BE | ?wxFONTENCODING_UTF16LE | ?wxFONTENCODING_UTF32BE | ?wxFONTENCODING_UTF32LE | ?wxFONTENCODING_MACROMAN | ?wxFONTENCODING_MACJAPANESE | ?wxFONTENCODING_MACCHINESETRAD | ?wxFONTENCODING_MACKOREAN | ?wxFONTENCODING_MACARABIC | ?wxFONTENCODING_MACHEBREW | ?wxFONTENCODING_MACGREEK | ?wxFONTENCODING_MACCYRILLIC | ?wxFONTENCODING_MACDEVANAGARI | ?wxFONTENCODING_MACGURMUKHI | ?wxFONTENCODING_MACGUJARATI | ?wxFONTENCODING_MACORIYA | ?wxFONTENCODING_MACBENGALI | ?wxFONTENCODING_MACTAMIL | ?wxFONTENCODING_MACTELUGU | ?wxFONTENCODING_MACKANNADA | ?wxFONTENCODING_MACMALAJALAM | ?wxFONTENCODING_MACSINHALESE | ?wxFONTENCODING_MACBURMESE | ?wxFONTENCODING_MACKHMER | ?wxFONTENCODING_MACTHAI | ?wxFONTENCODING_MACLAOTIAN | ?wxFONTENCODING_MACGEORGIAN | ?wxFONTENCODING_MACARMENIAN | ?wxFONTENCODING_MACCHINESESIMP | ?wxFONTENCODING_MACTIBETAN | ?wxFONTENCODING_MACMONGOLIAN | ?wxFONTENCODING_MACETHIOPIC | ?wxFONTENCODING_MACCENTRALEUR | ?wxFONTENCODING_MACVIATNAMESE | ?wxFONTENCODING_MACARABICEXT | ?wxFONTENCODING_MACSYMBOL | ?wxFONTENCODING_MACDINGBATS | ?wxFONTENCODING_MACTURKISH | ?wxFONTENCODING_MACCROATIAN | ?wxFONTENCODING_MACICELANDIC | ?wxFONTENCODING_MACROMANIAN | ?wxFONTENCODING_MACCELTIC | ?wxFONTENCODING_MACGAELIC | ?wxFONTENCODING_MACKEYBOARD | ?wxFONTENCODING_MAX | ?wxFONTENCODING_MACMIN | ?wxFONTENCODING_MACMAX | ?wxFONTENCODING_UTF16 | ?wxFONTENCODING_UTF32 | ?wxFONTENCODING_UNICODE | ?wxFONTENCODING_GB2312 | ?wxFONTENCODING_BIG5 | ?wxFONTENCODING_SHIFT_JIS
+.RE
+.LP
+.B
+cmdKeyExecute(This, Cmd) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Cmd = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMargins(This, Left, Right) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Left = integer()
+.br
+Right = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelection(This) -> {StartPos::integer(), EndPos::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pointFromPosition(This, Pos) -> {X::integer(), Y::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+scrollToLine(This, Line) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+scrollToColumn(This, Column) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Column = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setVScrollBar(This, Bar) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Bar = wxScrollBar() (see module wxScrollBar)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHScrollBar(This, Bar) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Bar = wxScrollBar() (see module wxScrollBar)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLastKeydownProcessed(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLastKeydownProcessed(This, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Val = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+saveFile(This, Filename) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Filename = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadFile(This, Filename) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Filename = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+doDragOver(This, X, Y, Def) -> wx_enum() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Def = wx_enum() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Def = ?wxDragError | ?wxDragNone | ?wxDragCopy | ?wxDragMove | ?wxDragLink | ?wxDragCancel 
+.br
+Res = ?wxDragError | ?wxDragNone | ?wxDragCopy | ?wxDragMove | ?wxDragLink | ?wxDragCancel
+.RE
+.LP
+.B
+doDropText(This, X, Y, Data) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Data = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getUseAntiAliasing(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+addTextRaw(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = binary()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+insertTextRaw(This, Pos, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Pos = integer()
+.br
+Text = binary()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCurLineRaw(This) -> Result
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Result = {Res::binary(), LinePos::integer()}
+.br
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLineRaw(This, Line) -> binary()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Line = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectedTextRaw(This) -> binary()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTextRangeRaw(This, StartPos, EndPos) -> binary()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+StartPos = integer()
+.br
+EndPos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setTextRaw(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = binary()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTextRaw(This) -> binary()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+appendTextRaw(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextCtrl()
+.br
+Text = binary()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroy(This::wxStyledTextCtrl()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

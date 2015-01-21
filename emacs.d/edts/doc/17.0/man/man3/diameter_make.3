@@ -1,0 +1,106 @@
+.TH diameter_make 3 "diameter 1.6" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+diameter_make \- Diameter dictionary compilation.
+.SH DESCRIPTION
+.LP
+The function \fBcodec/2\fR\& is used to compile a diameter \fBdictionary file\fR\& into Erlang source\&. The resulting source implements the interface diameter requires to encode and decode the dictionary\&'s messages and AVPs\&.
+.LP
+The utility \fBdiameterc(1)\fR\& provides an alternate compilation interface\&.
+.SH EXPORTS
+.LP
+.B
+codec(File :: iolist() | binary(), [Opt]) -> ok | {ok, [Out]} | {error, Reason}
+.br
+.RS
+.LP
+Compile a single dictionary file\&. The input \fIFile\fR\& can be either a path or a literal dictionary, the occurrence of newline (ascii NL) or carriage return (ascii CR) identifying the latter\&. \fIOpt\fR\& determines the format of the results and whether they are written to file or returned, and can have the following types\&.
+.RS 2
+.TP 2
+.B
+\fIparse | forms | erl | hrl\fR\&:
+Specifies an output format\&. Whether the output is returned or written to file depends on whether or not option \fIreturn\fR\& is specified\&. When written to file, the resulting file(s) will have extensions \fI\&.D\fR\&, \fI\&.F\fR\&, \fI\&.erl\fR\&, and \fI\&.hrl\fR\& respectively, basenames defaulting to \fIdictionary\fR\& if the input dictionary is literal and does not specify \fI\fB@name\fR\&\fR\&\&. When returned, results are in the order of the corresponding format options\&. Format options default to \fIerl\fR\& and \fIhrl\fR\& (in this order) if unspecified\&.
+.RS 2
+.LP
+The \fIparse\fR\& format is an internal representation that can be passed to \fBflatten/1\fR\& and \fBformat/1\fR\&, while the \fIforms\fR\& format can be passed to \fBcompile:forms/2\fR\&\&. The \fIerl\fR\& and \fIhrl\fR\& formats are returned as iolists\&.
+.RE
+.TP 2
+.B
+\fI{include, string()}\fR\&:
+Prepend the specified directory to the code path\&. Use to point at beam files compiled from inherited dictionaries, \fI\fB@inherits\fR\&\fR\& in a dictionary file creating a beam dependency, not an erl/hrl dependency\&.
+.RS 2
+.LP
+Multiple \fIinclude\fR\& options can be specified\&.
+.RE
+.TP 2
+.B
+\fI{outdir, string()}\fR\&:
+Write generated source to the specified directory\&. Defaults to the current working directory\&. Has no effect if option \fIreturn\fR\& is specified\&.
+.TP 2
+.B
+\fIreturn\fR\&:
+Return results in a \fI{ok, [Out]}\fR\& tuple instead of writing to file and returning \fIok\fR\&\&.
+.TP 2
+.B
+\fI{name|prefix, string()}\fR\&:
+Transform the input dictionary before compilation, setting \fI\fB@name\fR\&\fR\& or \fI\fB@prefix\fR\&\fR\& to the specified string\&.
+.TP 2
+.B
+\fI{inherits, string()}\fR\&:
+Transform the input dictionary before compilation, appending \fI\fB@inherits\fR\&\fR\& of the specified string\&.
+.RS 2
+.LP
+Two forms have special meaning:
+.RE
+.LP
+.nf
+
+{inherits, "-"}
+{inherits, "Prev/Mod"}
+
+.fi
+.RS 2
+.LP
+The first has the effect of clearing any previous inherits, the second of replacing a previous inherits of \fIPrev\fR\& to one of \fIMod\fR\&\&. This allows the semantics of the input dictionary to be changed without modifying the file itself\&.
+.RE
+.RS 2
+.LP
+Multiple \fIinherits\fR\& options can be specified\&.
+.RE
+.RE
+.LP
+Note that a dictionary\&'s \fI\fB@name\fR\&\fR\&, together with the \fIoutdir\fR\& option, determine the output paths when the \fIreturn\fR\& option is not specified\&. The \fI\fB@name\fR\&\fR\& of a literal input dictionary defaults to \fIdictionary\fR\&\&.
+.LP
+A returned error reason can be converted into a readable string using \fBformat_error/1\fR\&\&.
+.RE
+.LP
+.B
+format(Parsed) -> iolist()
+.br
+.RS
+.LP
+Turns a parsed dictionary, as returned by \fBcodec/2\fR\&, back into the dictionary format\&.
+.RE
+.LP
+.B
+flatten(Parsed) -> term()
+.br
+.RS
+.LP
+Reconstitute a parsed dictionary, as returned by \fBcodec/2\fR\&, without using \fI\fB@inherits\fR\&\fR\&\&. That is, construct an equivalent dictionary in which all AVP\&'s are definined in the dictionary itself\&. The return value is also a parsed dictionary\&.
+.RE
+.LP
+.B
+format_error(Reason) -> string()
+.br
+.RS
+.LP
+Turn an error reason returned by \fBcodec/2\fR\& into a readable string\&.
+.RE
+.SH "BUGS"
+
+.LP
+Unrecognized options are silently ignored\&.
+.SH "SEE ALSO"
+
+.LP
+\fBdiameterc(1)\fR\&, \fBdiameter_dict(4)\fR\&

@@ -1,0 +1,250 @@
+.TH wxGraphicsMatrix 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxGraphicsMatrix \- See external documentation: wxGraphicsMatrix.
+.SH DESCRIPTION
+.LP
+See external documentation: wxGraphicsMatrix\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxGraphicsObject\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxGraphicsMatrix()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+concat(This, T) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+T = wxGraphicsMatrix()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+get(This) -> Result
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Result = {A::number(), B::number(), C::number(), D::number(), Tx::number(), Ty::number()}
+.br
+This = wxGraphicsMatrix()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+invert(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isEqual(This, T) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+T = wxGraphicsMatrix()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isIdentity(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+rotate(This, Angle) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+Angle = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+scale(This, XScale, YScale) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+XScale = number()
+.br
+YScale = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+translate(This, Dx, Dy) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+Dx = number()
+.br
+Dy = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+set(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBset(This, [])\fR\&\&.
+.RE
+.LP
+.B
+set(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+Option = {a, number()} | {b, number()} | {c, number()} | {d, number()} | {tx, number()} | {ty, number()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+transformPoint(This) -> {X::number(), Y::number()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+transformDistance(This) -> {Dx::number(), Dy::number()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsMatrix()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

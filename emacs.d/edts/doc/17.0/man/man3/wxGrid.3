@@ -1,0 +1,3999 @@
+.TH wxGrid 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxGrid \- See external documentation: wxGrid.
+.SH DESCRIPTION
+.LP
+See external documentation: wxGrid\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxScrolledWindow\fR\& 
+.br
+\fBwxPanel\fR\& 
+.br
+\fBwxWindow\fR\& 
+.br
+\fBwxEvtHandler\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxGrid()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new() -> wxGrid()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Parent, Id) -> wxGrid()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+Id = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnew(Parent, Id, [])\fR\&\&.
+.RE
+.LP
+.B
+new(Parent, X, Y) -> wxGrid()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+X = integer()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+new(Parent, Id, [Option]) -> wxGrid() when
+.br
+Parent::wxWindow:wxWindow(), Id::integer(),
+.br
+Option :: {pos, {X::integer(), Y::integer()}}
+.br
+| {size, {W::integer(), H::integer()}}
+.br
+| {style, integer()}\&.
+.br
+
+.RE
+.LP
+.B
+new(Parent, X, Y, Option::[Option]) -> wxGrid()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Option = {w, integer()} | {h, integer()} | {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+appendCols(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBappendCols(This, [])\fR\&\&.
+.RE
+.LP
+.B
+appendCols(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {numCols, integer()} | {updateLabels, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+appendRows(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBappendRows(This, [])\fR\&\&.
+.RE
+.LP
+.B
+appendRows(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {numRows, integer()} | {updateLabels, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoSize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoSizeColumn(This, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBautoSizeColumn(This, Col, [])\fR\&\&.
+.RE
+.LP
+.B
+autoSizeColumn(This, Col, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+Option = {setAsMin, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoSizeColumns(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBautoSizeColumns(This, [])\fR\&\&.
+.RE
+.LP
+.B
+autoSizeColumns(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {setAsMin, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoSizeRow(This, Row) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBautoSizeRow(This, Row, [])\fR\&\&.
+.RE
+.LP
+.B
+autoSizeRow(This, Row, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Option = {setAsMin, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+autoSizeRows(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBautoSizeRows(This, [])\fR\&\&.
+.RE
+.LP
+.B
+autoSizeRows(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {setAsMin, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+beginBatch(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+blockToDeviceRect(This, TopLeft, BottomRight) -> {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+TopLeft = {R::integer(), C::integer()}
+.br
+BottomRight = {R::integer(), C::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+canDragColSize(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+canDragRowSize(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+canDragGridSize(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+canEnableCellControl(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+cellToRect(This, Coords) -> {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Coords = {R::integer(), C::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+cellToRect(This, Row, Col) -> {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clearGrid(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clearSelection(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+createGrid(This, NumRows, NumCols) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+NumRows = integer()
+.br
+NumCols = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcreateGrid(This, NumRows, NumCols, [])\fR\&\&.
+.RE
+.LP
+.B
+createGrid(This, NumRows, NumCols, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+NumRows = integer()
+.br
+NumCols = integer()
+.br
+Option = {selmode, wx_enum() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Selmode = ?wxGrid_wxGridSelectCells | ?wxGrid_wxGridSelectRows | ?wxGrid_wxGridSelectColumns
+.RE
+.LP
+.B
+deleteCols(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBdeleteCols(This, [])\fR\&\&.
+.RE
+.LP
+.B
+deleteCols(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {pos, integer()} | {numCols, integer()} | {updateLabels, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+deleteRows(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBdeleteRows(This, [])\fR\&\&.
+.RE
+.LP
+.B
+deleteRows(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {pos, integer()} | {numRows, integer()} | {updateLabels, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+disableCellEditControl(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+disableDragColSize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+disableDragGridSize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+disableDragRowSize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableCellEditControl(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBenableCellEditControl(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enableCellEditControl(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {enable, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableDragColSize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBenableDragColSize(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enableDragColSize(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {enable, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableDragGridSize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBenableDragGridSize(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enableDragGridSize(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {enable, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableDragRowSize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBenableDragRowSize(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enableDragRowSize(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {enable, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableEditing(This, Edit) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Edit = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableGridLines(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBenableGridLines(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enableGridLines(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {enable, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+endBatch(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+fit(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+forceRefresh(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getBatchCount(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCellAlignment(This, Row, Col) -> {Horiz::integer(), Vert::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCellBackgroundColour(This, Row, Col) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCellEditor(This, Row, Col) -> wxGridCellEditor() (see module wxGridCellEditor)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCellFont(This, Row, Col) -> wxFont() (see module wxFont)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCellRenderer(This, Row, Col) -> wxGridCellRenderer() (see module wxGridCellRenderer)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCellTextColour(This, Row, Col) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCellValue(This, Coords) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Coords = {R::integer(), C::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCellValue(This, Row, Col) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getColLabelAlignment(This) -> {Horiz::integer(), Vert::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getColLabelSize(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getColLabelValue(This, Col) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getColMinimalAcceptableWidth(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultCellAlignment(This) -> {Horiz::integer(), Vert::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultCellBackgroundColour(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultCellFont(This) -> wxFont() (see module wxFont)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultCellTextColour(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultColLabelSize(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultColSize(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultEditor(This) -> wxGridCellEditor() (see module wxGridCellEditor)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultEditorForCell(This, C) -> wxGridCellEditor() (see module wxGridCellEditor)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+C = {R::integer(), C::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultEditorForCell(This, Row, Col) -> wxGridCellEditor() (see module wxGridCellEditor)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultEditorForType(This, TypeName) -> wxGridCellEditor() (see module wxGridCellEditor)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+TypeName = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultRenderer(This) -> wxGridCellRenderer() (see module wxGridCellRenderer)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultRendererForCell(This, Row, Col) -> wxGridCellRenderer() (see module wxGridCellRenderer)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultRendererForType(This, TypeName) -> wxGridCellRenderer() (see module wxGridCellRenderer)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+TypeName = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultRowLabelSize(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDefaultRowSize(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getGridCursorCol(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getGridCursorRow(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getGridLineColour(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+gridLinesEnabled(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLabelBackgroundColour(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLabelFont(This) -> wxFont() (see module wxFont)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLabelTextColour(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getNumberCols(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getNumberRows(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getOrCreateCellAttr(This, Row, Col) -> wxGridCellAttr() (see module wxGridCellAttr)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getRowMinimalAcceptableHeight(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getRowLabelAlignment(This) -> {Horiz::integer(), Vert::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getRowLabelSize(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getRowLabelValue(This, Row) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getRowSize(This, Row) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getScrollLineX(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getScrollLineY(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectedCells(This) -> [{R::integer(), C::integer()}]
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectedCols(This) -> [integer()]
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectedRows(This) -> [integer()]
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectionBackground(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectionBlockTopLeft(This) -> [{R::integer(), C::integer()}]
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectionBlockBottomRight(This) -> [{R::integer(), C::integer()}]
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSelectionForeground(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getViewWidth(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getGridWindow(This) -> wxWindow() (see module wxWindow)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getGridRowLabelWindow(This) -> wxWindow() (see module wxWindow)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getGridColLabelWindow(This) -> wxWindow() (see module wxWindow)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getGridCornerLabelWindow(This) -> wxWindow() (see module wxWindow)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hideCellEditControl(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+insertCols(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBinsertCols(This, [])\fR\&\&.
+.RE
+.LP
+.B
+insertCols(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {pos, integer()} | {numCols, integer()} | {updateLabels, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+insertRows(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBinsertRows(This, [])\fR\&\&.
+.RE
+.LP
+.B
+insertRows(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Option = {pos, integer()} | {numRows, integer()} | {updateLabels, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isCellEditControlEnabled(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isCurrentCellReadOnly(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isEditable(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isInSelection(This, Coords) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Coords = {R::integer(), C::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isInSelection(This, Row, Col) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isReadOnly(This, Row, Col) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isSelection(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isVisible(This, Coords) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Coords = {R::integer(), C::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBisVisible(This, Coords, [])\fR\&\&.
+.RE
+.LP
+.B
+isVisible(This, Row, Col) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+isVisible(This, Coords, [Option]) -> boolean() when
+.br
+This::wxGrid(), Coords::{R::integer(), C::integer()},
+.br
+Option :: {wholeCellVisible, boolean()}\&.
+.br
+
+.RE
+.LP
+.B
+isVisible(This, Row, Col, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Option = {wholeCellVisible, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+makeCellVisible(This, Coords) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Coords = {R::integer(), C::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+makeCellVisible(This, Row, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCursorDown(This, ExpandSelection) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExpandSelection = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCursorLeft(This, ExpandSelection) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExpandSelection = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCursorRight(This, ExpandSelection) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExpandSelection = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCursorUp(This, ExpandSelection) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExpandSelection = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCursorDownBlock(This, ExpandSelection) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExpandSelection = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCursorLeftBlock(This, ExpandSelection) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExpandSelection = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCursorRightBlock(This, ExpandSelection) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExpandSelection = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveCursorUpBlock(This, ExpandSelection) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExpandSelection = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+movePageDown(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+movePageUp(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+registerDataType(This, TypeName, Renderer, Editor) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+TypeName = chardata() (see module unicode)
+.br
+Renderer = wxGridCellRenderer() (see module wxGridCellRenderer)
+.br
+Editor = wxGridCellEditor() (see module wxGridCellEditor)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+saveEditControlValue(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+selectAll(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+selectBlock(This, TopLeft, BottomRight) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+TopLeft = {R::integer(), C::integer()}
+.br
+BottomRight = {R::integer(), C::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBselectBlock(This, TopLeft, BottomRight, [])\fR\&\&.
+.RE
+.LP
+.B
+selectBlock(This, TopLeft, BottomRight, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+TopLeft = {R::integer(), C::integer()}
+.br
+BottomRight = {R::integer(), C::integer()}
+.br
+Option = {addToSelected, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+selectBlock(This, TopRow, LeftCol, BottomRow, RightCol) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+TopRow = integer()
+.br
+LeftCol = integer()
+.br
+BottomRow = integer()
+.br
+RightCol = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBselectBlock(This, TopRow, LeftCol, BottomRow, RightCol, [])\fR\&\&.
+.RE
+.LP
+.B
+selectBlock(This, TopRow, LeftCol, BottomRow, RightCol, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+TopRow = integer()
+.br
+LeftCol = integer()
+.br
+BottomRow = integer()
+.br
+RightCol = integer()
+.br
+Option = {addToSelected, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+selectCol(This, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBselectCol(This, Col, [])\fR\&\&.
+.RE
+.LP
+.B
+selectCol(This, Col, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+Option = {addToSelected, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+selectRow(This, Row) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBselectRow(This, Row, [])\fR\&\&.
+.RE
+.LP
+.B
+selectRow(This, Row, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Option = {addToSelected, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellAlignment(This, Align) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Align = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellAlignment(This, Align, Row, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Align = integer()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellAlignment(This, Row, Col, Horiz, Vert) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Horiz = integer()
+.br
+Vert = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellBackgroundColour(This, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellBackgroundColour(This, Row, Col, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Val = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setCellBackgroundColour(This, Colour, Row, Col) -> ok when
+.br
+This::wxGrid(), Colour::wx:wx_colour(), Row::integer(), Col::integer()\&.
+.br
+
+.RE
+.LP
+.B
+setCellEditor(This, Row, Col, Editor) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Editor = wxGridCellEditor() (see module wxGridCellEditor)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellFont(This, Row, Col, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Val = wxFont() (see module wxFont)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellRenderer(This, Row, Col, Renderer) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Renderer = wxGridCellRenderer() (see module wxGridCellRenderer)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellTextColour(This, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellTextColour(This, Row, Col, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Val = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setCellTextColour(This, Val, Row, Col) -> ok when
+.br
+This::wxGrid(), Val::wx:wx_colour(), Row::integer(), Col::integer()\&.
+.br
+
+.RE
+.LP
+.B
+setCellValue(This, Coords, S) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Coords = {R::integer(), C::integer()}
+.br
+S = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCellValue(This, Row, Col, S) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+S = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setCellValue(This, Val, Row, Col) -> ok when
+.br
+This::wxGrid(), Val::unicode:chardata(), Row::integer(), Col::integer()\&.
+.br
+
+.RE
+.LP
+.B
+setColAttr(This, Col, Attr) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+Attr = wxGridCellAttr() (see module wxGridCellAttr)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColFormatBool(This, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColFormatNumber(This, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColFormatFloat(This, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetColFormatFloat(This, Col, [])\fR\&\&.
+.RE
+.LP
+.B
+setColFormatFloat(This, Col, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+Option = {width, integer()} | {precision, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColFormatCustom(This, Col, TypeName) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+TypeName = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColLabelAlignment(This, Horiz, Vert) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Horiz = integer()
+.br
+Vert = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColLabelSize(This, Height) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColLabelValue(This, Col, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+Val = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColMinimalWidth(This, Col, Width) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+Width = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColMinimalAcceptableWidth(This, Width) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Width = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setColSize(This, Col, Width) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Col = integer()
+.br
+Width = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDefaultCellAlignment(This, Horiz, Vert) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Horiz = integer()
+.br
+Vert = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDefaultCellBackgroundColour(This, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Val = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDefaultCellFont(This, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Val = wxFont() (see module wxFont)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDefaultCellTextColour(This, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Val = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDefaultEditor(This, Editor) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Editor = wxGridCellEditor() (see module wxGridCellEditor)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDefaultRenderer(This, Renderer) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Renderer = wxGridCellRenderer() (see module wxGridCellRenderer)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDefaultColSize(This, Width) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Width = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetDefaultColSize(This, Width, [])\fR\&\&.
+.RE
+.LP
+.B
+setDefaultColSize(This, Width, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Width = integer()
+.br
+Option = {resizeExistingCols, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDefaultRowSize(This, Height) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetDefaultRowSize(This, Height, [])\fR\&\&.
+.RE
+.LP
+.B
+setDefaultRowSize(This, Height, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Height = integer()
+.br
+Option = {resizeExistingRows, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setGridCursor(This, Row, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setGridLineColour(This, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Val = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLabelBackgroundColour(This, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Val = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLabelFont(This, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Val = wxFont() (see module wxFont)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLabelTextColour(This, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Val = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMargins(This, ExtraWidth, ExtraHeight) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+ExtraWidth = integer()
+.br
+ExtraHeight = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setReadOnly(This, Row, Col) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetReadOnly(This, Row, Col, [])\fR\&\&.
+.RE
+.LP
+.B
+setReadOnly(This, Row, Col, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+Option = {isReadOnly, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setRowAttr(This, Row, Attr) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Attr = wxGridCellAttr() (see module wxGridCellAttr)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setRowLabelAlignment(This, Horiz, Vert) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Horiz = integer()
+.br
+Vert = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setRowLabelSize(This, Width) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Width = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setRowLabelValue(This, Row, Val) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Val = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setRowMinimalHeight(This, Row, Width) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Width = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setRowMinimalAcceptableHeight(This, Width) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Width = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setRowSize(This, Row, Height) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Row = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setScrollLineX(This, X) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+X = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setScrollLineY(This, Y) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelectionBackground(This, C) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+C = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelectionForeground(This, C) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+C = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSelectionMode(This, Selmode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Selmode = wx_enum() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Selmode = ?wxGrid_wxGridSelectCells | ?wxGrid_wxGridSelectRows | ?wxGrid_wxGridSelectColumns
+.RE
+.LP
+.B
+showCellEditControl(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+xToCol(This, X) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+X = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBxToCol(This, X, [])\fR\&\&.
+.RE
+.LP
+.B
+xToCol(This, X, Option::[Option]) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+X = integer()
+.br
+Option = {clipToMinMax, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+xToEdgeOfCol(This, X) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+X = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+yToEdgeOfRow(This, Y) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+yToRow(This, Y) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGrid()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroy(This::wxGrid()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

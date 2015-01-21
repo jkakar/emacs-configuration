@@ -1,0 +1,319 @@
+.TH snmpm_user 3 "snmp 4.25.1" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+snmpm_user \- Behaviour module for the SNMP manager user.
+.SH DESCRIPTION
+.LP
+This module defines the behaviour of the manager user\&. A \fIsnmpm_user\fR\& compliant module must export the following functions:
+.RS 2
+.TP 2
+*
+handle_error/3
+.LP
+.TP 2
+*
+handle_agent/4
+.LP
+.TP 2
+*
+handle_pdu/4
+.LP
+.TP 2
+*
+handle_trap/3
+.LP
+.TP 2
+*
+handle_inform/3
+.LP
+.TP 2
+*
+handle_report/3
+.LP
+.TP 2
+*
+handle_invalid_result/2
+.LP
+.RE
+
+.LP
+The semantics of them and their exact signatures are explained below\&.
+.LP
+Some of the function has no defined return value (\fIvoid()\fR\&), they can ofcourse return anythyng\&. But the functions that do have specified return value(s) \fImust\fR\& adhere to this\&. None of the functions can use exit of throw to return\&.
+.SH "DATA TYPES"
+
+.LP
+.nf
+
+snmp_gen_info() = {ErrorStatus :: atom(), 
+                   ErrorIndex  :: pos_integer(), 
+                   Varbinds    :: [snmp:varbind()]}
+snmp_v1_trap_info() :: {Enteprise :: snmp:oid(), 
+                        Generic   :: integer(), 
+                        Spec      :: integer(), 
+                        Timestamp :: integer(), 
+                        Varbinds  :: [snmp:varbind()]}
+    
+.fi
+.SH EXPORTS
+.LP
+.B
+handle_error(ReqId, Reason, UserData) -> void()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+ReqId = integer()
+.br
+Reason = {unexpected_pdu, SnmpInfo} | {invalid_sec_info, SecInfo, SnmpInfo} | {empty_message, Addr, Port} | term()
+.br
+SnmpInfo = snmp_gen_info()
+.br
+SecInfo = term()
+.br
+Addr = ip_address()
+.br
+Port = integer()
+.br
+UserData = term()
+.br
+.RE
+.RE
+.RS
+.LP
+This function is called when the manager needs to communicate an "asynchronous" error to the user: e\&.g\&. failure to send an asynchronous message (i\&.e\&. encoding error), a received message was discarded due to security error, the manager failed to generate a response message to a received inform-request, or when receiving an unexpected PDU from an agent (could be an expired async request)\&.
+.LP
+If \fIReqId\fR\& is less then 0, it means that this information was not available to the manager (that info was never retrieved before the message was discarded)\&.
+.LP
+For \fISnmpInfo\fR\& see handle_agent below\&.
+.RE
+.LP
+.B
+handle_agent(Addr, Port, Type, SnmpInfo, UserData) -> Reply
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Addr = ip_address()
+.br
+Port = integer()
+.br
+Type = pdu | trap | report | inform
+.br
+SnmpInfo = SnmpPduInfo | SnmpTrapInfo | SnmpReportInfo | SnmpInformInfo
+.br
+SnmpPduInfo = snmp_gen_info()
+.br
+SnmpTrapInfo = snmp_v1_trap_info()
+.br
+SnmpReportInfo = snmp_gen_info()
+.br
+SnmpInformInfo = snmp_gen_info()
+.br
+UserData = term()
+.br
+Reply = ignore | {register, UserId, TargetName, AgentConfig}
+.br
+UserId = term()
+.br
+TargetName = target_name()
+.br
+AgentConfig = [agent_config()]
+.br
+.RE
+.RE
+.RS
+.LP
+This function is called when a message is received from an unknown agent\&.
+.LP
+Note that this will always be the default user that is called\&.
+.LP
+For more info about the \fIagent_config()\fR\&, see \fBregister_agent\fR\&\&.
+.LP
+The arguments \fIType\fR\& and \fISnmpInfo\fR\& relates in the following way:
+.RS 2
+.TP 2
+*
+\fIpdu\fR\& - \fISnmpPduInfo\fR\& (see \fBhandle_pdu\fR\& for more info)\&.
+.LP
+.TP 2
+*
+\fItrap\fR\& - \fISnmpTrapInfo\fR\& (see \fBhandle_trap\fR\& for more info)\&.
+.LP
+.TP 2
+*
+\fIreport\fR\& - \fISnmpReportInfo\fR\& (see \fBhandle_report\fR\& for more info)\&.
+.LP
+.TP 2
+*
+\fIinform\fR\& - \fISnmpInformInfo\fR\& (see \fBhandle_inform\fR\& for more info)\&.
+.LP
+.RE
+
+.LP
+The only user which would return \fI{register, UserId, TargetName, AgentConfig}\fR\& is the \fIdefault user\fR\&\&.
+.RE
+.LP
+.B
+handle_pdu(TargetName, ReqId, SnmpPduInfo, UserData) -> void()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TargetName = target_name()
+.br
+ReqId = term()
+.br
+SnmpPduInfo = snmp_gen_info()
+.br
+UserData = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Handle the reply to an asynchronous request, such as \fBasync_get\fR\&, \fBasync_get_next\fR\& or \fBasync_set\fR\&\&.
+.LP
+It could also be a late reply to a synchronous request\&.
+.LP
+\fIReqId\fR\& is returned by the asynchronous request function\&.
+.RE
+.LP
+.B
+handle_trap(TargetName, SnmpTrapInfo, UserData) -> Reply
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TargetName = TargetName2 = target_name()
+.br
+SnmpTrapInfo = snmp_v1_trap_info() | snmp_gen_info()
+.br
+UserData = term()
+.br
+Reply = ignore | unregister | {register, UserId, TargetName2, AgentConfig}
+.br
+UserId = term()
+.br
+AgentConfig = [agent_config()]
+.br
+.RE
+.RE
+.RS
+.LP
+Handle a trap/notification message from an agent\&.
+.LP
+For more info about the \fIagent_config()\fR\&, see \fBregister_agent\fR\&
+.LP
+The only user which would return \fI{register, UserId, TargetName2, agent_info()}\fR\& is the \fIdefault user\fR\&\&.
+.RE
+.LP
+.B
+handle_inform(TargetName, SnmpInformInfo, UserData) -> Reply
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TargetName = TargetName2 = target_name()
+.br
+SnmpInformInfo = snmp_gen_info()
+.br
+UserData = term()
+.br
+Reply = ignore | no_reply | unregister | {register, UserId, TargetName2, AgentConfig}
+.br
+UserId = term()
+.br
+AgentConfig = [agent_config()]
+.br
+.RE
+.RE
+.RS
+.LP
+Handle a inform message\&.
+.LP
+For more info about the \fIagent_config()\fR\&, see \fBregister_agent\fR\&
+.LP
+The only user which would return \fI{register, UserId, TargetName2, AgentConfig}\fR\& is the \fIdefault user\fR\&\&.
+.LP
+If the \fBinform request behaviour\fR\& configuration option is set to \fIuser\fR\& or \fI{user, integer()}\fR\&, the response (acknowledgment) to this inform-request will be sent when this function returns\&.
+.RE
+.LP
+.B
+handle_report(TargetName, SnmpReportInfo, UserData) -> Reply
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TargetName = TargetName2 = target_name()
+.br
+Addr = ip_address()
+.br
+Port = integer()
+.br
+SnmpReportInfo = snmp_gen_info()
+.br
+UserData = term()
+.br
+Reply = ignore | unregister | {register, UserId, TargetName2, AgentConfig}
+.br
+UserId = term()
+.br
+AgentConfig = [agent_config()]
+.br
+.RE
+.RE
+.RS
+.LP
+Handle a report message\&.
+.LP
+For more info about the \fIagent_config()\fR\&, see \fBregister_agent\fR\&
+.LP
+The only user which would return \fI{register, UserId, TargetName2, AgentConfig}\fR\& is the \fIdefault user\fR\&\&.
+.RE
+.LP
+.B
+handle_invalid_result(IN, OUT) -> void()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+IN = {Func, Args}
+.br
+Func = atom()
+.br
+Args = list()
+.br
+OUT = {crash, CrashInfo} | {result, InvalidResult}
+.br
+CrashInfo = {ErrorType, Error, Stacktrace}
+.br
+ErrorType = atom()
+.br
+Error = term()
+.br
+Stacktrace = list()
+.br
+InvalidResult = term()
+.br
+.RE
+.RE
+.RS
+.LP
+If \fIany\fR\& of the \fIother\fR\& callback functions crashes (exit, throw or a plain crash) or return an invalid result (if a valid return has been specified), this function is called\&. The purpose is to allow the user handle this error (for instance to issue an error report)\&.
+.LP
+\fIIN\fR\& reprecents the function called (and its arguments)\&. \fIOUT\fR\& represents the unexpected/invalid result\&.
+.RE

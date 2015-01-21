@@ -1,0 +1,16 @@
+.TH crypto 7 "crypto 3.3" "Ericsson AB" "Erlang Application Definition"
+.SH NAME
+crypto \- The Crypto Application
+.SH DESCRIPTION
+.LP
+The purpose of the Crypto application is to provide an Erlang API to cryptographic functions, see \fBcrypto(3)\fR\&\&. Note that the API is on a fairly low level and there are some corresponding API functions available in \fBpublic_key(3)\fR\&, on a higher abstraction level, that uses the crypto application in its implementation\&.
+.SH "DEPENDENCIES"
+
+.LP
+The current crypto implementation uses nifs to interface OpenSSLs crypto library and requires \fIOpenSSL\fR\& package version 0\&.9\&.8 or higher\&.
+.LP
+Source releases of OpenSSL can be downloaded from the OpenSSL project home page, or mirror sites listed there\&.
+.SH "SEE ALSO"
+
+.LP
+application(3)

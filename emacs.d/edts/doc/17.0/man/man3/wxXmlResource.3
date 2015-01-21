@@ -1,0 +1,601 @@
+.TH wxXmlResource 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxXmlResource \- See external documentation: wxXmlResource.
+.SH DESCRIPTION
+.LP
+See external documentation: wxXmlResource\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxXmlResource()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new() -> wxXmlResource()
+.br
+.RS
+.LP
+Equivalent to \fBnew([])\fR\&\&.
+.RE
+.LP
+.B
+new(Option::[Option]) -> wxXmlResource()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Option = {flags, integer()} | {domain, chardata() (see module unicode)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Filemask, Option::[Option]) -> wxXmlResource()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Filemask = chardata() (see module unicode)
+.br
+Option = {flags, integer()} | {domain, chardata() (see module unicode)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+attachUnknownControl(This, Name, Control) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Name = chardata() (see module unicode)
+.br
+Control = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBattachUnknownControl(This, Name, Control, [])\fR\&\&.
+.RE
+.LP
+.B
+attachUnknownControl(This, Name, Control, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Name = chardata() (see module unicode)
+.br
+Control = wxWindow() (see module wxWindow)
+.br
+Option = {parent, wxWindow() (see module wxWindow)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clearHandlers(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+compareVersion(This, Major, Minor, Release, Revision) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Major = integer()
+.br
+Minor = integer()
+.br
+Release = integer()
+.br
+Revision = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+get() -> wxXmlResource()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getFlags(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getVersion(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getXRCID(Str_id) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Str_id = [chardata() (see module unicode)]
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBgetXRCID(Str_id, [])\fR\&\&.
+.RE
+.LP
+.B
+getXRCID(Str_id, Option::[Option]) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Str_id = [chardata() (see module unicode)]
+.br
+Option = {value_if_not_found, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+initAllHandlers(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+load(This, Filemask) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Filemask = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadBitmap(This, Name) -> wxBitmap() (see module wxBitmap)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadDialog(This, Parent, Name) -> wxDialog() (see module wxDialog)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadDialog(This, Dlg, Parent, Name) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Dlg = wxDialog() (see module wxDialog)
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadFrame(This, Parent, Name) -> wxFrame() (see module wxFrame)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadFrame(This, Frame, Parent, Name) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Frame = wxFrame() (see module wxFrame)
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadIcon(This, Name) -> wxIcon() (see module wxIcon)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadMenu(This, Name) -> wxMenu() (see module wxMenu)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadMenuBar(This, Name) -> wxMenuBar() (see module wxMenuBar)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadMenuBar(This, Parent, Name) -> wxMenuBar() (see module wxMenuBar)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadPanel(This, Parent, Name) -> wxPanel() (see module wxPanel)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadPanel(This, Panel, Parent, Name) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Panel = wxPanel() (see module wxPanel)
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+loadToolBar(This, Parent, Name) -> wxToolBar() (see module wxToolBar)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+set(Res) -> wxXmlResource()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Res = wxXmlResource()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFlags(This, Flags) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Flags = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+unload(This, Filename) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxXmlResource()
+.br
+Filename = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+xrcctrl(Window::wxWindow() (see module wxWindow), Name::string(), Type::atom()) -> wxObject() (see module wx)
+.br
+.RS
+.LP
+Looks up a control with Name in a window created with XML resources\&. You can use it to set/get values from controls\&. The object is type casted to \fIType\fR\&\&. Example: 
+.br
+Xrc = wxXmlResource:get(), 
+.br
+Dlg = wxDialog:new(), 
+.br
+true = wxXmlResource:loadDialog(Xrc, Dlg, Frame, "controls_dialog"), 
+.br
+LCtrl = xrcctrl(Dlg, "controls_listctrl", wxListCtrl), 
+.br
+wxListCtrl:insertColumn(LCtrl, 0, "Name", [{width, 200}]), 
+.br
+
+.RE
+.LP
+.B
+destroy(This::wxXmlResource()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

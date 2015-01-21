@@ -1,0 +1,329 @@
+.TH wxUpdateUIEvent 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxUpdateUIEvent \- See external documentation: wxUpdateUIEvent.
+.SH DESCRIPTION
+.LP
+See external documentation: wxUpdateUIEvent\&.
+.RS 2
+.TP 2
+.B
+Use \fBwxEvtHandler:connect/3\fR\& with EventType::
+\fIupdate_ui\fR\&
+.RE
+.LP
+See also the message variant \fB#wxUpdateUI{\fR\&} event record type\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxCommandEvent\fR\& 
+.br
+\fBwxEvent\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxUpdateUIEvent()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+canUpdate(Win) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Win = wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+check(This, Check) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+Check = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enable(This, Enable) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+Enable = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+show(This, Show) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+Show = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getChecked(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getEnabled(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getShown(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSetChecked(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSetEnabled(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSetShown(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSetText(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getText(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMode() -> wx_enum() (see module wx)
+.br
+.RS
+.LP
+See external documentation\&. 
+.br
+Res = ?wxUPDATE_UI_PROCESS_ALL | ?wxUPDATE_UI_PROCESS_SPECIFIED
+.RE
+.LP
+.B
+getUpdateInterval() -> integer()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+resetUpdateTime() -> ok
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMode(Mode) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Mode = wx_enum() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Mode = ?wxUPDATE_UI_PROCESS_ALL | ?wxUPDATE_UI_PROCESS_SPECIFIED
+.RE
+.LP
+.B
+setText(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxUpdateUIEvent()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setUpdateInterval(UpdateInterval) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+UpdateInterval = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

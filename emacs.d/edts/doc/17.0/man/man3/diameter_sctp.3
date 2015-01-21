@@ -1,0 +1,66 @@
+.TH diameter_sctp 3 "diameter 1.6" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+diameter_sctp \- Diameter transport over SCTP.
+.SH DESCRIPTION
+.LP
+This module implements diameter transport over SCTP using \fBgen_sctp(3)\fR\&\&. It can be specified as the value of a transport_module option to \fBdiameter:add_transport/2\fR\& and implements the behaviour documented in \fBdiameter_transport(3)\fR\&\&.
+.SH EXPORTS
+.LP
+.B
+start({Type, Ref}, Svc, [Opt]) -> {ok, Pid, [LAddr]} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = connect | accept
+.br
+Ref = \fBdiameter:transport_ref()\fR\&
+.br
+Svc = #diameter_service{}
+.br
+Opt = OwnOpt | SctpOpt
+.br
+Pid = pid()
+.br
+LAddr = \fBinet:ip_address()\fR\&
+.br
+Reason = term()
+.br
+OwnOpt = {raddr, \fBinet:ip_address()\fR\&} | {rport, integer()} | {accept, Match}
+.br
+SctpOpt = term()
+.br
+Match = \fBinet:ip_address()\fR\& | string() | [Match]
+.br
+.RE
+.RE
+.RS
+.LP
+The start function required by \fBdiameter_transport(3)\fR\&\&.
+.LP
+Options \fIraddr\fR\& and \fIrport\fR\& specify the remote address and port for a connecting transport and not valid for a listening transport: the former is required while latter defaults to 3868 if unspecified\&. Multiple \fIraddr\fR\& options can be specified, in which case the connecting transport in question attempts each in sequence until an association is established\&.
+.LP
+Option \fIaccept\fR\& specifies remote addresses for a listening transport and is not valid for a connecting transport\&. If specified, a remote address that does not match one of the specified addresses causes the association to be aborted\&. Multiple \fIaccept\fR\& options can be specified\&. A string-valued \fIMatch\fR\& that does not parse as an address is interpreted as a regular expression\&.
+.LP
+Remaining options are any accepted by \fBgen_sctp:open/1\fR\&, with the exception of options \fImode\fR\&, \fIbinary\fR\&, \fIlist\fR\&, \fIactive\fR\& and \fIsctp_events\fR\&\&. Note that options \fIip\fR\& and \fIport\fR\& specify the local address and port respectively\&.
+.LP
+Multiple \fIip\fR\& options can be specified for a multihomed peer\&. If none are specified then the values of \fIHost-IP-Address\fR\& in the \fIdiameter_service\fR\& record are used\&. (In particular, one of these must be specified\&.) Option \fIport\fR\& defaults to 3868 for a listening transport and 0 for a connecting transport\&.
+.LP
+
+.RS -4
+.B
+Warning:
+.RE
+An insufficiently large receive buffer may result in a peer having to resend incoming messages: set the \fBinet(3)\fR\& option \fIrecbuf\fR\& to increase the buffer size\&.
+.LP
+An insufficiently large send buffer may result in outgoing messages being discarded: set the \fBinet(3)\fR\& option \fIsndbuf\fR\& to increase the buffer size\&.
+
+.LP
+The \fItransport_data\fR\& field of record \fIdiameter_packet\fR\& is used to communicate the stream on which an inbound message has been received, or on which an outbound message should be sent\&. The value will be of the form \fI{stream, Id}\fR\& for an inbound message passed to a \fBhandle_request/3\fR\& or \fBhandle_answer/4\fR\& callback\&. For an outbound message, \fI{outstream, Id}\fR\& in the return value of \fBhandle_request/3\fR\& or \fBprepare_retransmit/3\fR\& sets the outbound stream, the stream id being interpreted modulo the number of outbound streams\&. Any other value, or not setting a value, causes successive such sends to cycle though all outbound streams\&.
+.RE
+.SH "SEE ALSO"
+
+.LP
+\fBdiameter(3)\fR\&, \fBdiameter_transport(3)\fR\&, \fBgen_sctp(3)\fR\&, \fBinet(3)\fR\&

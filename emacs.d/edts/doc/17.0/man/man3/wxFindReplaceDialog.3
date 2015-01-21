@@ -1,0 +1,159 @@
+.TH wxFindReplaceDialog 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxFindReplaceDialog \- See external documentation: wxFindReplaceDialog.
+.SH DESCRIPTION
+.LP
+See external documentation: wxFindReplaceDialog\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxDialog\fR\& 
+.br
+\fBwxTopLevelWindow\fR\& 
+.br
+\fBwxWindow\fR\& 
+.br
+\fBwxEvtHandler\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxFindReplaceDialog()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new() -> wxFindReplaceDialog()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Parent, Data, Title) -> wxFindReplaceDialog()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+Data = wxFindReplaceData() (see module wxFindReplaceData)
+.br
+Title = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnew(Parent, Data, Title, [])\fR\&\&.
+.RE
+.LP
+.B
+new(Parent, Data, Title, Option::[Option]) -> wxFindReplaceDialog()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+Data = wxFindReplaceData() (see module wxFindReplaceData)
+.br
+Title = chardata() (see module unicode)
+.br
+Option = {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+create(This, Parent, Data, Title) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxFindReplaceDialog()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Data = wxFindReplaceData() (see module wxFindReplaceData)
+.br
+Title = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcreate(This, Parent, Data, Title, [])\fR\&\&.
+.RE
+.LP
+.B
+create(This, Parent, Data, Title, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxFindReplaceDialog()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Data = wxFindReplaceData() (see module wxFindReplaceData)
+.br
+Title = chardata() (see module unicode)
+.br
+Option = {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getData(This) -> wxFindReplaceData() (see module wxFindReplaceData)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxFindReplaceDialog()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroy(This::wxFindReplaceDialog()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

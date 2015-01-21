@@ -1,0 +1,113 @@
+.TH error_handler 3 "kernel 3.0" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+error_handler \- Default System Error Handler
+.SH DESCRIPTION
+.LP
+The error handler module defines what happens when certain types of errors occur\&.
+.SH EXPORTS
+.LP
+.nf
+
+.B
+undefined_function(Module, Function, Args) -> any()
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Module = Function = atom()
+.br
+Args = list()
+.br
+.RS 2
+ A (possibly empty) list of arguments \fIArg1,\&.\&.,ArgN\fR\&
+.RE
+.RE
+.RE
+.RS
+.LP
+This function is called by the run-time system if a call is made to \fIModule:Function(Arg1,\&.\&., ArgN)\fR\& and \fIModule:Function/N\fR\& is undefined\&. Note that \fIundefined_function/3\fR\& is evaluated inside the process making the original call\&.
+.LP
+This function will first attempt to autoload \fIModule\fR\&\&. If that is not possible, an \fIundef\fR\& exception will be raised\&.
+.LP
+If it was possible to load \fIModule\fR\& and the function \fIFunction/N\fR\& is exported, it will be called\&.
+.LP
+Otherwise, if the function \fI\&'$handle_undefined_function\&'/2\fR\& is exported, it will be called as \fI\&'$handle_undefined_function\&'(\fR\&Function, Args)\&.
+.LP
+
+.RS -4
+.B
+Warning:
+.RE
+Defining \fI\&'$handle_undefined_function\&'/2\fR\& in ordinary application code is highly discouraged\&. It is very easy to make subtle errors that can take a long time to debug\&. Furthermore, none of the tools for static code analysis (such as Dialyzer and Xref) supports the use of \fI\&'$handle_undefined_function\&'/2\fR\& and no such support will be added\&. Only use this function after having carefully considered other, less dangerous, solutions\&. One example of potential legitimate use is creating stubs for other sub-systems during testing and debugging\&.
+
+.LP
+Otherwise an \fIundef\fR\& exception will be raised\&.
+.RE
+.LP
+.nf
+
+.B
+raise_undef_exception(Module, Function, Args) -> no_return()
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Module = Function = atom()
+.br
+Args = list()
+.br
+.RS 2
+ A (possibly empty) list of arguments \fIArg1,\&.\&.,ArgN\fR\&
+.RE
+.RE
+.RE
+.RS
+.LP
+Raise an \fIundef\fR\& exception with a stacktrace indicating that \fIModule:Function/N\fR\& is undefined\&.
+.RE
+.LP
+.nf
+
+.B
+undefined_lambda(Module, Fun, Args) -> term()
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Module = atom()
+.br
+Fun = function()
+.br
+Args = list()
+.br
+.RS 2
+ A (possibly empty) list of arguments \fIArg1,\&.\&.,ArgN\fR\&
+.RE
+.RE
+.RE
+.RS
+.LP
+This function is evaluated if a call is made to \fIFun(Arg1,\&.\&., ArgN)\fR\& when the module defining the fun is not loaded\&. The function is evaluated inside the process making the original call\&.
+.LP
+If \fIModule\fR\& is interpreted, the interpreter is invoked and the return value of the interpreted \fIFun(Arg1,\&.\&., ArgN)\fR\& call is returned\&.
+.LP
+Otherwise, it returns, if possible, the value of \fIapply(Fun, Args)\fR\& after an attempt has been made to autoload \fIModule\fR\&\&. If this is not possible, the call fails with exit reason \fIundef\fR\&\&.
+.RE
+.SH "NOTES"
+
+.LP
+The code in \fIerror_handler\fR\& is complex and should not be changed without fully understanding the interaction between the error handler, the \fIinit\fR\& process of the code server, and the I/O mechanism of the code\&.
+.LP
+Changes in the code which may seem small can cause a deadlock as unforeseen consequences may occur\&. The use of \fIinput\fR\& is dangerous in this type of code\&.

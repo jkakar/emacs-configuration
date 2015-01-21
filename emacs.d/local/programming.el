@@ -18,14 +18,14 @@
 ;; (push '(".+\\.go$" flymake-go-init) flymake-allowed-file-name-masks)
 ;; (add-hook 'go-mode-hook 'flymake-mode)
 
-(setq go-mode-hook
-      '(lambda () "Defaults for Go mode." (setq fill-column 78
-												tab-width 4
-												indent-tabs-mode 0)))
-(add-hook 'go-mode-hook 'highlight-80+-mode)
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/go/bin"))
-(setq exec-path (append exec-path '("/usr/local/go/bin")))
-(add-hook 'before-save-hook 'gofmt-before-save)
+;; (setq go-mode-hook
+;;       '(lambda () "Defaults for Go mode." (setq fill-column 78
+;; 												tab-width 4
+;; 												indent-tabs-mode 0)))
+;; (add-hook 'go-mode-hook 'highlight-80+-mode)
+;; (setenv "PATH" (concat (getenv "PATH") ":/usr/local/go/bin"))
+;; (setq exec-path (append exec-path '("/usr/local/go/bin")))
+;; (add-hook 'before-save-hook 'gofmt-before-save)
 
 
 ;; Python

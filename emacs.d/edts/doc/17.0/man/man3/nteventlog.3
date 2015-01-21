@@ -1,0 +1,74 @@
+.TH nteventlog 3 "os_mon 2.2.15" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+nteventlog \- Interface to Windows Event Log
+.SH DESCRIPTION
+.LP
+\fInteventlog\fR\& provides a generic interface to the Windows event log\&. It is part of the OS_Mon application, see \fBos_mon(6)\fR\&\&. Available for Windows versions where the event log is available\&. That is, not for Windows 98 and some other older Windows versions, but for most (all?) newer Windows versions\&.
+.LP
+This module is used as the Windows backend for \fIos_sup\fR\&, see \fBos_sup(3)\fR\&\&.
+.LP
+To retain backwards compatibility, this module can also be used to start a standalone \fInteventlog\fR\& process which is not part of the OS_Mon supervision tree\&. When starting such a process, the user has to supply an identifier as well as a callback function to handle the messages\&.
+.LP
+The identifier, an arbitrary string, should be reused whenever the same application (or node) wants to start the process\&. \fInteventlog\fR\& is informed about all events that have arrived to the eventlog since the last accepted message for the current identifier\&. As long as the same identifier is used, the same eventlog record will not be sent to \fInteventlog\fR\& more than once (with the exception of when graved system failures arise, in which case the last records written before the failure may be sent to Erlang again after reboot)\&.
+.LP
+If the event log is configured to wrap around automatically, records that have arrived to the log and been overwritten when \fInteventlog\fR\& was not running are lost\&. It however detects this state and loses no records that are not overwritten\&.
+.LP
+The callback function works as described in \fIos_sup(3)\fR\&\&.
+.SH EXPORTS
+.LP
+.B
+start(Identifier, MFA) -> Result
+.br
+.B
+start_link(Identifier, MFA) -> Result
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Identifier = string() | atom()
+.br
+MFA = {Mod, Func, Args}
+.br
+ Mod = Func = atom()
+.br
+ Args = [term()]
+.br
+Result = {ok, Pid} | {error, {already_started, Pid}}
+.br
+Pid = pid()
+.br
+.RE
+.RE
+.RS
+.LP
+This function starts the standalone \fInteventlog\fR\& process and, if \fIstart_link/2\fR\& is used, links to it\&.
+.LP
+\fIIdentifier\fR\& is an identifier as described above\&.
+.LP
+\fIMFA\fR\& is the supplied callback function\&. When \fInteventlog\fR\& receives information about a new event, this function will be called as \fIapply(Mod, Func, [Event|Args])\fR\& where \fIEvent\fR\& is a tuple
+.RE
+.LP
+.B
+stop() -> stopped
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Result = stopped
+.br
+.RE
+.RE
+.RS
+.LP
+Stops \fInteventlog\fR\&\&. Usually only used during development\&. The server does not have to be shut down gracefully to maintain its state\&.
+.RE
+.SH "SEE ALSO"
+
+.LP
+\fBos_mon(6)\fR\&, \fBos_sup(3)\fR\&
+.LP
+Windows NT documentation

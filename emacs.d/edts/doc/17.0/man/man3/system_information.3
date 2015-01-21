@@ -1,0 +1,103 @@
+.TH system_information 3 "runtime_tools 1.8.14" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+system_information \- System Information
+.SH DESCRIPTION
+.LP
+
+.SH EXPORTS
+.LP
+.nf
+
+.B
+sanity_check() -> ok | {failed, Failures}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Application = atom()
+.br
+ApplicationVersion = string()
+.br
+MissingRuntimeDependencies = 
+.br
+    {missing_runtime_dependencies,
+.br
+     ApplicationVersion,
+.br
+     [ApplicationVersion]}
+.br
+InvalidApplicationVersion = 
+.br
+    {invalid_application_version, ApplicationVersion}
+.br
+InvalidAppFile = {invalid_app_file, Application}
+.br
+Failure = MissingRuntimeDependencies
+.br
+        | InvalidApplicationVersion
+.br
+        | InvalidAppFile
+.br
+Failures = [Failure]
+.br
+.RE
+.RE
+.RS
+.LP
+Performs a sanity check on the system\&. If no issues were found, \fIok\fR\& is returned\&. If issues were found, \fI{failed, Failures}\fR\& is returned\&. All failures found will be part of the \fIFailures\fR\& list\&. Currently defined \fIFailure\fR\& elements in the \fIFailures\fR\& list:
+.RS 2
+.TP 2
+.B
+\fIInvalidAppFile\fR\&:
+An application has an invalid \fI\&.app\fR\& file\&. The second element identifies the application which has the invalid \fI\&.app\fR\& file\&.
+.TP 2
+.B
+\fIInvalidApplicationVersion\fR\&:
+An application has an invalid application version\&. The second element identifies the application version that is invalid\&.
+.TP 2
+.B
+\fIMissingRuntimeDependencies\fR\&:
+An application is missing \fBruntime dependencies\fR\&\&. The second element identifies the application (with version) that has missing dependencies\&. The third element contains the missing dependencies\&.
+.RS 2
+.LP
+Note that this check use application versions that are loaded, or will be loaded when used\&. You might have application versions that satisfies all dependencies installed in the system, but if those are not loaded this check will fail\&. The system will of course also fail when used like this\&. This may happen when you have multiple \fBbranched versions\fR\& of the same application installed in the system, but you do not use a \fBboot script\fR\& identifing the correct application version\&.
+.RE
+.RE
+.LP
+Currently the sanity check is limited to verifying runtime dependencies found in the \fI\&.app\fR\& files of all applications\&. More checks will be introduced in the future\&. This implies that the return type \fIwill\fR\& change in the future\&.
+.LP
+
+.RS -4
+.B
+Note:
+.RE
+An \fIok\fR\& return value only means that \fIsanity_check/0\fR\& did not find any issues, \fInot\fR\& that no issues exist\&.
+
+.RE
+.LP
+.nf
+
+.B
+to_file(FileName) -> ok | {error, Reason}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+FileName = \fBfile:name_all()\fR\&
+.br
+Reason = \fBfile:posix()\fR\& | badarg | terminated | system_limit
+.br
+.RE
+.RE
+.RS
+.LP
+Writes miscellaneous system information to file\&. This information will typically be requested by the Erlang/OTP team at Ericsson AB when reporting an issue\&.
+.RE

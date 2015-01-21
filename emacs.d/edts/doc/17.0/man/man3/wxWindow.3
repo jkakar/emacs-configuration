@@ -1,0 +1,3570 @@
+.TH wxWindow 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxWindow \- See external documentation: wxWindow.
+.SH DESCRIPTION
+.LP
+See external documentation: wxWindow\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxEvtHandler\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxWindow()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new() -> wxWindow()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Parent, Id) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow()
+.br
+Id = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnew(Parent, Id, [])\fR\&\&.
+.RE
+.LP
+.B
+new(Parent, Id, Option::[Option]) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow()
+.br
+Id = integer()
+.br
+Option = {pos, {X::integer(), Y::integer()}} | {size, {W::integer(), H::integer()}} | {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+cacheBestSize(This, Size) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Size = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+captureMouse(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+center(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcenter(This, [])\fR\&\&.
+.RE
+.LP
+.B
+center(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {dir, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+centerOnParent(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcenterOnParent(This, [])\fR\&\&.
+.RE
+.LP
+.B
+centerOnParent(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {dir, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+centre(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcentre(This, [])\fR\&\&.
+.RE
+.LP
+.B
+centre(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {dir, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+centreOnParent(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcentreOnParent(This, [])\fR\&\&.
+.RE
+.LP
+.B
+centreOnParent(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {dir, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clearBackground(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clientToScreen(This, Pt) -> {X::integer(), Y::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Pt = {X::integer(), Y::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clientToScreen(This, X, Y) -> {X::integer(), Y::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+close(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBclose(This, [])\fR\&\&.
+.RE
+.LP
+.B
+close(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {force, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+convertDialogToPixels(This, Sz) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Sz = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+convertPixelsToDialog(This, Sz) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Sz = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+Destroy(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroyChildren(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+disable(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enable(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBenable(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enable(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {enable, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+findFocus() -> wxWindow()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+findWindow(This, Winid) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Winid = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+findWindow(This, Name) -> wxWindow() when
+.br
+This::wxWindow(), Name::unicode:chardata()\&.
+.br
+
+.RE
+.LP
+.B
+findWindowById(Winid) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Winid = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBfindWindowById(Winid, [])\fR\&\&.
+.RE
+.LP
+.B
+findWindowById(Winid, Option::[Option]) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Winid = integer()
+.br
+Option = {parent, wxWindow()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+findWindowByName(Name) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBfindWindowByName(Name, [])\fR\&\&.
+.RE
+.LP
+.B
+findWindowByName(Name, Option::[Option]) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = chardata() (see module unicode)
+.br
+Option = {parent, wxWindow()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+findWindowByLabel(Label) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Label = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBfindWindowByLabel(Label, [])\fR\&\&.
+.RE
+.LP
+.B
+findWindowByLabel(Label, Option::[Option]) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Label = chardata() (see module unicode)
+.br
+Option = {parent, wxWindow()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+fit(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+fitInside(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+freeze(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getAcceleratorTable(This) -> wxAcceleratorTable() (see module wxAcceleratorTable)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getBackgroundColour(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getBackgroundStyle(This) -> wx_enum() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Res = ?wxBG_STYLE_SYSTEM | ?wxBG_STYLE_COLOUR | ?wxBG_STYLE_CUSTOM
+.RE
+.LP
+.B
+getBestSize(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCaret(This) -> wxCaret() (see module wxCaret)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCapture() -> wxWindow()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCharHeight(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCharWidth(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getChildren(This) -> [wxWindow()]
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getClientSize(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getContainingSizer(This) -> wxSizer() (see module wxSizer)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCursor(This) -> wxCursor() (see module wxCursor)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDropTarget(This) -> wx_object() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getEventHandler(This) -> wxEvtHandler() (see module wxEvtHandler)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getExtraStyle(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getFont(This) -> wxFont() (see module wxFont)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getForegroundColour(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getGrandParent(This) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHandle(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHelpText(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getId(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLabel(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMaxSize(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMinSize(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getName(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getParent(This) -> wxWindow()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPosition(This) -> {X::integer(), Y::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getRect(This) -> {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getScreenPosition(This) -> {X::integer(), Y::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getScreenRect(This) -> {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getScrollPos(This, Orient) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Orient = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getScrollRange(This, Orient) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Orient = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getScrollThumb(This, Orient) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Orient = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSize(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getSizer(This) -> wxSizer() (see module wxSizer)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTextExtent(This, String) -> Result
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Result = {X::integer(), Y::integer(), Descent::integer(), ExternalLeading::integer()}
+.br
+This = wxWindow()
+.br
+String = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBgetTextExtent(This, String, [])\fR\&\&.
+.RE
+.LP
+.B
+getTextExtent(This, String, Option::[Option]) -> Result
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Result = {X::integer(), Y::integer(), Descent::integer(), ExternalLeading::integer()}
+.br
+This = wxWindow()
+.br
+String = chardata() (see module unicode)
+.br
+Option = {theFont, wxFont() (see module wxFont)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getToolTip(This) -> wxToolTip() (see module wxToolTip)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getUpdateRegion(This) -> wxRegion() (see module wxRegion)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getVirtualSize(This) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getWindowStyleFlag(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getWindowVariant(This) -> wx_enum() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Res = ?wxWINDOW_VARIANT_NORMAL | ?wxWINDOW_VARIANT_SMALL | ?wxWINDOW_VARIANT_MINI | ?wxWINDOW_VARIANT_LARGE | ?wxWINDOW_VARIANT_MAX
+.RE
+.LP
+.B
+hasCapture(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hasScrollbar(This, Orient) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Orient = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hasTransparentBackground(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hide(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+inheritAttributes(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+initDialog(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+invalidateBestSize(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isEnabled(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isExposed(This, Pt) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Pt = {X::integer(), Y::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+isExposed(This, Rect) -> boolean() when
+.br
+This::wxWindow(), Rect::{X::integer(), Y::integer(), W::integer(), H::integer()}\&.
+.br
+
+.RE
+.LP
+.B
+isExposed(This, X, Y) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isExposed(This, X, Y, W, H) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+W = integer()
+.br
+H = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isRetained(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isShown(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isTopLevel(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+layout(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineDown(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lineUp(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+lower(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+makeModal(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBmakeModal(This, [])\fR\&\&.
+.RE
+.LP
+.B
+makeModal(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {modal, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+move(This, Pt) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Pt = {X::integer(), Y::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBmove(This, Pt, [])\fR\&\&.
+.RE
+.LP
+.B
+move(This, X, Y) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+move(This, Pt, [Option]) -> ok when
+.br
+This::wxWindow(), Pt::{X::integer(), Y::integer()},
+.br
+Option :: {flags, integer()}\&.
+.br
+
+.RE
+.LP
+.B
+move(This, X, Y, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Option = {flags, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveAfterInTabOrder(This, Win) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Win = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+moveBeforeInTabOrder(This, Win) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Win = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+navigate(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnavigate(This, [])\fR\&\&.
+.RE
+.LP
+.B
+navigate(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {flags, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageDown(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageUp(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+popEventHandler(This) -> wxEvtHandler() (see module wxEvtHandler)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBpopEventHandler(This, [])\fR\&\&.
+.RE
+.LP
+.B
+popEventHandler(This, Option::[Option]) -> wxEvtHandler() (see module wxEvtHandler)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {deleteHandler, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+popupMenu(This, Menu) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Menu = wxMenu() (see module wxMenu)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBpopupMenu(This, Menu, [])\fR\&\&.
+.RE
+.LP
+.B
+popupMenu(This, Menu, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Menu = wxMenu() (see module wxMenu)
+.br
+Option = {pos, {X::integer(), Y::integer()}}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+popupMenu(This, Menu, X, Y) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Menu = wxMenu() (see module wxMenu)
+.br
+X = integer()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+raise(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+refresh(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBrefresh(This, [])\fR\&\&.
+.RE
+.LP
+.B
+refresh(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {eraseBackground, boolean()} | {rect, {X::integer(), Y::integer(), W::integer(), H::integer()}}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+refreshRect(This, Rect) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Rect = {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBrefreshRect(This, Rect, [])\fR\&\&.
+.RE
+.LP
+.B
+refreshRect(This, Rect, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Rect = {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+Option = {eraseBackground, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+releaseMouse(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+removeChild(This, Child) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Child = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+reparent(This, NewParent) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+NewParent = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+screenToClient(This) -> {X::integer(), Y::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+screenToClient(This, Pt) -> {X::integer(), Y::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Pt = {X::integer(), Y::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+scrollLines(This, Lines) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Lines = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+scrollPages(This, Pages) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Pages = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+scrollWindow(This, Dx, Dy) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Dx = integer()
+.br
+Dy = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBscrollWindow(This, Dx, Dy, [])\fR\&\&.
+.RE
+.LP
+.B
+scrollWindow(This, Dx, Dy, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Dx = integer()
+.br
+Dy = integer()
+.br
+Option = {rect, {X::integer(), Y::integer(), W::integer(), H::integer()}}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setAcceleratorTable(This, Accel) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Accel = wxAcceleratorTable() (see module wxAcceleratorTable)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setAutoLayout(This, AutoLayout) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+AutoLayout = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setBackgroundColour(This, Colour) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Colour = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setBackgroundStyle(This, Style) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Style = wx_enum() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Style = ?wxBG_STYLE_SYSTEM | ?wxBG_STYLE_COLOUR | ?wxBG_STYLE_CUSTOM
+.RE
+.LP
+.B
+setCaret(This, Caret) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Caret = wxCaret() (see module wxCaret)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setClientSize(This, Size) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Size = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setClientSize(This, Rect) -> ok when
+.br
+This::wxWindow(), Rect::{X::integer(), Y::integer(), W::integer(), H::integer()}\&.
+.br
+
+.RE
+.LP
+.B
+setClientSize(This, Width, Height) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setContainingSizer(This, Sizer) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Sizer = wxSizer() (see module wxSizer)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCursor(This, Cursor) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Cursor = wxCursor() (see module wxCursor)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMaxSize(This, MaxSize) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+MaxSize = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setMinSize(This, MinSize) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+MinSize = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setOwnBackgroundColour(This, Colour) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Colour = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setOwnFont(This, Font) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Font = wxFont() (see module wxFont)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setOwnForegroundColour(This, Colour) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Colour = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDropTarget(This, DropTarget) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+DropTarget = wx_object() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setExtraStyle(This, ExStyle) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+ExStyle = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFocus(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFocusFromKbd(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFont(This, Font) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Font = wxFont() (see module wxFont)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setForegroundColour(This, Colour) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Colour = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHelpText(This, Text) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setId(This, Winid) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Winid = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setLabel(This, Label) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Label = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setName(This, Name) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setPalette(This, Pal) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Pal = wxPalette() (see module wxPalette)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setScrollbar(This, Orient, Pos, ThumbVisible, Range) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Orient = integer()
+.br
+Pos = integer()
+.br
+ThumbVisible = integer()
+.br
+Range = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetScrollbar(This, Orient, Pos, ThumbVisible, Range, [])\fR\&\&.
+.RE
+.LP
+.B
+setScrollbar(This, Orient, Pos, ThumbVisible, Range, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Orient = integer()
+.br
+Pos = integer()
+.br
+ThumbVisible = integer()
+.br
+Range = integer()
+.br
+Option = {refresh, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setScrollPos(This, Orient, Pos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Orient = integer()
+.br
+Pos = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetScrollPos(This, Orient, Pos, [])\fR\&\&.
+.RE
+.LP
+.B
+setScrollPos(This, Orient, Pos, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Orient = integer()
+.br
+Pos = integer()
+.br
+Option = {refresh, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSize(This, Rect) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Rect = {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setSize(This, Size) -> ok when
+.br
+This::wxWindow(), Size::{W::integer(), H::integer()}\&.
+.br
+
+.RE
+.LP
+.B
+setSize(This, Width, Height) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setSize(This, Rect, [Option]) -> ok when
+.br
+This::wxWindow(), Rect::{X::integer(), Y::integer(), W::integer(), H::integer()},
+.br
+Option :: {sizeFlags, integer()}\&.
+.br
+
+.RE
+.LP
+.B
+setSize(This, X, Y, Width, Height) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetSize(This, X, Y, Width, Height, [])\fR\&\&.
+.RE
+.LP
+.B
+setSize(This, X, Y, Width, Height, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+Width = integer()
+.br
+Height = integer()
+.br
+Option = {sizeFlags, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSizeHints(This, MinSize) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+MinSize = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetSizeHints(This, MinSize, [])\fR\&\&.
+.RE
+.LP
+.B
+setSizeHints(This, MinW, MinH) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+MinW = integer()
+.br
+MinH = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setSizeHints(This, MinSize, [Option]) -> ok when
+.br
+This::wxWindow(), MinSize::{W::integer(), H::integer()},
+.br
+Option :: {maxSize, {W::integer(), H::integer()}}
+.br
+| {incSize, {W::integer(), H::integer()}}\&.
+.br
+
+.RE
+.LP
+.B
+setSizeHints(This, MinW, MinH, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+MinW = integer()
+.br
+MinH = integer()
+.br
+Option = {maxW, integer()} | {maxH, integer()} | {incW, integer()} | {incH, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSizer(This, Sizer) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Sizer = wxSizer() (see module wxSizer)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetSizer(This, Sizer, [])\fR\&\&.
+.RE
+.LP
+.B
+setSizer(This, Sizer, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Sizer = wxSizer() (see module wxSizer)
+.br
+Option = {deleteOld, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setSizerAndFit(This, Sizer) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Sizer = wxSizer() (see module wxSizer)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetSizerAndFit(This, Sizer, [])\fR\&\&.
+.RE
+.LP
+.B
+setSizerAndFit(This, Sizer, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Sizer = wxSizer() (see module wxSizer)
+.br
+Option = {deleteOld, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setThemeEnabled(This, EnableTheme) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+EnableTheme = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setToolTip(This, Tip) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Tip = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setToolTip(This, Tip) -> ok when
+.br
+This::wxWindow(), Tip::wxToolTip:wxToolTip()\&.
+.br
+
+.RE
+.LP
+.B
+setVirtualSize(This, Size) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Size = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setVirtualSize(This, X, Y) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setVirtualSizeHints(This, MinSize) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+MinSize = {W::integer(), H::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetVirtualSizeHints(This, MinSize, [])\fR\&\&.
+.RE
+.LP
+.B
+setVirtualSizeHints(This, MinW, MinH) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+MinW = integer()
+.br
+MinH = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setVirtualSizeHints(This, MinSize, [Option]) -> ok when
+.br
+This::wxWindow(), MinSize::{W::integer(), H::integer()},
+.br
+Option :: {maxSize, {W::integer(), H::integer()}}\&.
+.br
+
+.RE
+.LP
+.B
+setVirtualSizeHints(This, MinW, MinH, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+MinW = integer()
+.br
+MinH = integer()
+.br
+Option = {maxW, integer()} | {maxH, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWindowStyle(This, Style) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Style = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWindowStyleFlag(This, Style) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Style = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setWindowVariant(This, Variant) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Variant = wx_enum() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Variant = ?wxWINDOW_VARIANT_NORMAL | ?wxWINDOW_VARIANT_SMALL | ?wxWINDOW_VARIANT_MINI | ?wxWINDOW_VARIANT_LARGE | ?wxWINDOW_VARIANT_MAX
+.RE
+.LP
+.B
+shouldInheritColours(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+show(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBshow(This, [])\fR\&\&.
+.RE
+.LP
+.B
+show(This, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {show, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+thaw(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+transferDataFromWindow(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+transferDataToWindow(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+update(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+updateWindowUI(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBupdateWindowUI(This, [])\fR\&\&.
+.RE
+.LP
+.B
+updateWindowUI(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+Option = {flags, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+validate(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+warpPointer(This, X, Y) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxWindow()
+.br
+X = integer()
+.br
+Y = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroy(This::wxWindow()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

@@ -1,0 +1,239 @@
+.TH wxGridSizer 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxGridSizer \- See external documentation: wxGridSizer.
+.SH DESCRIPTION
+.LP
+See external documentation: wxGridSizer\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxSizer\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxGridSizer()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new(Cols) -> wxGridSizer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Cols = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnew(Cols, [])\fR\&\&.
+.RE
+.LP
+.B
+new(Cols, Option::[Option]) -> wxGridSizer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Cols = integer()
+.br
+Option = {vgap, integer()} | {hgap, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Rows, Cols, Vgap, Hgap) -> wxGridSizer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Rows = integer()
+.br
+Cols = integer()
+.br
+Vgap = integer()
+.br
+Hgap = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getCols(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHGap(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getRows(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getVGap(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridSizer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setCols(This, Cols) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridSizer()
+.br
+Cols = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHGap(This, Gap) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridSizer()
+.br
+Gap = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setRows(This, Rows) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridSizer()
+.br
+Rows = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setVGap(This, Gap) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridSizer()
+.br
+Gap = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroy(This::wxGridSizer()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

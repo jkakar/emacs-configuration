@@ -1,0 +1,546 @@
+.TH maps 3 "stdlib 2.0" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+maps \- Maps Processing Functions
+.SH DESCRIPTION
+.LP
+This module contains functions for maps processing\&.
+.SH EXPORTS
+.LP
+.nf
+
+.B
+find(Key, Map) -> {ok, Value} | error
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Key = term()
+.br
+Map = map()
+.br
+Value = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a tuple \fI{ok, Value}\fR\& where \fIValue\fR\& is the value associated with \fIKey\fR\&, or \fIerror\fR\& if no value is associated with \fIKey\fR\& in \fIMap\fR\&\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{"hi" => 42},
+  Key = "hi",
+  maps:find(Key,Map).
+{ok,42} 
+.fi
+.RE
+.LP
+.nf
+
+.B
+fold(Fun, Init, Map) -> Acc
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Fun = fun((K, V, AccIn) -> AccOut)
+.br
+Init = Acc = AccIn = AccOut = term()
+.br
+Map = map()
+.br
+K = V = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Calls \fIF(K, V, AccIn)\fR\& for every \fIK\fR\& to value \fIV\fR\& association in \fIMap\fR\& in arbitrary order\&. The function \fIfun F/3\fR\& must return a new accumulator which is passed to the next successive call\&. \fImaps:fold/3\fR\& returns the final value of the accumulator\&. The initial accumulator value \fIInit\fR\& is returned if the map is empty\&.
+.LP
+Example:
+.LP
+.nf
+
+> Fun = fun(K,V,AccIn) when is_list(K) -> AccIn + V end,
+  Map = #{"k1" => 1, "k2" => 2, "k3" => 3},
+  maps:fold(Fun,0,Map).
+6
+.fi
+.RE
+.LP
+.nf
+
+.B
+from_list(List) -> Map
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+List = [{Key, Value}]
+.br
+Key = Value = term()
+.br
+Map = map()
+.br
+.RE
+.RE
+.RS
+.LP
+The function takes a list of key-value tuples elements and builds a map\&. The associations may be in any order and both keys and values in the association may be of any term\&. If the same key appears more than once, the latter (rightmost) value is used and the previous values are ignored\&.
+.LP
+Example:
+.LP
+.nf
+
+> List = [{"a",ignored},{1337,"value two"},{42,value_three},{"a",1}],
+  maps:from_list(List).
+#{42 => value_three,1337 => "value two","a" => 1}
+.fi
+.RE
+.LP
+.nf
+
+.B
+get(Key, Map) -> Value
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Key = term()
+.br
+Map = map()
+.br
+Value = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns the value \fIValue\fR\& associated with \fIKey\fR\& if \fIMap\fR\& contains \fIKey\fR\&\&. If no value is associated with \fIKey\fR\& then the call will fail with an exception\&.
+.LP
+Example:
+.LP
+.nf
+
+> Key = 1337,
+  Map = #{42 => value_two,1337 => "value one","a" => 1},
+  maps:get(Key,Map).
+"value one"
+.fi
+.RE
+.LP
+.nf
+
+.B
+is_key(Key, Map) -> boolean()
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Key = term()
+.br
+Map = map()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns \fItrue\fR\& if map \fIMap\fR\& contains \fIKey\fR\& and returns \fIfalse\fR\& if it does not contain the \fIKey\fR\&\&. The function will fail with an exception if \fIMap\fR\& is not a Map\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{"42" => value}.
+#{"42"> => value}
+> maps:is_key("42",Map).
+true
+> maps:is_key(value,Map).
+false
+.fi
+.RE
+.LP
+.nf
+
+.B
+keys(Map) -> Keys
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Map = map()
+.br
+Keys = [Key]
+.br
+Key = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a complete list of keys, in arbitrary order, which resides within \fIMap\fR\&\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{42 => value_three,1337 => "value two","a" => 1},
+  maps:keys(Map).
+[42,1337,"a"]
+.fi
+.RE
+.LP
+.nf
+
+.B
+map(Fun, Map1) -> Map2
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Fun = fun((K, V1) -> V2)
+.br
+Map1 = Map2 = map()
+.br
+K = V1 = V2 = term()
+.br
+.RE
+.RE
+.RS
+.LP
+The function produces a new map \fIMap2\fR\& by calling the function \fIfun F(K, V1)\fR\& for every \fIK\fR\& to value \fIV1\fR\& association in \fIMap1\fR\& in arbitrary order\&. The function \fIfun F/2\fR\& must return the value \fIV2\fR\& to be associated with key \fIK\fR\& for the new map \fIMap2\fR\&\&.
+.LP
+Example:
+.LP
+.nf
+
+> Fun = fun(K,V1) when is_list(K) -> V1*2 end,
+  Map = #{"k1" => 1, "k2" => 2, "k3" => 3},
+  maps:map(Fun,Map).
+#{"k1" => 2,"k2" => 4,"k3" => 6}
+.fi
+.RE
+.LP
+.nf
+
+.B
+merge(Map1, Map2) -> Map3
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Map1 = Map2 = Map3 = map()
+.br
+.RE
+.RE
+.RS
+.LP
+Merges two maps into a single map \fIMap3\fR\&\&. If two keys exists in both maps the value in \fIMap1\fR\& will be superseded by the value in \fIMap2\fR\&\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map1 = #{a => "value_one", b => "value_two"},
+  Map2 = #{a => 1, c => 2},
+  maps:merge(Map1,Map2).
+#{a => 1,b => "value_two",c => 2}
+.fi
+.RE
+.LP
+.nf
+
+.B
+new() -> Map
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Map = map()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a new empty map\&.
+.LP
+Example:
+.LP
+.nf
+
+> maps:new().
+#{}
+.fi
+.RE
+.LP
+.nf
+
+.B
+put(Key, Value, Map1) -> Map2
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Key = Value = term()
+.br
+Map1 = Map2 = map()
+.br
+.RE
+.RE
+.RS
+.LP
+Associates \fIKey\fR\& with value \fIValue\fR\& and inserts the association into map \fIMap2\fR\&\&. If key \fIKey\fR\& already exists in map \fIMap1\fR\&, the old associated value is replaced by value \fIValue\fR\&\&. The function returns a new map \fIMap2\fR\& containing the new association and the old associations in \fIMap1\fR\&\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{"a" => 1}.
+#{"a" => 1}
+> maps:put("a", 42, Map).
+#{"a" => 42}
+> maps:put("b", 1337, Map).
+#{"a" => 1,"b" => 1337}
+.fi
+.RE
+.LP
+.nf
+
+.B
+remove(Key, Map1) -> Map2
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Key = term()
+.br
+Map1 = Map2 = map()
+.br
+.RE
+.RE
+.RS
+.LP
+The function removes the \fIKey\fR\&, if it exists, and its associated value from \fIMap1\fR\& and returns a new map \fIMap2\fR\& without key \fIKey\fR\&\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{"a" => 1}.
+#{"a" => 1}
+> maps:remove("a",Map).
+#{}
+> maps:remove("b",Map).
+#{"a" => 1}
+.fi
+.RE
+.LP
+.nf
+
+.B
+size(Map) -> integer() >= 0
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Map = map()
+.br
+.RE
+.RE
+.RS
+.LP
+The function returns the number of key-value associations in the \fIMap\fR\&\&. This operation happens in constant time\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{42 => value_two,1337 => "value one","a" => 1},
+  maps:size(Map).
+3
+.fi
+.RE
+.LP
+.nf
+
+.B
+to_list(Map) -> [{Key, Value}]
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Map = map()
+.br
+Key = Value = term()
+.br
+.RE
+.RE
+.RS
+.LP
+The fuction returns a list of pairs representing the key-value associations of \fIMap\fR\&, where the pairs, \fI[{K1,V1}, \&.\&.\&., {Kn,Vn}]\fR\&, are returned in arbitrary order\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{42 => value_three,1337 => "value two","a" => 1},
+  maps:to_list(Map).
+[{42,value_three},{1337,"value two"},{"a",1}]
+.fi
+.RE
+.LP
+.nf
+
+.B
+update(Key, Value, Map1) -> Map2
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Key = Value = term()
+.br
+Map1 = Map2 = map()
+.br
+.RE
+.RE
+.RS
+.LP
+If \fIKey\fR\& exists in \fIMap1\fR\& the old associated value is replaced by value \fIValue\fR\&\&. The function returns a new map \fIMap2\fR\& containing the new associated value\&. If \fIKey\fR\& does not exist in \fIMap1\fR\& an exception is generated\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{"a" => 1}.
+#{"a" => 1}
+> maps:update("a", 42, Map).
+#{"a" => 42}
+.fi
+.RE
+.LP
+.nf
+
+.B
+values(Map) -> Keys
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Map = map()
+.br
+Keys = [Key]
+.br
+Key = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a complete list of values, in arbitrary order, contained in map \fIM\fR\&\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{42 => value_three,1337 => "value two","a" => 1},
+  maps:values(Map).
+[value_three,"value two",1]
+.fi
+.RE
+.LP
+.nf
+
+.B
+without(Ks, Map1) -> Map2
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Ks = [K]
+.br
+Map1 = Map2 = map()
+.br
+K = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a new map \fIMap2\fR\& without the keys \fIK1\fR\& through \fIKn\fR\& and their associated values from map \fIMap1\fR\&\&. Any key in \fIKs\fR\& that does not exist in \fIMap1\fR\& are ignored\&.
+.LP
+Example:
+.LP
+.nf
+
+> Map = #{42 => value_three,1337 => "value two","a" => 1},
+  Ks = ["a",42,"other key"],
+  maps:without(Ks,Map).
+#{1337 => "value two"}
+.fi
+.RE

@@ -1,0 +1,77 @@
+.TH diameterc 1 "diameter 1.6" "Ericsson AB" "User Commands"
+.SH NAME
+diameterc \- diameterc [<options>] <file>
+.SH DESCRIPTION
+.LP
+The diameterc utility is used to compile a diameter \fBdictionary file\fR\& into Erlang source\&. The resulting source implements the interface diameter required to encode and decode the dictionary\&'s messages and AVPs\&.
+.LP
+The module \fBdiameter_make(3)\fR\& provides an alternate compilation interface\&.
+.SH "USAGE"
+
+.RS 2
+.TP 2
+.B
+diameterc [<options>] <file>:
+Compile a single dictionary file to Erlang source\&. Valid options are as follows\&.
+.RS 2
+.TP 2
+.B
+-i <dir>:
+Prepend the specified directory to the code path\&. Use to point at beam files compiled from inherited dictionaries, \fI\fB@inherits\fR\&\fR\& in a dictionary file creating a beam dependency, not an erl/hrl dependency\&.
+.RS 2
+.LP
+Multiple \fI-i\fR\& options can be specified\&.
+.RE
+.TP 2
+.B
+-o <dir>:
+Write generated source to the specified directory\&. Defaults to the current working directory\&.
+.TP 2
+.B
+-E:
+
+.TP 2
+.B
+-H:
+Suppress erl and hrl generation, respectively\&.
+.TP 2
+.B
+--name <name>:
+
+.TP 2
+.B
+--prefix <prefix>:
+Transform the input dictionary before compilation, setting \fI\fB@name\fR\&\fR\& or \fI\fB@prefix\fR\&\fR\& to the specified string\&.
+.TP 2
+.B
+--inherits <arg>:
+Transform the input dictionary before compilation, appending \fI\fB@inherits\fR\&\fR\& of the specified string\&.
+.RS 2
+.LP
+Two forms of \fI--inherits\fR\& have special meaning:
+.RE
+.LP
+.nf
+
+--inherits -
+--inherits Prev/Mod
+
+.fi
+.RS 2
+.LP
+The first has the effect of clearing any previous inherits, the second of replacing a previous inherits of \fIPrev\fR\& to one of \fIMod\fR\&\&. This allows the semantics of the input dictionary to be changed without modifying the file itself\&.
+.RE
+.RS 2
+.LP
+Multiple \fI--inherits\fR\& options can be specified\&.
+.RE
+.RE
+.RE
+.SH "EXIT STATUS"
+
+.LP
+Returns 0 on success, non-zero on failure\&.
+.SH "SEE ALSO"
+
+.LP
+\fBdiameter_make(3)\fR\&, \fBdiameter_dict(4)\fR\&

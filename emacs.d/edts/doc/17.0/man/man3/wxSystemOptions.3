@@ -1,0 +1,119 @@
+.TH wxSystemOptions 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxSystemOptions \- See external documentation: wxSystemOptions.
+.SH DESCRIPTION
+.LP
+See external documentation: wxSystemOptions\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxSystemOptions()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+getOption(Name) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getOptionInt(Name) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hasOption(Name) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+isFalse(Name) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setOption(Name, Value) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = chardata() (see module unicode)
+.br
+Value = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+setOption(Name, Value) -> ok when
+.br
+Name::unicode:chardata(), Value::unicode:chardata()\&.
+.br
+
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

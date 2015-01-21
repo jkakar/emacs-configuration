@@ -1,0 +1,360 @@
+.TH ose 3 "ose 1.0" "" "Erlang Module Definition"
+.SH NAME
+ose \- Interface module for OSE messaging and process monitoring from Erlang.
+.SH DESCRIPTION
+.LP
+Interface module for OSE messaging and process monitoring from Erlang
+.LP
+For each mailbox created through \fBopen/1\fR\& a OSE phantom process with that name is started\&. Since phantom processes are used the memory footprint of each mailbox is quite small\&.
+.LP
+To receive messages you first have to subscribe to the specific message numbers that you are interested in with \fBlisten/2\fR\&\&. The messages will be sent to the Erlang process that created the mailbox\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIattach_ref()\fR\&:
+
+.RS 2
+.LP
+Reference from an attach request\&. This term will be included in the term returned when the attached mailbox disappears\&.
+.RE
+.TP 2
+.B
+\fIhunt_ref()\fR\&:
+
+.RS 2
+.LP
+Reference from a hunt request\&. This term will be included in a successful hunt response\&.
+.RE
+.TP 2
+.B
+\fImailbox()\fR\&:
+
+.RS 2
+.LP
+Mailbox handle\&. Implemented as an erlang port\&.
+.RE
+.TP 2
+.B
+\fImailbox_id()\fR\&:
+
+.RS 2
+.LP
+Mailbox ID, this is the same as the process id of an OSE process\&. An integer\&.
+.RE
+.TP 2
+.B
+\fImessage_number() = 0\&.\&.4294967295\fR\&:
+
+.RS 2
+.LP
+OSE Signal number
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+attach(Port, Pid) -> Ref
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+Pid = mailbox_id()
+.br
+Ref = attach_ref()
+.br
+.RE
+.RE
+.RS
+.LP
+Attach to an OSE process\&.
+.LP
+Will send \fI{mailbox_down, Port, Ref, MboxId}\fR\& to the calling process if the OSE process exits\&.
+.LP
+Returns a reference that can be used to cancel the attachment using \fBdetach/2\fR\&\&.
+.LP
+raises: \fIbadarg\fR\& | \fIenomem\fR\& 
+.RE
+.LP
+.B
+close(Port) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+.RE
+.RE
+.RS
+.LP
+Close a mailbox
+.LP
+This kills the OSE phantom process associated with this mailbox\&.
+.LP
+Will also consume any \fI{\&'EXIT\&',Port,_}\fR\& message from the port that comes due to the port closing when the calling process traps exits\&.
+.LP
+raises: \fIbadarg\fR\&
+.RE
+.LP
+.B
+dehunt(Port, Ref) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+Ref = hunt_ref()
+.br
+.RE
+.RE
+.RS
+.LP
+Stop hunting for OSE process\&.
+.LP
+If a message for this hunt has been sent but not received by the calling process, it is removed from the message queue\&. Note that this only works if the same process that did the hunt does the dehunt\&.
+.LP
+raises: \fIbadarg\fR\& 
+.LP
+\fISee also:\fR\& \fBhunt/2\fR\&\&.
+.RE
+.LP
+.B
+detach(Port, Ref) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+Ref = attach_ref()
+.br
+.RE
+.RE
+.RS
+.LP
+Remove attachment to an OSE process\&.
+.LP
+If a message for this monitor has been sent but not received by the calling process, it is removed from the message queue\&. Note that this only works of the same process that did the attach does the detach\&.
+.LP
+raises: \fIbadarg\fR\& 
+.LP
+\fISee also:\fR\& \fBattach/2\fR\&\&.
+.RE
+.LP
+.B
+get_id(Port) -> Pid
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+Pid = mailbox_id()
+.br
+.RE
+.RE
+.RS
+.LP
+Get the mailbox id for the given port\&.
+.LP
+The mailbox id is the same as the OSE process id of the OSE phantom process that this mailbox represents\&.
+.LP
+raises: \fIbadarg\fR\&
+.RE
+.LP
+.B
+get_name(Port, Pid) -> Name | undefined
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+Pid = mailbox_id()
+.br
+Name = binary()
+.br
+.RE
+.RE
+.RS
+.LP
+Get the mailbox name for the given mailbox id\&.
+.LP
+The mailbox name is the name of the OSE process with process id Pid\&.
+.LP
+This call will fail with badarg if the underlying system does not support getting the name from a process id\&.
+.LP
+raises: \fIbadarg\fR\&
+.RE
+.LP
+.B
+hunt(Port, HuntPath) -> Ref
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+HuntPath = iodata()
+.br
+Ref = hunt_ref()
+.br
+.RE
+.RE
+.RS
+.LP
+Hunt for OSE process by name\&.
+.LP
+Will send \fI{mailbox_up, Port, Ref, MboxId}\fR\& to the calling process when the OSE process becomes available\&.
+.LP
+Returns a reference term that can be used to cancel the hunt using \fBdehunt/2\fR\&\&.
+.LP
+raises: \fIbadarg\fR\& 
+.RE
+.LP
+.B
+listen(Port, SigNos) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+SigNos = [message_number()]
+.br
+.RE
+.RE
+.RS
+.LP
+Start listening for specified OSE signal numbers\&.
+.LP
+The mailbox will send \fI{message,Port,{FromMboxId,ToMboxId,MsgNo,MsgData}}\fR\& to the process that created the mailbox when an OSE message with any of the specified \fISigNos\fR\& arrives\&.
+.LP
+Repeated calls to listen will replace the current set of signal numbers to listen to\&. i\&.e
+.LP
+.nf
+     1>ose:listen(MsgB,[1234,12345]).
+   ok
+   2> ose:listen(MsgB,[1234,123456]).
+   ok.
+.fi
+.LP
+The above will first listen for signals with numbers 1234 and 12345, and then replace that with only listening to 1234 and 123456\&.
+.LP
+With the current implementation it is not possible to listen to all signal numbers\&.
+.LP
+raises: \fIbadarg\fR\& | \fIenomem\fR\& 
+.RE
+.LP
+.B
+open(Name) -> Port
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = iodata()
+.br
+Port = mailbox()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a mailbox with the given name and return a port that handles the mailbox\&.
+.LP
+An OSE phantom process with the given name will be created that will send any messages sent through this mailbox\&. Any messages sent to the new OSE process will automatically be converted to an Erlang message and sent to the Erlang process that calls this function\&. See \fBlisten/2\fR\& for details about the format of the message sent\&.
+.LP
+The caller gets linked to the created mailbox\&.
+.LP
+raises: \fIbadarg\fR\& | \fIsystem_limit\fR\& 
+.LP
+\fISee also:\fR\& \fBlisten/2\fR\&\&.
+.RE
+.LP
+.B
+send(Port, Pid, SigNo, SigData) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+Pid = mailbox_id()
+.br
+SigNo = message_number()
+.br
+SigData = iodata()
+.br
+.RE
+.RE
+.RS
+.LP
+Send an OSE message\&.
+.LP
+The message is sent from the OSE process\&' own ID that is: \fIget_id(Port)\fR\&\&.
+.LP
+raises: \fIbadarg\fR\& 
+.LP
+\fISee also:\fR\& \fBsend/5\fR\&\&.
+.RE
+.LP
+.B
+send(Port, Pid, SenderPid, SigNo, SigData) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = mailbox()
+.br
+Pid = mailbox_id()
+.br
+SenderPid = mailbox_id()
+.br
+SigNo = message_number()
+.br
+SigData = iodata()
+.br
+.RE
+.RE
+.RS
+.LP
+Send an OSE message with different sender\&.
+.LP
+As \fBsend/4\fR\& but the sender will be \fISenderPid\fR\&\&.
+.LP
+raises: \fIbadarg\fR\& 
+.LP
+\fISee also:\fR\& \fBsend/4\fR\&\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

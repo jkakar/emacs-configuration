@@ -1,0 +1,82 @@
+.TH wxGridCellRenderer 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxGridCellRenderer \- See external documentation: wxGridCellRenderer.
+.SH DESCRIPTION
+.LP
+See external documentation: wxGridCellRenderer\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxGridCellRenderer()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+draw(This, Grid, Attr, Dc, Rect, Row, Col, IsSelected) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellRenderer()
+.br
+Grid = wxGrid() (see module wxGrid)
+.br
+Attr = wxGridCellAttr() (see module wxGridCellAttr)
+.br
+Dc = wxDC() (see module wxDC)
+.br
+Rect = {X::integer(), Y::integer(), W::integer(), H::integer()}
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+IsSelected = boolean()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getBestSize(This, Grid, Attr, Dc, Row, Col) -> {W::integer(), H::integer()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGridCellRenderer()
+.br
+Grid = wxGrid() (see module wxGrid)
+.br
+Attr = wxGridCellAttr() (see module wxGridCellAttr)
+.br
+Dc = wxDC() (see module wxDC)
+.br
+Row = integer()
+.br
+Col = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

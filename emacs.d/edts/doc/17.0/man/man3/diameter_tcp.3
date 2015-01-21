@@ -1,0 +1,64 @@
+.TH diameter_tcp 3 "diameter 1.6" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+diameter_tcp \- Diameter transport over TCP.
+.SH DESCRIPTION
+.LP
+This module implements diameter transport over TCP using \fBgen_tcp(3)\fR\&\&. It can be specified as the value of a \fItransport_module\fR\& option to \fBdiameter:add_transport/2\fR\& and implements the behaviour documented in \fBdiameter_transport(3)\fR\&\&. TLS security is supported, either as an upgrade following capabilities exchange or at connection establishment\&.
+.LP
+Note that the ssl application is required for TLS and must be started before configuring TLS capability on diameter transports\&.
+.SH EXPORTS
+.LP
+.B
+start({Type, Ref}, Svc, [Opt]) -> {ok, Pid} | {ok, Pid, [LAddr]} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = connect | accept
+.br
+Ref = \fBdiameter:transport_ref()\fR\&
+.br
+Svc = #diameter_service{}
+.br
+Opt = OwnOpt | SslOpt | TcpOpt
+.br
+Pid = pid()
+.br
+LAddr = \fBinet:ip_address()\fR\&
+.br
+Reason = term()
+.br
+OwnOpt = {raddr, \fBinet:ip_address()\fR\&} | {rport, integer()} | {accept, Match} | {port, integer()} | {fragment_timer, infinity | 0\&.\&.16#FFFFFFFF}
+.br
+SslOpt = {ssl_options, true | list()}
+.br
+TcpOpt = term()
+.br
+Match = \fBinet:ip_address()\fR\& | string() | [Match]
+.br
+.RE
+.RE
+.RS
+.LP
+The start function required by \fBdiameter_transport(3)\fR\&\&.
+.LP
+Options \fIraddr\fR\& and \fIrport\fR\& specify the remote address and port for a connecting transport and are not valid for a listening transport\&.
+.LP
+Option \fIaccept\fR\& specifies remote addresses for a listening transport and is not valid for a connecting transport\&. If specified, a remote address that does not match one of the specified addresses causes the connection to be aborted\&. Multiple \fIaccept\fR\& options can be specified\&. A string-valued \fIMatch\fR\& that does not parse as an address is interpreted as a regular expression\&.
+.LP
+Option \fIssl_options\fR\& must be specified for a transport that should support TLS: a value of \fItrue\fR\& results in a TLS handshake immediately upon connection establishment while \fIlist()\fR\& specifies options to be passed to \fBssl:connect/2\fR\& or \fBssl:ssl_accept/2\fR\& after capabilities exchange if TLS is negotiated\&.
+.LP
+Option \fIfragment_timer\fR\& specifies the timeout, in milliseconds, of a timer used to flush messages from the incoming byte stream even if the number of bytes indicated in the Message Length field of its Diameter Header have not yet been accumulated: such a message is received over the transport interface after two successive timeouts without the reception of additional bytes\&. Defaults to 1000\&.
+.LP
+Remaining options are any accepted by \fBssl:connect/3\fR\& or \fBgen_tcp:connect/3\fR\& for a connecting transport, or \fBssl:listen/2\fR\& or \fBgen_tcp:listen/2\fR\& for a listening transport, depending on whether or not \fI{ssl_options, true}\fR\& has been specified\&. Options \fIbinary\fR\&, \fIpacket\fR\& and \fIactive\fR\& cannot be specified\&. Also, option \fIport\fR\& can be specified for a listening transport to specify the local listening port, the default being the standardized 3868 if unspecified\&. Note that the option \fIip\fR\& specifies the local address\&.
+.LP
+An \fIssl_options\fR\& list must be specified if and only if the transport in question has set \fIInband-Security-Id\fR\& to 1 (\fITLS\fR\&), as specified to either \fBdiameter:start_service/2\fR\& or \fBdiameter:add_transport/2\fR\&, so that the transport process will receive notification of whether or not to commence with a TLS handshake following capabilities exchange\&. Failing to specify an options list on a TLS-capable transport for which TLS is negotiated will cause TLS handshake to fail\&. Failing to specify TLS capability when \fIssl_options\fR\& has been specified will cause the transport process to wait for a notification that will not be forthcoming, which will eventually cause the RFC 3539 watchdog to take down the connection\&.
+.LP
+If an \fIip\fR\& option is not specified then the first element of a non-empty \fIHost-IP-Address\fR\& list in \fISvc\fR\& provides the local IP address\&. If neither is specified then the default address selected by \fBgen_tcp(3)\fR\& is used\&. In all cases, the selected address is either returned from \fBstart/3\fR\& or passed in a \fIconnected\fR\& message over the transport interface\&.
+.RE
+.SH "SEE ALSO"
+
+.LP
+\fBdiameter(3)\fR\&, \fBdiameter_transport(3)\fR\&, \fBgen_tcp(3)\fR\&, \fBinet(3)\fR\&, \fBssl(3)\fR\&

@@ -1,0 +1,588 @@
+.TH eldap 3 "eldap 1.0.3" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+eldap \- Eldap Functions
+.SH DESCRIPTION
+.LP
+This module provides a client api to the Lightweight Directory Access Protocol (LDAP)\&.
+.LP
+References:
+.RS 2
+.TP 2
+*
+RFC 4510 - RFC 4519
+.LP
+.TP 2
+*
+RFC 2830
+.LP
+.RE
+
+.LP
+The above publications can be found at IETF\&.
+.LP
+\fITypes\fR\&
+.LP
+.nf
+
+handle()    Connection handle
+attribute() {Type = string(), Values=[string()]}
+modify_op() See mod_add/2, mod_delete/2, mod_replace/2
+scope()     See baseObject/0, singleLevel/0, wholeSubtree/0
+dereference() See neverDerefAliases/0, derefInSearching/0, derefFindingBaseObj/0, derefAlways/0
+filter()    See present/1, substrings/2,
+                equalityMatch/2, greaterOrEqual/2, lessOrEqual/2,
+                approxMatch/2,
+                'and'/1, 'or'/1, 'not'/1.
+    
+.fi
+.LP
+
+.SH EXPORTS
+.LP
+.B
+open([Host]) -> {ok, Handle} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Handle = handle()
+.br
+.RE
+.RE
+.RS
+.LP
+Setup a connection to an LDAP server, the \fIHOST\fR\&\&'s are tried in order\&.
+.RE
+.LP
+.B
+open([Host], [Option]) -> {ok, Handle} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Handle = handle()
+.br
+Option = {port, integer()} | {log, function()} | {timeout, integer()} | {ssl, boolean()} | {sslopts, list()} | {tcpopts, list()}
+.br
+.RE
+.RE
+.RS
+.LP
+Setup a connection to an LDAP server, the \fIHOST\fR\&\&'s are tried in order\&.
+.LP
+The log function takes three arguments, \fIfun(Level, FormatString, [FormatArg]) end\fR\&\&.
+.LP
+Timeout set the maximum time in milliseconds that each server request may take\&.
+.LP
+Currently, the only TCP socket option accepted is \fIinet6\fR\&\&. Default is \fIinet\fR\&\&.
+.RE
+.LP
+.B
+close(Handle) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Handle = handle()
+.br
+.RE
+.RE
+.RS
+.LP
+Shutdown the connection\&.
+.RE
+.LP
+.B
+start_tls(Handle, Options) -> ok | {error,Error}
+.br
+.RS
+.LP
+Same as start_tls(Handle, Options, infinity)
+.RE
+.LP
+.B
+start_tls(Handle, Options, Timeout) -> ok | {error,Error}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Handle = handle()
+.br
+Options = ssl:ssl_options()
+.br
+Timeout = inifinity | positive_integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Upgrade the connection associated with \fIHandle\fR\& to a tls connection if possible\&.
+.LP
+The upgrade is done in two phases: first the server is asked for permission to upgrade\&. Second, if the request is acknowledged, the upgrade is performed\&.
+.LP
+Error responese from phase one will not affect the current encryption state of the connection\&. Those responses are:
+.RS 2
+.TP 2
+.B
+\fItls_already_started\fR\&:
+The connection is already encrypted\&. The connection is not affected\&.
+.TP 2
+.B
+\fI{response,ResponseFromServer}\fR\&:
+The upgrade was refused by the LDAP server\&. The \fIResponseFromServer\fR\& is an atom delivered byt the LDAP server explained in section 2\&.3 of rfc 2830\&. The connection is not affected, so it is still un-encrypted\&.
+.RE
+.LP
+Errors in the seconde phase will however end the connection:
+.RS 2
+.TP 2
+.B
+\fIError\fR\&:
+Any error responded from ssl:connect/3
+.RE
+.RE
+.LP
+.B
+simple_bind(Handle, Dn, Password) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Handle = handle()
+.br
+Dn = string()
+.br
+Password = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Authenticate the connection using simple authentication\&.
+.RE
+.LP
+.B
+add(Handle, Dn, [Attribute]) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Handle = handle()
+.br
+Dn = string()
+.br
+Attribute = attribute()
+.br
+.RE
+.RE
+.RS
+.LP
+Add an entry\&. The entry must not exist\&.
+.LP
+.nf
+
+  add(Handle,
+      "cn=Bill Valentine, ou=people, o=Example Org, dc=example, dc=com",
+       [{"objectclass", ["person"]},
+        {"cn", ["Bill Valentine"]},
+        {"sn", ["Valentine"]},
+        {"telephoneNumber", ["545 555 00"]}]
+     )
+	
+.fi
+.RE
+.LP
+.B
+delete(Handle, Dn) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Dn = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Delete an entry\&.
+.LP
+.nf
+
+  delete(Handle, "cn=Bill Valentine, ou=people, o=Example Org, dc=example, dc=com")
+	
+.fi
+.RE
+.LP
+.B
+mod_add(Type, [Value]) -> modify_op()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+Value = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Create an add modification operation\&.
+.RE
+.LP
+.B
+mod_delete(Type, [Value]) -> modify_op()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+Value = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a delete modification operation\&.
+.RE
+.LP
+.B
+mod_replace(Type, [Value]) -> modify_op()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+Value = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a replace modification operation\&.
+.RE
+.LP
+.B
+modify(Handle, Dn, [ModifyOp]) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Dn = string()
+.br
+ModifyOp = modify_op()
+.br
+.RE
+.RE
+.RS
+.LP
+Modify an entry\&.
+.LP
+.nf
+
+  modify(Handle, "cn=Bill Valentine, ou=people, o=Example Org, dc=example, dc=com",
+         [eldap:mod_replace("telephoneNumber", ["555 555 00"]),
+	  eldap:mod_add("description", ["LDAP Hacker"]) ])
+	
+.fi
+.RE
+.LP
+.B
+modify_dn(Handle, Dn, NewRDN, DeleteOldRDN, NewSupDN) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Dn = string()
+.br
+NewRDN = string()
+.br
+DeleteOldRDN = boolean()
+.br
+NewSupDN = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Modify the DN of an entry\&. \fIDeleteOldRDN\fR\& indicates whether the current RDN should be removed after operation\&. \fINewSupDN\fR\& should be "" if the RDN should not be moved or the new parent which the RDN will be moved to\&.
+.LP
+.nf
+
+  modify_dn(Handle, "cn=Bill Valentine, ou=people, o=Example Org, dc=example, dc=com ",
+            "cn=Bill Jr Valentine", true, "")
+	
+.fi
+.RE
+.LP
+.B
+search(Handle, SearchOptions) -> {ok, #eldap_search_result{}} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+SearchOptions = #eldap_search{} | [SearchOption]
+.br
+SearchOption = {base, string()} | {filter, filter()} | {scope, scope()} | {attributes, [string()]} | {deref, dereference()} | | {types_only, boolean()} | {timeout, integer()} 
+.br
+.RE
+.RE
+.RS
+.LP
+Search the directory with the supplied the SearchOptions\&. The base and filter options must be supplied\&. Default values: scope is \fIwholeSubtree()\fR\&, deref is \fIderefAlways()\fR\&, types_only is \fIfalse\fR\& and timeout is \fI0\fR\& (meaning infinity)\&.
+.LP
+.nf
+
+  Filter = eldap:substrings("cn", [{any,"V"}]),
+  search(Handle, [{base, "dc=example, dc=com"}, {filter, Filter}, {attributes, ["cn"]}]),
+	
+.fi
+.RE
+.LP
+.B
+baseObject() -> scope()
+.br
+.RS
+.LP
+Search baseobject only\&.
+.RE
+.LP
+.B
+singleLevel() -> scope()
+.br
+.RS
+.LP
+Search the specified level only, i\&.e\&. do not recurse\&.
+.RE
+.LP
+.B
+wholeSubtree() -> scope()
+.br
+.RS
+.LP
+Search the entire subtree\&.
+.RE
+.LP
+.B
+neverDerefAliases() -> dereference()
+.br
+.RS
+.LP
+Never derefrence aliases, treat aliases as entries\&.
+.RE
+.LP
+.B
+derefAlways() -> dereference()
+.br
+.RS
+.LP
+Always derefrence aliases\&.
+.RE
+.LP
+.B
+derefInSearching() -> dereference()
+.br
+.RS
+.LP
+Derefrence aliases only when searching\&.
+.RE
+.LP
+.B
+derefFindingBaseObj() -> dereference()
+.br
+.RS
+.LP
+Derefrence aliases only in finding the base\&.
+.RE
+.LP
+.B
+present(Type) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a filter which filters on attribute type presence\&.
+.RE
+.LP
+.B
+substrings(Type, [SubString]) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+SubString = {StringPart, string()}
+.br
+StringPart = initial | any | final
+.br
+.RE
+.RE
+.RS
+.LP
+Create a filter which filters on substrings\&.
+.RE
+.LP
+.B
+equalityMatch(Type, Value) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+Value = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a equality filter\&.
+.RE
+.LP
+.B
+greaterOrEqual(Type, Value) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+Value = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a greater or equal filter\&.
+.RE
+.LP
+.B
+lessOrEqual(Type, Value) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+Value = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a less or equal filter\&.
+.RE
+.LP
+.B
+approxMatch(Type, Value) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = string()
+.br
+Value = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a approximation match filter\&.
+.RE
+.LP
+.B
+\&'and\&'([Filter]) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Filter = filter()
+.br
+.RE
+.RE
+.RS
+.LP
+Creates a filter where all \fIFilter\fR\& must be true\&.
+.RE
+.LP
+.B
+\&'or\&'([Filter]) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Filter = filter()
+.br
+.RE
+.RE
+.RS
+.LP
+Create a filter where at least one of the \fIFilter\fR\& must be true\&.
+.RE
+.LP
+.B
+\&'not\&'(Filter) -> filter()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Filter = filter()
+.br
+.RE
+.RE
+.RS
+.LP
+Negate a filter\&.
+.RE

@@ -1,0 +1,431 @@
+.TH wxStyledTextEvent 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxStyledTextEvent \- See external documentation: wxStyledTextEvent.
+.SH DESCRIPTION
+.LP
+See external documentation: wxStyledTextEvent\&.
+.RS 2
+.TP 2
+.B
+Use \fBwxEvtHandler:connect/3\fR\& with EventType::
+\fIstc_change\fR\&, \fIstc_styleneeded\fR\&, \fIstc_charadded\fR\&, \fIstc_savepointreached\fR\&, \fIstc_savepointleft\fR\&, \fIstc_romodifyattempt\fR\&, \fIstc_key\fR\&, \fIstc_doubleclick\fR\&, \fIstc_updateui\fR\&, \fIstc_modified\fR\&, \fIstc_macrorecord\fR\&, \fIstc_marginclick\fR\&, \fIstc_needshown\fR\&, \fIstc_painted\fR\&, \fIstc_userlistselection\fR\&, \fIstc_uridropped\fR\&, \fIstc_dwellstart\fR\&, \fIstc_dwellend\fR\&, \fIstc_start_drag\fR\&, \fIstc_drag_over\fR\&, \fIstc_do_drop\fR\&, \fIstc_zoom\fR\&, \fIstc_hotspot_click\fR\&, \fIstc_hotspot_dclick\fR\&, \fIstc_calltip_click\fR\&, \fIstc_autocomp_selection\fR\&
+.RE
+.LP
+See also the message variant \fB#wxStyledText{\fR\&} event record type\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxCommandEvent\fR\& 
+.br
+\fBwxEvent\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxStyledTextEvent()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+getPosition(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getKey(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getModifiers(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getModificationType(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getText(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLength(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLinesAdded(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLine(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getFoldLevelNow(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getFoldLevelPrev(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMargin(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getMessage(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getWParam(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getLParam(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getListType(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getX(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getY(This) -> integer()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDragText(This) -> charlist() (see module unicode)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDragAllowMove(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDragResult(This) -> wx_enum() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Res = ?wxDragError | ?wxDragNone | ?wxDragCopy | ?wxDragMove | ?wxDragLink | ?wxDragCancel
+.RE
+.LP
+.B
+getShift(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getControl(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getAlt(This) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxStyledTextEvent()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

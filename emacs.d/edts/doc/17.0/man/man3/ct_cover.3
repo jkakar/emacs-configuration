@@ -1,0 +1,77 @@
+.TH ct_cover 3 "common_test 1.8" "" "Erlang Module Definition"
+.SH NAME
+ct_cover \- Common Test Framework code coverage support module.
+.SH DESCRIPTION
+.LP
+Common Test Framework code coverage support module\&.
+.LP
+This module exports help functions for performing code coverage analysis\&.
+.SH EXPORTS
+.LP
+.B
+add_nodes(Nodes) -> {ok, StartedNodes} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Nodes = [atom()]
+.br
+StartedNodes = [atom()]
+.br
+Reason = cover_not_running | not_main_node
+.br
+.RE
+.RE
+.RS
+.LP
+Add nodes to current cover test (only works if cover support is active!)\&. To have effect, this function should be called from init_per_suite/1 before any actual tests are performed\&.
+.RE
+.LP
+.B
+cross_cover_analyse(Level, Tests) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Level = overview | details
+.br
+Tests = [{Tag, Dir}]
+.br
+Tag = atom()
+.br
+Dir = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Accumulate cover results over multiple tests\&. See the chapter about \fBcross cover analysis\fR\& in the users\&'s guide\&.
+.RE
+.LP
+.B
+remove_nodes(Nodes) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Nodes = [atom()]
+.br
+Reason = cover_not_running | not_main_node
+.br
+.RE
+.RE
+.RS
+.LP
+Remove nodes from current cover test\&. Call this function to stop cover test on nodes previously added with add_nodes/1\&. Results on the remote node are transferred to the Common Test node\&.
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

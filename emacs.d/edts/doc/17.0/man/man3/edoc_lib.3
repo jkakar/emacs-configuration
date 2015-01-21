@@ -1,0 +1,63 @@
+.TH edoc_lib 3 "edoc 0.7.13" "" "Erlang Module Definition"
+.SH NAME
+edoc_lib \- Utility functions for EDoc.
+.SH DESCRIPTION
+.LP
+Utility functions for EDoc\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIedoc_env()\fR\&:
+
+.RS 2
+.LP
+Environment information needed by EDoc for generating references\&. The data representation is not documented\&.
+.RE
+.TP 2
+.B
+\fIproplist() = property() (see module proplists)\fR\&:
+
+.RE
+.SH EXPORTS
+.LP
+.B
+get_doc_env(App, Packages, Modules, Options::proplist()) -> edoc_env()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+App = [] | atom()
+.br
+Packages = [atom()]
+.br
+Modules = [atom()]
+.br
+[term()]
+.br
+.RE
+.RE
+.RS
+.LP
+Creates an environment data structure used by parts of EDoc for generating references, etc\&. See \fBedoc:run/3\fR\& for a description of the options \fIfile_suffix\fR\&, \fIapp_default\fR\& and \fIdoc_path\fR\&\&.
+.LP
+\fISee also:\fR\& \fBedoc:get_doc/3\fR\&, \fBedoc_extract:source/4\fR\&\&.
+.RE
+.LP
+.B
+write_file(Text, Dir, Name, Package, Options) -> term() 
+.br
+.RS
+.RE
+.SH "SEE ALSO"
+
+.LP
+\fBedoc\fR\&
+.SH AUTHORS
+.LP
+Richard Carlsson
+.I
+<carlsson\&.richard@gmail\&.com>

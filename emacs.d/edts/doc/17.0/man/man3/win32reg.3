@@ -1,0 +1,405 @@
+.TH win32reg 3 "stdlib 2.0" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+win32reg \- win32reg provides access to the registry on Windows
+.SH DESCRIPTION
+.LP
+\fIwin32reg\fR\& provides read and write access to the registry on Windows\&. It is essentially a port driver wrapped around the Win32 API calls for accessing the registry\&.
+.LP
+The registry is a hierarchical database, used to store various system and software information in Windows\&. It is available in Windows 95 and Windows NT\&. It contains installation data, and is updated by installers and system programs\&. The Erlang installer updates the registry by adding data that Erlang needs\&.
+.LP
+The registry contains keys and values\&. Keys are like the directories in a file system, they form a hierarchy\&. Values are like files, they have a name and a value, and also a type\&.
+.LP
+Paths to keys are left to right, with sub-keys to the right and backslash between keys\&. (Remember that backslashes must be doubled in Erlang strings\&.) Case is preserved but not significant\&. Example: \fI"\\\\hkey_local_machine\\\\software\\\\Ericsson\\\\Erlang\\\\5\&.0"\fR\& is the key for the installation data for the latest Erlang release\&.
+.LP
+There are six entry points in the Windows registry, top level keys\&. They can be abbreviated in the \fIwin32reg\fR\& module as:
+.LP
+.nf
+
+Abbrev.          Registry key
+=======          ============      
+hkcr             HKEY_CLASSES_ROOT
+current_user     HKEY_CURRENT_USER
+hkcu             HKEY_CURRENT_USER
+local_machine    HKEY_LOCAL_MACHINE
+hklm             HKEY_LOCAL_MACHINE
+users            HKEY_USERS
+hku              HKEY_USERS
+current_config   HKEY_CURRENT_CONFIG
+hkcc             HKEY_CURRENT_CONFIG
+dyn_data         HKEY_DYN_DATA
+hkdd             HKEY_DYN_DATA
+.fi
+.LP
+The key above could be written as \fI"\\\\hklm\\\\software\\\\ericsson\\\\erlang\\\\5\&.0"\fR\&\&.
+.LP
+The \fIwin32reg\fR\& module uses a current key\&. It works much like the current directory\&. From the current key, values can be fetched, sub-keys can be listed, and so on\&.
+.LP
+Under a key, any number of named values can be stored\&. They have name, and types, and data\&.
+.LP
+Currently, the \fIwin32reg\fR\& module supports storing only the following types: REG_DWORD, which is an integer, REG_SZ which is a string and REG_BINARY which is a binary\&. Other types can be read, and will be returned as binaries\&.
+.LP
+There is also a "default" value, which has the empty string as name\&. It is read and written with the atom \fIdefault\fR\& instead of the name\&.
+.LP
+Some registry values are stored as strings with references to environment variables, e\&.g\&. \fI"%SystemRoot%Windows"\fR\&\&. \fISystemRoot\fR\& is an environment variable, and should be replaced with its value\&. A function \fIexpand/1\fR\& is provided, so that environment variables surrounded in % can be expanded to their values\&.
+.LP
+For additional information on the Windows registry consult the Win32 Programmer\&'s Reference\&.
+.SH DATA TYPES
+.nf
+
+\fBreg_handle()\fR\&
+.br
+.fi
+.RS
+.LP
+As returned by \fBopen/1\fR\&\&.
+.RE
+.nf
+
+\fBname()\fR\& = string() | default
+.br
+.fi
+.nf
+
+\fBvalue()\fR\& = string() | integer() | binary()
+.br
+.fi
+.SH EXPORTS
+.LP
+.nf
+
+.B
+change_key(RegHandle, Key) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+Key = string()
+.br
+ReturnValue = ok | {error, ErrorId :: atom()}
+.br
+.RE
+.RE
+.RS
+.LP
+Changes the current key to another key\&. Works like cd\&. The key can be specified as a relative path or as an absolute path, starting with \\\&.
+.RE
+.LP
+.nf
+
+.B
+change_key_create(RegHandle, Key) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+Key = string()
+.br
+ReturnValue = ok | {error, ErrorId :: atom()}
+.br
+.RE
+.RE
+.RS
+.LP
+Creates a key, or just changes to it, if it is already there\&. Works like a combination of \fImkdir\fR\& and \fIcd\fR\&\&. Calls the Win32 API function \fIRegCreateKeyEx()\fR\&\&.
+.LP
+The registry must have been opened in write-mode\&.
+.RE
+.LP
+.nf
+
+.B
+close(RegHandle) -> ok
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Closes the registry\&. After that, the \fIRegHandle\fR\& cannot be used\&.
+.RE
+.LP
+.nf
+
+.B
+current_key(RegHandle) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+ReturnValue = {ok, string()}
+.br
+.RE
+.RE
+.RS
+.LP
+Returns the path to the current key\&. This is the equivalent of \fIpwd\fR\&\&.
+.LP
+Note that the current key is stored in the driver, and might be invalid (e\&.g\&. if the key has been removed)\&.
+.RE
+.LP
+.nf
+
+.B
+delete_key(RegHandle) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+ReturnValue = ok | {error, ErrorId :: atom()}
+.br
+.RE
+.RE
+.RS
+.LP
+Deletes the current key, if it is valid\&. Calls the Win32 API function \fIRegDeleteKey()\fR\&\&. Note that this call does not change the current key, (unlike \fIchange_key_create/2\fR\&\&.) This means that after the call, the current key is invalid\&.
+.RE
+.LP
+.nf
+
+.B
+delete_value(RegHandle, Name) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+Name = \fBname()\fR\&
+.br
+ReturnValue = ok | {error, ErrorId :: atom()}
+.br
+.RE
+.RE
+.RS
+.LP
+Deletes a named value on the current key\&. The atom \fIdefault\fR\& is used for the the default value\&.
+.LP
+The registry must have been opened in write-mode\&.
+.RE
+.LP
+.nf
+
+.B
+expand(String) -> ExpandedString
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+String = ExpandedString = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Expands a string containing environment variables between percent characters\&. Anything between two % is taken for a environment variable, and is replaced by the value\&. Two consecutive % is replaced by one %\&.
+.LP
+A variable name that is not in the environment, will result in an error\&.
+.RE
+.LP
+.nf
+
+.B
+format_error(ErrorId) -> ErrorString
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+ErrorId = atom()
+.br
+ErrorString = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Convert an POSIX errorcode to a string (by calling \fIerl_posix_msg:message\fR\&)\&.
+.RE
+.LP
+.nf
+
+.B
+open(OpenModeList) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+OpenModeList = [OpenMode]
+.br
+OpenMode = read | write
+.br
+ReturnValue = {ok, RegHandle} | {error, ErrorId :: enotsup}
+.br
+RegHandle = \fBreg_handle()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Opens the registry for reading or writing\&. The current key will be the root (\fIHKEY_CLASSES_ROOT\fR\&)\&. The \fIread\fR\& flag in the mode list can be omitted\&.
+.LP
+Use \fIchange_key/2\fR\& with an absolute path after \fIopen\fR\&\&.
+.RE
+.LP
+.nf
+
+.B
+set_value(RegHandle, Name, Value) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+Name = \fBname()\fR\&
+.br
+Value = \fBvalue()\fR\&
+.br
+ReturnValue = ok | {error, ErrorId :: atom()}
+.br
+.RE
+.RE
+.RS
+.LP
+Sets the named (or default) value to value\&. Calls the Win32 API function \fIRegSetValueEx()\fR\&\&. The value can be of three types, and the corresponding registry type will be used\&. Currently the types supported are: \fIREG_DWORD\fR\& for integers, \fIREG_SZ\fR\& for strings and \fIREG_BINARY\fR\& for binaries\&. Other types cannot currently be added or changed\&.
+.LP
+The registry must have been opened in write-mode\&.
+.RE
+.LP
+.nf
+
+.B
+sub_keys(RegHandle) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+ReturnValue = {ok, [SubKey]} | {error, ErrorId :: atom()}
+.br
+SubKey = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a list of subkeys to the current key\&. Calls the Win32 API function \fIEnumRegKeysEx()\fR\&\&.
+.LP
+Avoid calling this on the root keys, it can be slow\&.
+.RE
+.LP
+.nf
+
+.B
+value(RegHandle, Name) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+Name = \fBname()\fR\&
+.br
+ReturnValue = {ok, Value :: \fBvalue()\fR\&}
+.br
+            | {error, ErrorId :: atom()}
+.br
+.RE
+.RE
+.RS
+.LP
+Retrieves the named value (or default) on the current key\&. Registry values of type \fIREG_SZ\fR\&, are returned as strings\&. Type \fIREG_DWORD\fR\& values are returned as integers\&. All other types are returned as binaries\&.
+.RE
+.LP
+.nf
+
+.B
+values(RegHandle) -> ReturnValue
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+RegHandle = \fBreg_handle()\fR\&
+.br
+ReturnValue = {ok, [ValuePair]} | {error, ErrorId :: atom()}
+.br
+ValuePair = {Name :: \fBname()\fR\&, Value :: \fBvalue()\fR\&}
+.br
+.RE
+.RE
+.RS
+.LP
+Retrieves a list of all values on the current key\&. The values have types corresponding to the registry types, see \fIvalue\fR\&\&. Calls the Win32 API function \fIEnumRegValuesEx()\fR\&\&.
+.RE
+.SH "SEE ALSO"
+
+.LP
+Win32 Programmer\&'s Reference (from Microsoft)
+.LP
+\fIerl_posix_msg\fR\&
+.LP
+The Windows 95 Registry (book from O\&'Reilly)

@@ -1,0 +1,32 @@
+.TH erl_expand_records 3 "stdlib 2.0" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+erl_expand_records \- Expands Records in a Module
+.SH DESCRIPTION
+.SH EXPORTS
+.LP
+.nf
+
+.B
+module(AbsForms, CompileOptions) -> AbsForms
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+AbsForms = [\fBerl_parse:abstract_form()\fR\&]
+.br
+CompileOptions = [\fBcompile:option()\fR\&]
+.br
+.RE
+.RE
+.RS
+.LP
+Expands all records in a module\&. The returned module has no references to records, neither attributes nor code\&.
+.RE
+.SH "SEE ALSO"
+
+.LP
+The \fBabstract format\fR\& documentation in ERTS User\&'s Guide

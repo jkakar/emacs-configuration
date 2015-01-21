@@ -1,0 +1,1835 @@
+.TH inet 3 "kernel 3.0" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+inet \- Access to TCP/IP Protocols
+.SH DESCRIPTION
+.LP
+Provides access to TCP/IP protocols\&.
+.LP
+See also \fIERTS User\&'s Guide, Inet configuration\fR\& for more information on how to configure an Erlang runtime system for IP communication\&.
+.LP
+Two Kernel configuration parameters affect the behaviour of all sockets opened on an Erlang node: \fIinet_default_connect_options\fR\& can contain a list of default options used for all sockets returned when doing \fIconnect\fR\&, and \fIinet_default_listen_options\fR\& can contain a list of default options used when issuing a \fIlisten\fR\& call\&. When \fIaccept\fR\& is issued, the values of the listensocket options are inherited, why no such application variable is needed for \fIaccept\fR\&\&.
+.LP
+Using the Kernel configuration parameters mentioned above, one can set default options for all TCP sockets on a node\&. This should be used with care, but options like \fI{delay_send,true}\fR\& might be specified in this way\&. An example of starting an Erlang node with all sockets using delayed send could look like this:
+.LP
+.nf
+
+$ erl -sname test -kernel \\
+inet_default_connect_options \&'[{delay_send,true}]\&' \\
+inet_default_listen_options \&'[{delay_send,true}]\&'
+.fi
+.LP
+Note that the default option \fI{active, true}\fR\& currently cannot be changed, for internal reasons\&.
+.LP
+Addresses as inputs to functions can be either a string or a tuple\&. For instance, the IP address 150\&.236\&.20\&.73 can be passed to \fIgethostbyaddr/1\fR\& either as the string "150\&.236\&.20\&.73" or as the tuple \fI{150, 236, 20, 73}\fR\&\&.
+.LP
+IPv4 address examples:
+.LP
+.nf
+
+Address          ip_address()
+-------          ------------
+127.0.0.1        {127,0,0,1}
+192.168.42.2     {192,168,42,2}
+.fi
+.LP
+IPv6 address examples:
+.LP
+.nf
+
+Address          ip_address()
+-------          ------------
+::1             {0,0,0,0,0,0,0,1}
+::192.168.42.2  {0,0,0,0,0,0,(192 bsl 8) bor 168,(42 bsl 8) bor 2}
+FFFF::192.168.42.2
+                {16#FFFF,0,0,0,0,0,(192 bsl 8) bor 168,(42 bsl 8) bor 2}
+3ffe:b80:1f8d:2:204:acff:fe17:bf38
+                {16#3ffe,16#b80,16#1f8d,16#2,16#204,16#acff,16#fe17,16#bf38}
+fe80::204:acff:fe17:bf38
+                {16#fe80,0,0,0,0,16#204,16#acff,16#fe17,16#bf38}
+.fi
+.LP
+A function that may be useful is \fBparse_address/1\fR\&:
+.LP
+.nf
+
+1> inet:parse_address("192\&.168\&.42\&.2")\&.
+{ok,{192,168,42,2}}
+2> inet:parse_address("FFFF::192\&.168\&.42\&.2")\&.
+{ok,{65535,0,0,0,0,0,49320,10754}}
+.fi
+.SH DATA TYPES
+.nf
+
+\fBhostent()\fR\& = 
+.br
+    #hostent{h_name = undefined | \fBinet:hostname()\fR\&,
+.br
+             h_aliases = [\fBinet:hostname()\fR\&],
+.br
+             h_addrtype = undefined | inet | inet6,
+.br
+             h_length = undefined | integer() >= 0,
+.br
+             h_addr_list = [\fBinet:ip_address()\fR\&]}
+.br
+.fi
+.RS
+.LP
+The record is defined in the Kernel include file "inet\&.hrl"\&. Add the following directive to the module:
+.LP
+.nf
+-include_lib("kernel/include/inet.hrl").
+.fi
+.RE
+.nf
+
+\fBhostname()\fR\& = atom() | string()
+.br
+.fi
+.nf
+
+\fBip_address()\fR\& = \fBip4_address()\fR\& | \fBip6_address()\fR\&
+.br
+.fi
+.nf
+
+\fBip4_address()\fR\& = {0\&.\&.255, 0\&.\&.255, 0\&.\&.255, 0\&.\&.255}
+.br
+.fi
+.nf
+
+\fBip6_address()\fR\& = 
+.br
+    {0\&.\&.65535,
+.br
+     0\&.\&.65535,
+.br
+     0\&.\&.65535,
+.br
+     0\&.\&.65535,
+.br
+     0\&.\&.65535,
+.br
+     0\&.\&.65535,
+.br
+     0\&.\&.65535,
+.br
+     0\&.\&.65535}
+.br
+.fi
+.nf
+
+\fBport_number()\fR\& = 0\&.\&.65535
+.br
+.fi
+.nf
+
+\fBposix()\fR\& = exbadport | exbadseq | \fBfile:posix()\fR\&
+.br
+.fi
+.RS
+.LP
+An atom which is named from the Posix error codes used in Unix, and in the runtime libraries of most C compilers\&. See \fBPOSIX Error Codes\fR\&\&.
+.RE
+.nf
+
+.B
+\fBsocket()\fR\&
+.br
+.fi
+.RS
+.LP
+See \fBgen_tcp(3)\fR\& and \fBgen_udp(3)\fR\&\&.
+.RE
+.nf
+
+\fBaddress_family()\fR\& = inet | inet6
+.br
+.fi
+.SH EXPORTS
+.LP
+.nf
+
+.B
+close(Socket) -> ok
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Closes a socket of any type\&.
+.RE
+.LP
+.nf
+
+.B
+get_rc() -> [{Par :: any(), Val :: any()}]
+.br
+.fi
+.br
+.RS
+.LP
+Returns the state of the Inet configuration database in form of a list of recorded configuration parameters\&. (See the ERTS User\&'s Guide, Inet configuration, for more information)\&. Only parameters with other than default values are returned\&.
+.RE
+.LP
+.nf
+
+.B
+format_error(Reason) -> string()
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Reason = \fBposix()\fR\& | system_limit
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a diagnostic error string\&. See the section below for possible Posix values and the corresponding strings\&.
+.RE
+.LP
+.nf
+
+.B
+getaddr(Host, Family) -> {ok, Address} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Host = \fBip_address()\fR\& | \fBhostname()\fR\&
+.br
+Family = \fBaddress_family()\fR\&
+.br
+Address = \fBip_address()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Returns the IP-address for \fIHost\fR\& as a tuple of integers\&. \fIHost\fR\& can be an IP-address, a single hostname or a fully qualified hostname\&.
+.RE
+.LP
+.nf
+
+.B
+getaddrs(Host, Family) -> {ok, Addresses} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Host = \fBip_address()\fR\& | \fBhostname()\fR\&
+.br
+Family = \fBaddress_family()\fR\&
+.br
+Addresses = [\fBip_address()\fR\&]
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a list of all IP-addresses for \fIHost\fR\&\&. \fIHost\fR\& can be an IP-address, a single hostname or a fully qualified hostname\&.
+.RE
+.LP
+.nf
+
+.B
+gethostbyaddr(Address) -> {ok, Hostent} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Address = string() | \fBip_address()\fR\&
+.br
+Hostent = \fBhostent()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a \fIhostent\fR\& record given an address\&.
+.RE
+.LP
+.nf
+
+.B
+gethostbyname(Hostname) -> {ok, Hostent} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Hostname = \fBhostname()\fR\&
+.br
+Hostent = \fBhostent()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a \fIhostent\fR\& record given a hostname\&.
+.RE
+.LP
+.nf
+
+.B
+gethostbyname(Hostname, Family) ->
+.B
+                 {ok, Hostent} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Hostname = \fBhostname()\fR\&
+.br
+Family = \fBaddress_family()\fR\&
+.br
+Hostent = \fBhostent()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a \fIhostent\fR\& record given a hostname, restricted to the given address family\&.
+.RE
+.LP
+.nf
+
+.B
+gethostname() -> {ok, Hostname}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Hostname = string()
+.br
+.RE
+.RE
+.RS
+.LP
+Returns the local hostname\&. Will never fail\&.
+.RE
+.LP
+.nf
+
+.B
+getifaddrs() -> {ok, Iflist} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Iflist = [{Ifname, [Ifopt]}]
+.br
+Ifname = string()
+.br
+Ifopt = {flag, [Flag]}
+.br
+      | {addr, Addr}
+.br
+      | {netmask, Netmask}
+.br
+      | {broadaddr, Broadaddr}
+.br
+      | {dstaddr, Dstaddr}
+.br
+      | {hwaddr, Hwaddr}
+.br
+Flag = up
+.br
+     | broadcast
+.br
+     | loopback
+.br
+     | pointtopoint
+.br
+     | running
+.br
+     | multicast
+.br
+Addr = Netmask = Broadaddr = Dstaddr = \fBip_address()\fR\&
+.br
+Hwaddr = [byte()]
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a list of 2-tuples containing interface names and the interface\&'s addresses\&. \fIIfname\fR\& is a Unicode string\&. \fIHwaddr\fR\& is hardware dependent, e\&.g on Ethernet interfaces it is the 6-byte Ethernet address (MAC address (EUI-48 address))\&.
+.LP
+The \fI{addr,Addr}\fR\&, \fI{netmask,_}\fR\& and \fI{broadaddr,_}\fR\& tuples are repeated in the result list iff the interface has multiple addresses\&. If you come across an interface that has multiple \fI{flag,_}\fR\& or \fI{hwaddr,_}\fR\& tuples you have a really strange interface or possibly a bug in this function\&. The \fI{flag,_}\fR\& tuple is mandatory, all other optional\&.
+.LP
+Do not rely too much on the order of \fIFlag\fR\& atoms or \fIIfopt\fR\& tuples\&. There are some rules, though: 
+.RS 2
+.TP 2
+*
+ Immediately after \fI{addr,_}\fR\& follows \fI{netmask,_}\fR\&
+.LP
+.TP 2
+*
+ Immediately thereafter follows \fI{broadaddr,_}\fR\& if the \fIbroadcast\fR\& flag is \fInot\fR\& set and the \fIpointtopoint\fR\& flag \fIis\fR\& set\&. 
+.LP
+.TP 2
+*
+ Any \fI{netmask,_}\fR\&, \fI{broadaddr,_}\fR\& or \fI{dstaddr,_}\fR\& tuples that follow an \fI{addr,_}\fR\& tuple concerns that address\&. 
+.LP
+.RE
+ 
+.LP
+The \fI{hwaddr,_}\fR\& tuple is not returned on Solaris since the hardware address historically belongs to the link layer and only the superuser can read such addresses\&.
+.LP
+On Windows, the data is fetched from quite different OS API functions, so the \fINetmask\fR\& and \fIBroadaddr\fR\& values may be calculated, just as some \fIFlag\fR\& values\&. You have been warned\&. Report flagrant bugs\&.
+.RE
+.LP
+.nf
+
+.B
+getopts(Socket, Options) -> {ok, OptionValues} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Options = [\fBsocket_getopt()\fR\&]
+.br
+OptionValues = [\fBsocket_setopt()\fR\&]
+.br
+.nf
+\fBsocket_getopt()\fR\& = \fBgen_sctp:option_name()\fR\&
+.br
+                | \fBgen_tcp:option_name()\fR\&
+.br
+                | \fBgen_udp:option_name()\fR\&
+.fi
+.br
+.nf
+\fBsocket_setopt()\fR\& = \fBgen_sctp:option()\fR\&
+.br
+                | \fBgen_tcp:option()\fR\&
+.br
+                | \fBgen_udp:option()\fR\&
+.fi
+.br
+.RE
+.RE
+.RS
+.LP
+Gets one or more options for a socket\&. See \fBsetopts/2\fR\& for a list of available options\&.
+.LP
+The number of elements in the returned \fIOptionValues\fR\& list does not necessarily correspond to the number of options asked for\&. If the operating system fails to support an option, it is simply left out in the returned list\&. An error tuple is only returned when getting options for the socket is impossible (i\&.e\&. the socket is closed or the buffer size in a raw request is too large)\&. This behavior is kept for backward compatibility reasons\&.
+.LP
+A raw option request \fIRawOptReq = {raw, Protocol, OptionNum, ValueSpec}\fR\& can be used to get information about socket options not (explicitly) supported by the emulator\&. The use of raw socket options makes the code non portable, but allows the Erlang programmer to take advantage of unusual features present on the current platform\&.
+.LP
+The \fIRawOptReq\fR\& consists of the tag \fIraw\fR\& followed by the protocol level, the option number and either a binary or the size, in bytes, of the buffer in which the option value is to be stored\&. A binary should be used when the underlying \fIgetsockopt\fR\& requires \fIinput\fR\& in the argument field, in which case the size of the binary should correspond to the required buffer size of the return value\&. The supplied values in a \fIRawOptReq\fR\& correspond to the second, third and fourth/fifth parameters to the \fIgetsockopt\fR\& call in the C socket API\&. The value stored in the buffer is returned as a binary \fIValueBin\fR\& where all values are coded in the native endianess\&.
+.LP
+Asking for and inspecting raw socket options require low level information about the current operating system and TCP stack\&.
+.LP
+As an example, consider a Linux machine where the \fITCP_INFO\fR\& option could be used to collect TCP statistics for a socket\&. Lets say we\&'re interested in the \fItcpi_sacked\fR\& field of the \fIstruct tcp_info\fR\& filled in when asking for \fITCP_INFO\fR\&\&. To be able to access this information, we need to know both the numeric value of the protocol level \fIIPPROTO_TCP\fR\&, the numeric value of the option \fITCP_INFO\fR\&, the size of the \fIstruct tcp_info\fR\& and the size and offset of the specific field\&. By inspecting the headers or writing a small C program, we found \fIIPPROTO_TCP\fR\& to be 6, \fITCP_INFO\fR\& to be 11, the structure size to be 92 (bytes), the offset of \fItcpi_sacked\fR\& to be 28 bytes and the actual value to be a 32 bit integer\&. We could use the following code to retrieve the value:
+.LP
+.nf
+
+        get_tcpi_sacked(Sock) -> 
+            {ok,[{raw,_,_,Info}]} = inet:getopts(Sock,[{raw,6,11,92}]),
+            <<_:28/binary,TcpiSacked:32/native,_/binary>> = Info,
+            TcpiSacked.
+.fi
+.LP
+Preferably, you would check the machine type, the OS and the kernel version prior to executing anything similar to the code above\&.
+.RE
+.LP
+.nf
+
+.B
+getstat(Socket) -> {ok, OptionValues} | {error, posix()}
+.br
+.fi
+.br
+.nf
+
+.B
+getstat(Socket, Options) -> {ok, OptionValues} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Options = [\fBstat_option()\fR\&]
+.br
+OptionValues = [{\fBstat_option()\fR\&, integer()}]
+.br
+.nf
+\fBstat_option()\fR\& = recv_cnt
+.br
+              | recv_max
+.br
+              | recv_avg
+.br
+              | recv_oct
+.br
+              | recv_dvi
+.br
+              | send_cnt
+.br
+              | send_max
+.br
+              | send_avg
+.br
+              | send_oct
+.br
+              | send_pend
+.fi
+.br
+.RE
+.RE
+.RS
+.LP
+Gets one or more statistic options for a socket\&.
+.LP
+\fIgetstat(Socket)\fR\& is equivalent to \fIgetstat(Socket, [recv_avg, recv_cnt, recv_dvi, recv_max, recv_oct, send_avg, send_cnt, send_dvi, send_max, send_oct])\fR\&\&.
+.LP
+The following options are available:
+.RS 2
+.TP 2
+.B
+\fIrecv_avg\fR\&:
+Average size of packets in bytes received to the socket\&.
+.TP 2
+.B
+\fIrecv_cnt\fR\&:
+Number of packets received to the socket\&.
+.TP 2
+.B
+\fIrecv_dvi\fR\&:
+Average packet size deviation in bytes received to the socket\&.
+.TP 2
+.B
+\fIrecv_max\fR\&:
+The size of the largest packet in bytes received to the socket\&.
+.TP 2
+.B
+\fIrecv_oct\fR\&:
+Number of bytes received to the socket\&.
+.TP 2
+.B
+\fIsend_avg\fR\&:
+Average size of packets in bytes sent from the socket\&.
+.TP 2
+.B
+\fIsend_cnt\fR\&:
+Number of packets sent from the socket\&.
+.TP 2
+.B
+\fIsend_dvi\fR\&:
+Average packet size deviation in bytes received sent from the socket\&.
+.TP 2
+.B
+\fIsend_max\fR\&:
+The size of the largest packet in bytes sent from the socket\&.
+.TP 2
+.B
+\fIsend_oct\fR\&:
+Number of bytes sent from the socket\&.
+.RE
+.RE
+.LP
+.nf
+
+.B
+ntoa(IpAddress) -> Address | {error, einval}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Address = string()
+.br
+IpAddress = \fBip_address()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Parses an ip_address() and returns an IPv4 or IPv6 address string\&.
+.RE
+.LP
+.nf
+
+.B
+parse_ipv4_address(Address) -> {ok, IPv4Address} | {error, einval}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Address = string()
+.br
+IPv4Address = \fBip_address()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Parses an IPv4 address string and returns an ip4_address()\&. Accepts a shortened IPv4 shortened address string\&.
+.RE
+.LP
+.nf
+
+.B
+parse_ipv4strict_address(Address) ->
+.B
+                            {ok, IPv4Address} | {error, einval}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Address = string()
+.br
+IPv4Address = \fBip_address()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Parses an IPv4 address string containing four fields, i\&.e \fBnot\fR\&  shortened, and returns an ip4_address()\&.
+.RE
+.LP
+.nf
+
+.B
+parse_ipv6_address(Address) -> {ok, IPv6Address} | {error, einval}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Address = string()
+.br
+IPv6Address = \fBip_address()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Parses an IPv6 address string and returns an ip6_address()\&. If an IPv4 address string is passed, an IPv4-mapped IPv6 address is returned\&.
+.RE
+.LP
+.nf
+
+.B
+parse_ipv6strict_address(Address) ->
+.B
+                            {ok, IPv6Address} | {error, einval}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Address = string()
+.br
+IPv6Address = \fBip_address()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Parses an IPv6 address string and returns an ip6_address()\&. Does \fBnot\fR\&  accept IPv4 adresses\&.
+.RE
+.LP
+.nf
+
+.B
+parse_address(Address) -> {ok, IPAddress} | {error, einval}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Address = string()
+.br
+IPAddress = \fBip_address()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Parses an IPv4 or IPv6 address string and returns an ip4_address() or ip6_address()\&. Accepts a shortened IPv4 address string\&.
+.RE
+.LP
+.nf
+
+.B
+parse_strict_address(Address) -> {ok, IPAddress} | {error, einval}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Address = string()
+.br
+IPAddress = \fBip_address()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Parses an IPv4 or IPv6 address string and returns an ip4_address() or ip6_address()\&. Does \fBnot\fR\&  accept a shortened IPv4 address string\&.
+.RE
+.LP
+.nf
+
+.B
+peername(Socket) -> {ok, {Address, Port}} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Address = \fBip_address()\fR\&
+.br
+Port = integer() >= 0
+.br
+.RE
+.RE
+.RS
+.LP
+Returns the address and port for the other end of a connection\&.
+.LP
+Note that for SCTP sockets this function only returns one of the socket\&'s peer addresses\&. The function \fBpeernames/1,2\fR\& returns all\&.
+.RE
+.LP
+.nf
+
+.B
+peernames(Socket) -> {ok, [{Address, Port}]} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Address = \fBip_address()\fR\&
+.br
+Port = integer() >= 0
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fB\fIpeernames(Socket, 0)\fR\&\fR\&\&. Note that this function\&'s behaviour for an SCTP one-to-many style socket is not defined by the SCTP Sockets API Extensions\&.
+.RE
+.LP
+.nf
+
+.B
+peernames(Socket, Assoc) ->
+.B
+             {ok, [{Address, Port}]} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Assoc = #sctp_assoc_change{} | \fBgen_sctp:assoc_id()\fR\&
+.br
+Address = \fBip_address()\fR\&
+.br
+Port = integer() >= 0
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a list of all address/port number pairs for the other end of a socket\&'s association \fIAssoc\fR\&\&.
+.LP
+This function can return multiple addresses for multihomed sockets such as SCTP sockets\&. For other sockets it returns a one element list\&.
+.LP
+Note that the \fIAssoc\fR\& parameter is by the SCTP Sockets API Extensions defined to be ignored for one-to-one style sockets\&. What the special value \fI0\fR\& means hence its behaviour for one-to-many style sockets is unfortunately not defined\&.
+.RE
+.LP
+.nf
+
+.B
+port(Socket) -> {ok, Port} | {error, any()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Port = \fBport_number()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Returns the local port number for a socket\&.
+.RE
+.LP
+.nf
+
+.B
+sockname(Socket) -> {ok, {Address, Port}} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Address = \fBip_address()\fR\&
+.br
+Port = integer() >= 0
+.br
+.RE
+.RE
+.RS
+.LP
+Returns the local address and port number for a socket\&.
+.LP
+Note that for SCTP sockets this function only returns one of the socket addresses\&. The function \fBsocknames/1,2\fR\& returns all\&.
+.RE
+.LP
+.nf
+
+.B
+socknames(Socket) -> {ok, [{Address, Port}]} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Address = \fBip_address()\fR\&
+.br
+Port = integer() >= 0
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fB\fIsocknames(Socket, 0)\fR\&\fR\&\&.
+.RE
+.LP
+.nf
+
+.B
+socknames(Socket, Assoc) ->
+.B
+             {ok, [{Address, Port}]} | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Assoc = #sctp_assoc_change{} | \fBgen_sctp:assoc_id()\fR\&
+.br
+Address = \fBip_address()\fR\&
+.br
+Port = integer() >= 0
+.br
+.RE
+.RE
+.RS
+.LP
+Returns a list of all local address/port number pairs for a socket for the given association \fIAssoc\fR\&\&.
+.LP
+This function can return multiple addresses for multihomed sockets such as SCTP sockets\&. For other sockets it returns a one element list\&.
+.LP
+Note that the \fIAssoc\fR\& parameter is by the SCTP Sockets API Extensions defined to be ignored for one-to-one style sockets\&. For one-to-many style sockets the special value \fI0\fR\& is defined to mean that the returned addresses shall be without regard to any particular association\&. How different SCTP implementations interprets this varies somewhat\&.
+.RE
+.LP
+.nf
+
+.B
+setopts(Socket, Options) -> ok | {error, posix()}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Options = [\fBsocket_setopt()\fR\&]
+.br
+.nf
+\fBsocket_setopt()\fR\& = \fBgen_sctp:option()\fR\&
+.br
+                | \fBgen_tcp:option()\fR\&
+.br
+                | \fBgen_udp:option()\fR\&
+.fi
+.br
+.RE
+.RE
+.RS
+.LP
+Sets one or more options for a socket\&. The following options are available:
+.RS 2
+.TP 2
+.B
+\fI{active, true | false | once | N}\fR\&:
+If the value is \fItrue\fR\&, which is the default, everything received from the socket will be sent as messages to the receiving process\&. If the value is \fIfalse\fR\& (passive mode), the process must explicitly receive incoming data by calling \fB\fIgen_tcp:recv/2,3\fR\&\fR\&, \fB\fIgen_udp:recv/2,3\fR\&\fR\& or \fB\fIgen_sctp:recv/1,2\fR\&\fR\& (depending on the type of socket)\&.
+.RS 2
+.LP
+If the value is \fIonce\fR\& (\fI{active, once}\fR\&), \fIone\fR\& data message from the socket will be sent to the process\&. To receive one more message, \fIsetopts/2\fR\& must be called again with the \fI{active, once}\fR\& option\&.
+.RE
+.RS 2
+.LP
+If the value is an integer \fIN\fR\& in the range -32768 to 32767 (inclusive), the value is added to the socket\&'s count of data messages sent to the controlling process\&. A socket\&'s default message count is 0\&. If a negative value is specified and its magnitude is equal to or greater than the socket\&'s current message count, the socket\&'s message count is set to 0\&. Once the socket\&'s message count reaches 0, either due to sending received data messages to the process or by being explicitly set, the process is then notified by a special message, specific to the type of socket, that the socket has entered passive mode\&. Once the socket enters passive mode, to receive more messages \fIsetopts/2\fR\& must be called again to set the socket back into an active mode\&.
+.RE
+.RS 2
+.LP
+When using \fI{active, once}\fR\& or \fI{active, N}\fR\&, the socket changes behaviour automatically when data is received\&. This can sometimes be confusing in combination with connection-oriented sockets (i\&.e\&. \fIgen_tcp\fR\&) as a socket with \fI{active, false}\fR\& behaviour reports closing differently than a socket with \fI{active, true}\fR\& behaviour\&. To make programming easier, a socket where the peer closed and this was detected while in \fI{active, false}\fR\& mode, will still generate the message \fI{tcp_closed,Socket}\fR\& when set to \fI{active, once}\fR\&, \fI{active, true}\fR\& or \fI{active, N}\fR\& mode\&. It is therefore safe to assume that the message \fI{tcp_closed,Socket}\fR\&, possibly followed by socket port termination (depending on the \fIexit_on_close\fR\& option) will eventually appear when a socket changes back and forth between \fI{active, true}\fR\& and \fI{active, false}\fR\& mode\&. However, \fIwhen\fR\& peer closing is detected is all up to the underlying TCP/IP stack and protocol\&.
+.RE
+.RS 2
+.LP
+Note that \fI{active, true}\fR\& mode provides no flow control; a fast sender could easily overflow the receiver with incoming messages\&. The same is true of \fI{active, N}\fR\& mode while the message count is greater than zero\&. Use active mode only if your high-level protocol provides its own flow control (for instance, acknowledging received messages) or the amount of data exchanged is small\&. \fI{active, false}\fR\& mode, use of the \fI{active, once}\fR\& mode or \fI{active, N}\fR\& mode with values of \fIN\fR\& appropriate for the application provides flow control; the other side will not be able send faster than the receiver can read\&.
+.RE
+.TP 2
+.B
+\fI{broadcast, Boolean}\fR\&(UDP sockets):
+Enable/disable permission to send broadcasts\&.
+.TP 2
+.B
+\fI{buffer, Size}\fR\&:
+Determines the size of the user-level software buffer used by the driver\&. Not to be confused with \fIsndbuf\fR\& and \fIrecbuf\fR\& options which correspond to the kernel socket buffers\&. It is recommended to have \fIval(buffer) >= max(val(sndbuf),val(recbuf))\fR\&\&. In fact, the \fIval(buffer)\fR\& is automatically set to the above maximum when \fIsndbuf\fR\& or \fIrecbuf\fR\& values are set\&.
+.TP 2
+.B
+\fI{delay_send, Boolean}\fR\&:
+Normally, when an Erlang process sends to a socket, the driver will try to immediately send the data\&. If that fails, the driver will use any means available to queue up the message to be sent whenever the operating system says it can handle it\&. Setting \fI{delay_send, true}\fR\& will make \fIall\fR\& messages queue up\&. This makes the messages actually sent onto the network be larger but fewer\&. The option actually affects the scheduling of send requests versus Erlang processes instead of changing any real property of the socket\&. Needless to say it is an implementation specific option\&. Default is \fIfalse\fR\&\&.
+.TP 2
+.B
+\fI{deliver, port | term}\fR\&:
+When \fI{active, true}\fR\& delivers data on the forms \fIport\fR\& : \fI{S, {data, [H1,\&.\&.Hsz | Data]}}\fR\& or \fIterm\fR\& : \fI{tcp, S, [H1\&.\&.Hsz | Data]}\fR\&\&.
+.TP 2
+.B
+\fI{dontroute, Boolean}\fR\&:
+Enable/disable routing bypass for outgoing messages\&.
+.TP 2
+.B
+\fI{exit_on_close, Boolean}\fR\&:
+By default this option is set to \fItrue\fR\&\&.
+.RS 2
+.LP
+The only reason to set it to \fIfalse\fR\& is if you want to continue sending data to the socket after a close has been detected, for instance if the peer has used \fBgen_tcp:shutdown/2\fR\& to shutdown the write side\&.
+.RE
+.TP 2
+.B
+\fI{header, Size}\fR\&:
+This option is only meaningful if the \fIbinary\fR\& option was specified when the socket was created\&. If the \fIheader\fR\& option is specified, the first \fISize\fR\& number bytes of data received from the socket will be elements of a list, and the rest of the data will be a binary given as the tail of the same list\&. If for example \fISize == 2\fR\&, the data received will match \fI[Byte1,Byte2|Binary]\fR\&\&.
+.TP 2
+.B
+\fI{high_msgq_watermark, Size}\fR\&:
+The socket message queue will be set into a busy state when the amount of data queued on the message queue reaches this limit\&. Note that this limit only concerns data that have not yet reached the ERTS internal socket implementation\&. Default value used is 8 kB\&.
+.RS 2
+.LP
+Senders of data to the socket will be suspended if either the socket message queue is busy, or the socket itself is busy\&.
+.RE
+.RS 2
+.LP
+For more information see the \fIlow_msgq_watermark\fR\&, \fIhigh_watermark\fR\&, and \fIlow_watermark\fR\& options\&.
+.RE
+.RS 2
+.LP
+Note that distribution sockets will disable the use of \fIhigh_msgq_watermark\fR\& and \fIlow_msgq_watermark\fR\&, and will instead use the \fBdistribution buffer busy limit\fR\& which is a similar feature\&.
+.RE
+.TP 2
+.B
+\fI{high_watermark, Size}\fR\& (TCP/IP sockets):
+The socket will be set into a busy state when the amount of data queued internally by the ERTS socket implementation reaches this limit\&. Default value used is 8 kB\&.
+.RS 2
+.LP
+Senders of data to the socket will be suspended if either the socket message queue is busy, or the socket itself is busy\&.
+.RE
+.RS 2
+.LP
+For more information see the \fIlow_watermark\fR\&, \fIhigh_msgq_watermark\fR\&, and \fIlow_msqg_watermark\fR\& options\&.
+.RE
+.TP 2
+.B
+\fI{ipv6_v6only, Boolean}\fR\&:
+Restricts the socket to only use IPv6, prohibiting any IPv4 connections\&. This is only applicable for IPv6 sockets (option \fIinet6\fR\&)\&.
+.RS 2
+.LP
+On most platforms this option has to be set on the socket before associating it to an address\&. Therefore it is only reasonable to give it when creating the socket and not to use it when calling the function (\fBsetopts/2\fR\&) containing this description\&.
+.RE
+.RS 2
+.LP
+The behaviour of a socket with this socket option set to \fItrue\fR\& is becoming the only portable one\&. The original idea when IPv6 was new of using IPv6 for all traffic is now not recommended by FreeBSD (you can use \fI{ipv6_v6only,false}\fR\& to override the recommended system default value), forbidden by OpenBSD (the supported GENERIC kernel) and impossible on Windows (that has separate IPv4 and IPv6 protocol stacks)\&. Most Linux distros still have a system default value of \fIfalse\fR\&\&. This policy shift among operating systems towards separating IPv6 from IPv4 traffic has evolved since it gradually proved hard and complicated to get a dual stack implementation correct and secure\&.
+.RE
+.RS 2
+.LP
+On some platforms the only allowed value for this option is \fItrue\fR\&, e\&.g\&. OpenBSD and Windows\&. Trying to set this option to \fIfalse\fR\& when creating the socket will in this case fail\&.
+.RE
+.RS 2
+.LP
+Setting this option on platforms where it does not exist is ignored and getting this option with \fBgetopts/2\fR\& returns no value i\&.e the returned list will not contain an \fI{ipv6_v6only,_}\fR\& tuple\&. On Windows the option acually does not exist, but it is emulated as being a read-only option with the value \fItrue\fR\&\&.
+.RE
+.RS 2
+.LP
+So it boils down to that setting this option to \fItrue\fR\& when creating a socket will never fail except possibly (at the time of this writing) on a platform where you have customized the kernel to only allow \fIfalse\fR\&, which might be doable (but weird) on e\&.g\&. OpenBSD\&.
+.RE
+.RS 2
+.LP
+If you read back the option value using \fBgetopts/2\fR\& and get no value the option does not exist in the host OS and all bets are off regarding the behaviour of both an IPv6 and an IPv4 socket listening on the same port as well as for an IPv6 socket getting IPv4 traffic\&.
+.RE
+.TP 2
+.B
+\fI{keepalive, Boolean}\fR\&(TCP/IP sockets):
+Enables/disables periodic transmission on a connected socket, when no other data is being exchanged\&. If the other end does not respond, the connection is considered broken and an error message will be sent to the controlling process\&. Default disabled\&.
+.TP 2
+.B
+\fI{linger, {true|false, Seconds}}\fR\&:
+Determines the timeout in seconds for flushing unsent data in the \fIclose/1\fR\& socket call\&. If the 1st component of the value tuple is \fIfalse\fR\&, the 2nd one is ignored, which means that \fIclose/1\fR\& returns immediately not waiting for data to be flushed\&. Otherwise, the 2nd component is the flushing time-out in seconds\&.
+.TP 2
+.B
+\fI{low_msgq_watermark, Size}\fR\&:
+If the socket message queue is in a busy state, the socket message queue will be set in a not busy state when the amount of data queued in the message queue falls below this limit\&. Note that this limit only concerns data that have not yet reached the ERTS internal socket implementation\&. Default value used is 4 kB\&.
+.RS 2
+.LP
+Senders that have been suspended due to either a busy message queue or a busy socket, will be resumed when neither the socket message queue, nor the socket are busy\&.
+.RE
+.RS 2
+.LP
+For more information see the \fIhigh_msgq_watermark\fR\&, \fIhigh_watermark\fR\&, and \fIlow_watermark\fR\& options\&.
+.RE
+.RS 2
+.LP
+Note that distribution sockets will disable the use of \fIhigh_msgq_watermark\fR\& and \fIlow_msgq_watermark\fR\&, and will instead use the \fBdistribution buffer busy limit\fR\& which is a similar feature\&.
+.RE
+.TP 2
+.B
+\fI{low_watermark, Size}\fR\& (TCP/IP sockets):
+If the socket is in a busy state, the socket will be set in a not busy state when the amount of data queued internally by the ERTS socket implementation falls below this limit\&. Default value used is 4 kB\&.
+.RS 2
+.LP
+Senders that have been suspended due to either a busy message queue or a busy socket, will be resumed when neither the socket message queue, nor the socket are busy\&.
+.RE
+.RS 2
+.LP
+For more information see the \fIhigh_watermark\fR\&, \fIhigh_msgq_watermark\fR\&, and \fIlow_msgq_watermark\fR\& options\&.
+.RE
+.TP 2
+.B
+\fI{mode, Mode :: binary | list}\fR\&:
+Received \fIPacket\fR\& is delivered as defined by Mode\&.
+.TP 2
+.B
+\fI{netns, Namespace :: file:filename_all()}\fR\&:
+Set a network namespace for the socket\&. The \fINamespace\fR\& parameter is a filename defining the namespace for example \fI"/var/run/netns/example"\fR\& typically created by the command \fIip netns add example\fR\&\&. This option must be used in a function call that creates a socket i\&.e \fB gen_tcp:connect/3,4\fR\&, \fB gen_tcp:listen/2\fR\&, \fB gen_udp:open/1,2\fR\& or \fB gen_sctp:open/0-2\fR\&\&.
+.RS 2
+.LP
+This option uses the Linux specific syscall \fIsetns()\fR\& such as in Linux kernel 3\&.0 or later and therefore only exists when the runtime system has been compiled for such an operating system\&.
+.RE
+.RS 2
+.LP
+The virtual machine also needs elevated privileges either running as superuser or (for Linux) having the capability \fICAP_SYS_ADMIN\fR\& according to the documentation for setns(2)\&. However, during testing also \fICAP_SYS_PTRACE\fR\& and \fICAP_DAC_READ_SEARCH\fR\& has proven to be necessary\&. Example:
+.LP
+.nf
+
+setcap cap_sys_admin,cap_sys_ptrace,cap_dac_read_search+epi beam.smp
+
+.fi Note also that the filesystem containing the virtual machine executable (\fIbeam\&.smp\fR\& in the example above) has to be local, mounted without the \fInosetuid\fR\& flag, support extended attributes and that the kernel has to support file capabilities\&. All this runs out of the box on at least Ubuntu 12\&.04 LTS, except that SCTP sockets appears to not support network namespaces\&.
+.RE
+.RS 2
+.LP
+The \fINamespace\fR\& is a file name and is encoded and decoded as discussed in \fBfile\fR\& except that the emulator flag \fI+fnu\fR\& is ignored and \fBgetopts/2\fR\& for this option will return a binary for the filename if the stored filename can not be decoded, which should only happen if you set the option using a binary that can not be decoded with the emulator\&'s filename encoding: \fB file:native_name_encoding/0\fR\&\&.
+.RE
+.TP 2
+.B
+\fIlist\fR\&:
+Received \fIPacket\fR\& is delivered as a list\&.
+.TP 2
+.B
+\fIbinary\fR\&:
+Received \fIPacket\fR\& is delivered as a binary\&.
+.TP 2
+.B
+\fI{nodelay, Boolean}\fR\&(TCP/IP sockets):
+If \fIBoolean == true\fR\&, the \fITCP_NODELAY\fR\& option is turned on for the socket, which means that even small amounts of data will be sent immediately\&.
+.TP 2
+.B
+\fI{packet, PacketType}\fR\&(TCP/IP sockets):
+Defines the type of packets to use for a socket\&. The following values are valid:
+.RS 2
+.TP 2
+.B
+\fIraw | 0\fR\&:
+No packaging is done\&.
+.TP 2
+.B
+\fI1 | 2 | 4\fR\&:
+Packets consist of a header specifying the number of bytes in the packet, followed by that number of bytes\&. The length of header can be one, two, or four bytes; containing an unsigned integer in big-endian byte order\&. Each send operation will generate the header, and the header will be stripped off on each receive operation\&.
+.RS 2
+.LP
+In current implementation the 4-byte header is limited to 2Gb\&.
+.RE
+.TP 2
+.B
+\fIasn1 | cdr | sunrm | fcgi | tpkt | line\fR\&:
+These packet types only have effect on receiving\&. When sending a packet, it is the responsibility of the application to supply a correct header\&. On receiving, however, there will be one message sent to the controlling process for each complete packet received, and, similarly, each call to \fIgen_tcp:recv/2,3\fR\& returns one complete packet\&. The header is \fInot\fR\& stripped off\&.
+.RS 2
+.LP
+The meanings of the packet types are as follows: 
+.br
+\fIasn1\fR\& - ASN\&.1 BER, 
+.br
+\fIsunrm\fR\& - Sun\&'s RPC encoding, 
+.br
+\fIcdr\fR\& - CORBA (GIOP 1\&.1), 
+.br
+\fIfcgi\fR\& - Fast CGI, 
+.br
+\fItpkt\fR\& - TPKT format [RFC1006], 
+.br
+\fIline\fR\& - Line mode, a packet is a line terminated with newline, lines longer than the receive buffer are truncated\&.
+.RE
+.TP 2
+.B
+\fIhttp | http_bin\fR\&:
+The Hypertext Transfer Protocol\&. The packets are returned with the format according to \fIHttpPacket\fR\& described in \fB erlang:decode_packet/3\fR\&\&. A socket in passive mode will return \fI{ok, HttpPacket}\fR\& from \fIgen_tcp:recv\fR\& while an active socket will send messages like \fI{http, Socket, HttpPacket}\fR\&\&.
+.TP 2
+.B
+\fIhttph | httph_bin\fR\&:
+These two types are often not needed as the socket will automatically switch from \fIhttp\fR\&/\fIhttp_bin\fR\& to \fIhttph\fR\&/\fIhttph_bin\fR\& internally after the first line has been read\&. There might be occasions however when they are useful, such as parsing trailers from chunked encoding\&.
+.RE
+.TP 2
+.B
+\fI{packet_size, Integer}\fR\&(TCP/IP sockets):
+Sets the max allowed length of the packet body\&. If the packet header indicates that the length of the packet is longer than the max allowed length, the packet is considered invalid\&. The same happens if the packet header is too big for the socket receive buffer\&.
+.RS 2
+.LP
+For line oriented protocols (\fIline\fR\&,\fIhttp*\fR\&), option \fIpacket_size\fR\& also guarantees that lines up to the indicated length are accepted and not considered invalid due to internal buffer limitations\&.
+.RE
+.TP 2
+.B
+\fI{priority, Priority}\fR\&:
+Set the protocol-defined priority for all packets to be sent on this socket\&.
+.TP 2
+.B
+\fI{raw, Protocol, OptionNum, ValueBin}\fR\&:
+See below\&.
+.TP 2
+.B
+\fI{read_packets, Integer}\fR\&(UDP sockets):
+Sets the max number of UDP packets to read without intervention from the socket when data is available\&. When this many packets have been read and delivered to the destination process, new packets are not read until a new notification of available data has arrived\&. The default is 5, and if this parameter is set too high the system can become unresponsive due to UDP packet flooding\&.
+.TP 2
+.B
+\fI{recbuf, Size}\fR\&:
+Gives the size of the receive buffer to use for the socket\&.
+.TP 2
+.B
+\fI{reuseaddr, Boolean}\fR\&:
+Allows or disallows local reuse of port numbers\&. By default, reuse is disallowed\&.
+.TP 2
+.B
+\fI{send_timeout, Integer}\fR\&:
+Only allowed for connection oriented sockets\&.
+.RS 2
+.LP
+Specifies a longest time to wait for a send operation to be accepted by the underlying TCP stack\&. When the limit is exceeded, the send operation will return \fI{error,timeout}\fR\&\&. How much of a packet that actually got sent is unknown, why the socket should be closed whenever a timeout has occurred (see \fIsend_timeout_close\fR\&)\&. Default is \fIinfinity\fR\&\&.
+.RE
+.TP 2
+.B
+\fI{send_timeout_close, Boolean}\fR\&:
+Only allowed for connection oriented sockets\&.
+.RS 2
+.LP
+Used together with \fIsend_timeout\fR\& to specify whether the socket will be automatically closed when the send operation returns \fI{error,timeout}\fR\&\&. The recommended setting is \fItrue\fR\& which will automatically close the socket\&. Default is \fIfalse\fR\& due to backward compatibility\&.
+.RE
+.TP 2
+.B
+\fI{sndbuf, Size}\fR\&:
+Gives the size of the send buffer to use for the socket\&.
+.TP 2
+.B
+\fI{priority, Integer}\fR\&:
+Sets the SO_PRIORITY socket level option on platforms where this is implemented\&. The behaviour and allowed range varies on different systems\&. The option is ignored on platforms where the option is not implemented\&. Use with caution\&.
+.TP 2
+.B
+\fI{tos, Integer}\fR\&:
+Sets IP_TOS IP level options on platforms where this is implemented\&. The behaviour and allowed range varies on different systems\&. The option is ignored on platforms where the option is not implemented\&. Use with caution\&.
+.RE
+.LP
+In addition to the options mentioned above, \fIraw\fR\& option specifications can be used\&. The raw options are specified as a tuple of arity four, beginning with the tag \fIraw\fR\&, followed by the protocol level, the option number and the actual option value specified as a binary\&. This corresponds to the second, third and fourth argument to the \fIsetsockopt\fR\& call in the C socket API\&. The option value needs to be coded in the native endianess of the platform and, if a structure is required, needs to follow the struct alignment conventions on the specific platform\&.
+.LP
+Using raw socket options require detailed knowledge about the current operating system and TCP stack\&.
+.LP
+As an example of the usage of raw options, consider a Linux system where you want to set the \fITCP_LINGER2\fR\& option on the \fIIPPROTO_TCP\fR\& protocol level in the stack\&. You know that on this particular system it defaults to 60 (seconds), but you would like to lower it to 30 for a particular socket\&. The \fITCP_LINGER2\fR\& option is not explicitly supported by inet, but you know that the protocol level translates to the number 6, the option number to the number 8 and the value is to be given as a 32 bit integer\&. You can use this line of code to set the option for the socket named \fISock\fR\&:
+.LP
+.nf
+
+        inet:setopts(Sock,[{raw,6,8,<<30:32/native>>}]),
+.fi
+.LP
+As many options are silently discarded by the stack if they are given out of range, it could be a good idea to check that a raw option really got accepted\&. This code places the value in the variable TcpLinger2:
+.LP
+.nf
+
+        {ok,[{raw,6,8,<<TcpLinger2:32/native>>}]}=inet:getopts(Sock,[{raw,6,8,4}]),
+.fi
+.LP
+Code such as the examples above is inherently non portable, even different versions of the same OS on the same platform may respond differently to this kind of option manipulation\&. Use with care\&.
+.LP
+Note that the default options for TCP/IP sockets can be changed with the Kernel configuration parameters mentioned in the beginning of this document\&.
+.RE
+.SH "POSIX ERROR CODES"
+
+.RS 2
+.TP 2
+*
+\fIe2big\fR\& - argument list too long
+.LP
+.TP 2
+*
+\fIeacces\fR\& - permission denied
+.LP
+.TP 2
+*
+\fIeaddrinuse\fR\& - address already in use
+.LP
+.TP 2
+*
+\fIeaddrnotavail\fR\& - cannot assign requested address
+.LP
+.TP 2
+*
+\fIeadv\fR\& - advertise error
+.LP
+.TP 2
+*
+\fIeafnosupport\fR\& - address family not supported by protocol family
+.LP
+.TP 2
+*
+\fIeagain\fR\& - resource temporarily unavailable
+.LP
+.TP 2
+*
+\fIealign\fR\& - EALIGN
+.LP
+.TP 2
+*
+\fIealready\fR\& - operation already in progress
+.LP
+.TP 2
+*
+\fIebade\fR\& - bad exchange descriptor
+.LP
+.TP 2
+*
+\fIebadf\fR\& - bad file number
+.LP
+.TP 2
+*
+\fIebadfd\fR\& - file descriptor in bad state
+.LP
+.TP 2
+*
+\fIebadmsg\fR\& - not a data message
+.LP
+.TP 2
+*
+\fIebadr\fR\& - bad request descriptor
+.LP
+.TP 2
+*
+\fIebadrpc\fR\& - RPC structure is bad
+.LP
+.TP 2
+*
+\fIebadrqc\fR\& - bad request code
+.LP
+.TP 2
+*
+\fIebadslt\fR\& - invalid slot
+.LP
+.TP 2
+*
+\fIebfont\fR\& - bad font file format
+.LP
+.TP 2
+*
+\fIebusy\fR\& - file busy
+.LP
+.TP 2
+*
+\fIechild\fR\& - no children
+.LP
+.TP 2
+*
+\fIechrng\fR\& - channel number out of range
+.LP
+.TP 2
+*
+\fIecomm\fR\& - communication error on send
+.LP
+.TP 2
+*
+\fIeconnaborted\fR\& - software caused connection abort
+.LP
+.TP 2
+*
+\fIeconnrefused\fR\& - connection refused
+.LP
+.TP 2
+*
+\fIeconnreset\fR\& - connection reset by peer
+.LP
+.TP 2
+*
+\fIedeadlk\fR\& - resource deadlock avoided
+.LP
+.TP 2
+*
+\fIedeadlock\fR\& - resource deadlock avoided
+.LP
+.TP 2
+*
+\fIedestaddrreq\fR\& - destination address required
+.LP
+.TP 2
+*
+\fIedirty\fR\& - mounting a dirty fs w/o force
+.LP
+.TP 2
+*
+\fIedom\fR\& - math argument out of range
+.LP
+.TP 2
+*
+\fIedotdot\fR\& - cross mount point
+.LP
+.TP 2
+*
+\fIedquot\fR\& - disk quota exceeded
+.LP
+.TP 2
+*
+\fIeduppkg\fR\& - duplicate package name
+.LP
+.TP 2
+*
+\fIeexist\fR\& - file already exists
+.LP
+.TP 2
+*
+\fIefault\fR\& - bad address in system call argument
+.LP
+.TP 2
+*
+\fIefbig\fR\& - file too large
+.LP
+.TP 2
+*
+\fIehostdown\fR\& - host is down
+.LP
+.TP 2
+*
+\fIehostunreach\fR\& - host is unreachable
+.LP
+.TP 2
+*
+\fIeidrm\fR\& - identifier removed
+.LP
+.TP 2
+*
+\fIeinit\fR\& - initialization error
+.LP
+.TP 2
+*
+\fIeinprogress\fR\& - operation now in progress
+.LP
+.TP 2
+*
+\fIeintr\fR\& - interrupted system call
+.LP
+.TP 2
+*
+\fIeinval\fR\& - invalid argument
+.LP
+.TP 2
+*
+\fIeio\fR\& - I/O error
+.LP
+.TP 2
+*
+\fIeisconn\fR\& - socket is already connected
+.LP
+.TP 2
+*
+\fIeisdir\fR\& - illegal operation on a directory
+.LP
+.TP 2
+*
+\fIeisnam\fR\& - is a named file
+.LP
+.TP 2
+*
+\fIel2hlt\fR\& - level 2 halted
+.LP
+.TP 2
+*
+\fIel2nsync\fR\& - level 2 not synchronized
+.LP
+.TP 2
+*
+\fIel3hlt\fR\& - level 3 halted
+.LP
+.TP 2
+*
+\fIel3rst\fR\& - level 3 reset
+.LP
+.TP 2
+*
+\fIelbin\fR\& - ELBIN
+.LP
+.TP 2
+*
+\fIelibacc\fR\& - cannot access a needed shared library
+.LP
+.TP 2
+*
+\fIelibbad\fR\& - accessing a corrupted shared library
+.LP
+.TP 2
+*
+\fIelibexec\fR\& - cannot exec a shared library directly
+.LP
+.TP 2
+*
+\fIelibmax\fR\& - attempting to link in more shared libraries than system limit
+.LP
+.TP 2
+*
+\fIelibscn\fR\& - \&.lib section in a\&.out corrupted
+.LP
+.TP 2
+*
+\fIelnrng\fR\& - link number out of range
+.LP
+.TP 2
+*
+\fIeloop\fR\& - too many levels of symbolic links
+.LP
+.TP 2
+*
+\fIemfile\fR\& - too many open files
+.LP
+.TP 2
+*
+\fIemlink\fR\& - too many links
+.LP
+.TP 2
+*
+\fIemsgsize\fR\& - message too long
+.LP
+.TP 2
+*
+\fIemultihop\fR\& - multihop attempted
+.LP
+.TP 2
+*
+\fIenametoolong\fR\& - file name too long
+.LP
+.TP 2
+*
+\fIenavail\fR\& - not available
+.LP
+.TP 2
+*
+\fIenet\fR\& - ENET
+.LP
+.TP 2
+*
+\fIenetdown\fR\& - network is down
+.LP
+.TP 2
+*
+\fIenetreset\fR\& - network dropped connection on reset
+.LP
+.TP 2
+*
+\fIenetunreach\fR\& - network is unreachable
+.LP
+.TP 2
+*
+\fIenfile\fR\& - file table overflow
+.LP
+.TP 2
+*
+\fIenoano\fR\& - anode table overflow
+.LP
+.TP 2
+*
+\fIenobufs\fR\& - no buffer space available
+.LP
+.TP 2
+*
+\fIenocsi\fR\& - no CSI structure available
+.LP
+.TP 2
+*
+\fIenodata\fR\& - no data available
+.LP
+.TP 2
+*
+\fIenodev\fR\& - no such device
+.LP
+.TP 2
+*
+\fIenoent\fR\& - no such file or directory
+.LP
+.TP 2
+*
+\fIenoexec\fR\& - exec format error
+.LP
+.TP 2
+*
+\fIenolck\fR\& - no locks available
+.LP
+.TP 2
+*
+\fIenolink\fR\& - link has be severed
+.LP
+.TP 2
+*
+\fIenomem\fR\& - not enough memory
+.LP
+.TP 2
+*
+\fIenomsg\fR\& - no message of desired type
+.LP
+.TP 2
+*
+\fIenonet\fR\& - machine is not on the network
+.LP
+.TP 2
+*
+\fIenopkg\fR\& - package not installed
+.LP
+.TP 2
+*
+\fIenoprotoopt\fR\& - bad protocol option
+.LP
+.TP 2
+*
+\fIenospc\fR\& - no space left on device
+.LP
+.TP 2
+*
+\fIenosr\fR\& - out of stream resources or not a stream device
+.LP
+.TP 2
+*
+\fIenosym\fR\& - unresolved symbol name
+.LP
+.TP 2
+*
+\fIenosys\fR\& - function not implemented
+.LP
+.TP 2
+*
+\fIenotblk\fR\& - block device required
+.LP
+.TP 2
+*
+\fIenotconn\fR\& - socket is not connected
+.LP
+.TP 2
+*
+\fIenotdir\fR\& - not a directory
+.LP
+.TP 2
+*
+\fIenotempty\fR\& - directory not empty
+.LP
+.TP 2
+*
+\fIenotnam\fR\& - not a named file
+.LP
+.TP 2
+*
+\fIenotsock\fR\& - socket operation on non-socket
+.LP
+.TP 2
+*
+\fIenotsup\fR\& - operation not supported
+.LP
+.TP 2
+*
+\fIenotty\fR\& - inappropriate device for ioctl
+.LP
+.TP 2
+*
+\fIenotuniq\fR\& - name not unique on network
+.LP
+.TP 2
+*
+\fIenxio\fR\& - no such device or address
+.LP
+.TP 2
+*
+\fIeopnotsupp\fR\& - operation not supported on socket
+.LP
+.TP 2
+*
+\fIeperm\fR\& - not owner
+.LP
+.TP 2
+*
+\fIepfnosupport\fR\& - protocol family not supported
+.LP
+.TP 2
+*
+\fIepipe\fR\& - broken pipe
+.LP
+.TP 2
+*
+\fIeproclim\fR\& - too many processes
+.LP
+.TP 2
+*
+\fIeprocunavail\fR\& - bad procedure for program
+.LP
+.TP 2
+*
+\fIeprogmismatch\fR\& - program version wrong
+.LP
+.TP 2
+*
+\fIeprogunavail\fR\& - RPC program not available
+.LP
+.TP 2
+*
+\fIeproto\fR\& - protocol error
+.LP
+.TP 2
+*
+\fIeprotonosupport\fR\& - protocol not supported
+.LP
+.TP 2
+*
+\fIeprototype\fR\& - protocol wrong type for socket
+.LP
+.TP 2
+*
+\fIerange\fR\& - math result unrepresentable
+.LP
+.TP 2
+*
+\fIerefused\fR\& - EREFUSED
+.LP
+.TP 2
+*
+\fIeremchg\fR\& - remote address changed
+.LP
+.TP 2
+*
+\fIeremdev\fR\& - remote device
+.LP
+.TP 2
+*
+\fIeremote\fR\& - pathname hit remote file system
+.LP
+.TP 2
+*
+\fIeremoteio\fR\& - remote i/o error
+.LP
+.TP 2
+*
+\fIeremoterelease\fR\& - EREMOTERELEASE
+.LP
+.TP 2
+*
+\fIerofs\fR\& - read-only file system
+.LP
+.TP 2
+*
+\fIerpcmismatch\fR\& - RPC version is wrong
+.LP
+.TP 2
+*
+\fIerremote\fR\& - object is remote
+.LP
+.TP 2
+*
+\fIeshutdown\fR\& - cannot send after socket shutdown
+.LP
+.TP 2
+*
+\fIesocktnosupport\fR\& - socket type not supported
+.LP
+.TP 2
+*
+\fIespipe\fR\& - invalid seek
+.LP
+.TP 2
+*
+\fIesrch\fR\& - no such process
+.LP
+.TP 2
+*
+\fIesrmnt\fR\& - srmount error
+.LP
+.TP 2
+*
+\fIestale\fR\& - stale remote file handle
+.LP
+.TP 2
+*
+\fIesuccess\fR\& - Error 0
+.LP
+.TP 2
+*
+\fIetime\fR\& - timer expired
+.LP
+.TP 2
+*
+\fIetimedout\fR\& - connection timed out
+.LP
+.TP 2
+*
+\fIetoomanyrefs\fR\& - too many references
+.LP
+.TP 2
+*
+\fIetxtbsy\fR\& - text file or pseudo-device busy
+.LP
+.TP 2
+*
+\fIeuclean\fR\& - structure needs cleaning
+.LP
+.TP 2
+*
+\fIeunatch\fR\& - protocol driver not attached
+.LP
+.TP 2
+*
+\fIeusers\fR\& - too many users
+.LP
+.TP 2
+*
+\fIeversion\fR\& - version mismatch
+.LP
+.TP 2
+*
+\fIewouldblock\fR\& - operation would block
+.LP
+.TP 2
+*
+\fIexdev\fR\& - cross-domain link
+.LP
+.TP 2
+*
+\fIexfull\fR\& - message tables full
+.LP
+.TP 2
+*
+\fInxdomain\fR\& - the hostname or domain name could not be found
+.LP
+.RE

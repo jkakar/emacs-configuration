@@ -1,0 +1,413 @@
+.TH ssh 3 "ssh 3.0.1" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+ssh \- Main API of the SSH application
+.SH DESCRIPTION
+.LP
+Interface module for the SSH application\&.
+.SH "SSH"
+
+.RS 2
+.TP 2
+*
+SSH requires the crypto and public_key applications\&.
+.LP
+.TP 2
+*
+Supported SSH version is 2\&.0 
+.LP
+.TP 2
+*
+Supported MAC algorithms: hmac-sha1
+.LP
+.TP 2
+*
+Supported encryption algorithms: aes128-cb and 3des-cbc
+.LP
+.TP 2
+*
+Supports unicode filenames if the emulator and the underlaying OS supports it\&. See the DESCRIPTION section in \fBfile\fR\& for information about this subject
+.LP
+.TP 2
+*
+Supports unicode in shell and cli
+.LP
+.RE
+
+.SH "DATA TYPES "
+
+.LP
+Type definitions that are used more than once in this module and/or abstractions to indicate the intended use of the data type:
+.LP
+\fIboolean() = true | false \fR\&
+.LP
+\fIstring() = [byte()]\fR\&
+.LP
+\fIssh_daemon_ref() - opaque to the user returned by ssh:daemon/[1,2,3]\fR\&
+.LP
+\fIssh_connection_ref() - opaque to the user returned by ssh:connect/3\fR\&
+.LP
+\fIip_address() - inet::ip_address()\fR\&
+.LP
+\fIsubsystem_spec() = {subsystem_name(), {channel_callback(), channel_init_args()}} \fR\&
+.LP
+\fIsubsystem_name() = string() \fR\&
+.LP
+\fIchannel_callback() = atom() - Name of the erlang module implementing the subsystem using the ssh_channel behavior see\fR\& \fBssh_channel(3)\fR\&
+.LP
+\fIchannel_init_args() = list()\fR\&
+.SH EXPORTS
+.LP
+.B
+close(ConnectionRef) -> ok 
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+ConnectionRef = ssh_connection_ref()
+.br
+.RE
+.RE
+.RS
+.LP
+Closes an SSH connection\&.
+.RE
+.LP
+.B
+connect(Host, Port, Options) -> 
+.br
+.B
+connect(Host, Port, Options, Timeout) -> {ok, ssh_connection_ref()} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Host = string()
+.br
+Port = integer()
+.br
+.RS 2
+The default is \fI22\fR\&, the assigned well known port number for SSH\&.
+.RE
+Options = [{Option, Value}]
+.br
+Timeout = infinity | integer(milliseconds)
+.br
+.RS 2
+Negotiation timeout, for connection timeout use the option \fI{connect_timeout, timeout()}\fR\&\&.
+.RE
+.RE
+.RE
+.RS
+.LP
+Connects to an SSH server\&. No channel is started\&. This is done by calling \fBssh_connection:session_channel/[2, 4]\fR\&\&.
+.LP
+Options are:
+.RS 2
+.TP 2
+.B
+\fI{user_dir, string()}\fR\&:
+Sets the user directory i\&.e\&. the directory containing ssh configuration files for the user such as \fIknown_hosts\fR\&, \fIid_rsa, id_dsa\fR\& and \fIauthorized_key\fR\&\&. Defaults to the directory normally referred to as \fI~/\&.ssh\fR\& 
+.TP 2
+.B
+\fI{dsa_pass_phrase, string()}\fR\&:
+If the user dsa key is protected by a passphrase it can be supplied with this option\&.
+.TP 2
+.B
+\fI{rsa_pass_phrase, string()}\fR\&:
+If the user rsa key is protected by a passphrase it can be supplied with this option\&.
+.TP 2
+.B
+\fI{silently_accept_hosts, boolean()}\fR\&:
+When true hosts are added to the file \fIknown_hosts\fR\& without asking the user\&. Defaults to false\&.
+.TP 2
+.B
+\fI{user_interaction, boolean()}\fR\&:
+If false disables the client to connect to the server if any user interaction is needed such as accepting that the server will be added to the \fIknown_hosts\fR\& file or supplying a password\&. Defaults to true\&. Even if user interaction is allowed it can be suppressed by other options such as silently_accept_hosts and password\&. Do note that it may not always be desirable to use those options from a security point of view\&.
+.TP 2
+.B
+\fI{public_key_alg, \&'ssh-rsa\&' | \&'ssh-dss\&'}\fR\&:
+Sets the preferred public key algorithm to use for user authentication\&. If the the preferred algorithm fails for some reason, the other algorithm is tried\&. The default is to try \fI\&'ssh-rsa\&'\fR\& first\&.
+.TP 2
+.B
+\fI{pref_public_key_algs, list()}\fR\&:
+List of public key algorithms to try to use, \&'ssh-rsa\&' and \&'ssh-dss\&' available\&. Will override \fI{public_key_alg, \&'ssh-rsa\&' | \&'ssh-dss\&'}\fR\&
+.TP 2
+.B
+\fI{connect_timeout, timeout()}\fR\&:
+Sets a timeout on the transport layer connection\&. Defaults to \fIinfinity\fR\&\&.
+.TP 2
+.B
+\fI{user, string()}\fR\&:
+Provides a user name\&. If this option is not given, ssh reads from the environment (\fILOGNAME\fR\& or \fIUSER\fR\& on unix, \fIUSERNAME\fR\& on Windows)\&.
+.TP 2
+.B
+\fI{password, string()}\fR\&:
+Provide a password for password authentication\&. If this option is not given, the user will be asked for a password if the password authentication method is attempted\&.
+.TP 2
+.B
+\fI{key_cb, atom()}\fR\&:
+Module implementing the behaviour \fBssh_client_key_api\fR\&\&. Can be used to customize the handling of public keys\&.
+.TP 2
+.B
+\fI{quiet_mode, atom() = boolean()}\fR\&:
+If true, the client will not print out anything on authorization\&.
+.TP 2
+.B
+\fI{fd, file_descriptor()}\fR\&:
+Allow an existing file descriptor to be used (simply passed on to the transport protocol)\&.
+.TP 2
+.B
+\fI{rekey_limit, integer()}\fR\&:
+Provide, in bytes, when rekeying should be initiated, defaults to one time each GB and one time per hour\&.
+.TP 2
+.B
+\fI{idle_time, integer()}\fR\&:
+Sets a timeout on connection when no channels are active, default is infinity
+.RE
+.RE
+.LP
+.B
+connection_info(ConnectionRef, [Option]) ->[{Option, Value}] 
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Option = client_version | server_version | user | peer | sockname 
+.br
+Value = [option_value()] 
+.br
+option_value() = {{Major::integer(), Minor::integer()}, VersionString::string()} | User::string() | Peer::{inet:hostname(), {inet::ip_adress(), inet::port_number()}} | Sockname::{inet::ip_adress(), inet::port_number()} () 
+.br
+.RE
+.RE
+.RS
+.LP
+Retrieves information about a connection\&.
+.RE
+.LP
+.B
+daemon(Port) -> 
+.br
+.B
+daemon(Port, Options) -> 
+.br
+.B
+daemon(HostAddress, Port, Options) -> {ok, ssh_daemon_ref()} | {error, atom()}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = integer()
+.br
+HostAddress = ip_address() | any
+.br
+Options = [{Option, Value}]
+.br
+Option = atom()
+.br
+Value = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Starts a server listening for SSH connections on the given port\&.
+.LP
+Options are:
+.RS 2
+.TP 2
+.B
+\fI{subsystems, [subsystem_spec()]\fR\&:
+ Provides specifications for handling of subsystems\&. The "sftp" subsystem spec can be retrieved by calling ssh_sftpd:subsystem_spec/1\&. If the subsystems option in not present the value of \fI[ssh_sftpd:subsystem_spec([])]\fR\& will be used\&. It is of course possible to set the option to the empty list if you do not want the daemon to run any subsystems at all\&. 
+.TP 2
+.B
+\fI{shell, {Module, Function, Args} | fun(string() = User) - > pid() | fun(string() = User, ip_address() = PeerAddr) -> pid()}\fR\&:
+ Defines the read-eval-print loop used when a shell is requested by the client\&. Default is to use the erlang shell: \fI{shell, start, []}\fR\&
+.TP 2
+.B
+\fI{ssh_cli, {channel_callback(), channel_init_args()} | no_cli}\fR\&:
+ Provides your own CLI implementation, i\&.e\&. a channel callback module that implements a shell and command execution\&. Note that you may customize the shell read-eval-print loop using the option \fIshell\fR\& which is much less work than implementing your own CLI channel\&. If set to \fIno_cli\fR\& you will disable CLI channels and only subsystem channels will be allowed\&. 
+.TP 2
+.B
+\fI{user_dir, String}\fR\&:
+Sets the user directory i\&.e\&. the directory containing ssh configuration files for the user such as \fIknown_hosts\fR\&, \fIid_rsa, id_dsa\fR\& and \fIauthorized_key\fR\&\&. Defaults to the directory normally referred to as \fI~/\&.ssh\fR\& 
+.TP 2
+.B
+\fI{system_dir, string()}\fR\&:
+Sets the system directory, containing the host key files that identifies the host keys for ssh\&. The default is \fI/etc/ssh\fR\&, note that for security reasons this directory is normally only accessible by the root user\&.
+.TP 2
+.B
+\fI{auth_methods, string()}\fR\&:
+Comma separated string that determines which authentication methodes that the server should support and in what order they will be tried\&. Defaults to \fI"publickey,keyboard-interactive,password"\fR\&
+.TP 2
+.B
+\fI{user_passwords, [{string() = User, string() = Password}]}\fR\&:
+Provide passwords for password authentication\&.They will be used when someone tries to connect to the server and public key user authentication fails\&. The option provides a list of valid user names and the corresponding password\&.
+.TP 2
+.B
+\fI{password, string()}\fR\&:
+Provide a global password that will authenticate any user\&. From a security perspective this option makes the server very vulnerable\&.
+.TP 2
+.B
+\fI{pwdfun, fun(User::string(), password::string()) -> boolean()}\fR\&:
+Provide a function for password validation\&. This is called with user and password as strings, and should return \fItrue\fR\& if the password is valid and \fIfalse\fR\& otherwise\&.
+.TP 2
+.B
+\fI{negotiation_timeout, integer()}\fR\&:
+Max time in milliseconds for the authentication negotiation\&. The default value is 2 minutes\&.
+.TP 2
+.B
+\fI{parallel_login, boolean()}\fR\&:
+If set to false (the default value), only one login is handled a time\&. If set to true, an unlimited logins will be allowed simultanously\&. Note that this affects only the connections with authentication in progress, not the already authenticated connections\&.
+.LP
+
+.RS -4
+.B
+Warning:
+.RE
+Do not enable parallel_logins without protecting the server by other means like a firewall\&. If set to true, there is no protection against dos attacs\&.
+
+.TP 2
+.B
+\fI{key_cb, atom()}\fR\&:
+Module implementing the behaviour \fBssh_server_key_api\fR\&\&. Can be used to customize the handling of public keys\&.
+.TP 2
+.B
+\fI{fd, file_descriptor()}\fR\&:
+Allow an existing file-descriptor to be used (simply passed on to the transport protocol)\&.
+.TP 2
+.B
+\fI{failfun, fun(User::string(), PeerAddress::ip_address(), Reason::term()) -> _}\fR\&:
+Provide a fun to implement your own logging when a user fails to authenticate\&.
+.TP 2
+.B
+\fI{connectfun, fun(User::string(), PeerAddress::ip_address(), Method::string()) ->_}\fR\&:
+Provide a fun to implement your own logging when a user authenticates to the server\&.
+.TP 2
+.B
+\fI{disconnectfun, fun(Reason:term()) -> _}\fR\&:
+Provide a fun to implement your own logging when a user disconnects from the server\&.
+.RE
+.RE
+.LP
+.B
+shell(Host) -> 
+.br
+.B
+shell(Host, Option) -> 
+.br
+.B
+shell(Host, Port, Option) -> _
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+ Host = string()
+.br
+ Port = integer()
+.br
+ Options - see ssh:connect/3
+.br
+.RE
+.RE
+.RS
+.LP
+Starts an interactive shell via an SSH server on the given \fIHost\fR\&\&. The function waits for user input, and will not return until the remote shell is ended (i\&.e\&. exit from the shell)\&.
+.RE
+.LP
+.B
+start() -> 
+.br
+.B
+start(Type) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Type = permanent | transient | temporary
+.br
+Reason = term() 
+.br
+.RE
+.RE
+.RS
+.LP
+Utility function that starts crypto, public_key and the SSH application\&. Defult type is temporary\&. See also \fBapplication(3)\fR\& 
+.RE
+.LP
+.B
+stop() -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Stops the SSH application\&. See also \fBapplication(3)\fR\&
+.RE
+.LP
+.B
+stop_daemon(DaemonRef) -> 
+.br
+.B
+stop_daemon(Address, Port) -> ok 
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+DaemonRef = ssh_daemon_ref()
+.br
+Address = ip_address()
+.br
+Port = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Stops the listener and all connections started by the listener\&.
+.RE
+.LP
+.B
+stop_listener(DaemonRef) -> 
+.br
+.B
+stop_listener(Address, Port) -> ok 
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+DaemonRef = ssh_daemon_ref()
+.br
+Address = ip_address()
+.br
+Port = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Stops the listener, but leaves existing connections started by the listener up and running\&.
+.RE

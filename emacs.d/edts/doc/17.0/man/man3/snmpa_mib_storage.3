@@ -1,0 +1,328 @@
+.TH snmpa_mib_storage 3 "snmp 4.25.1" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+snmpa_mib_storage \- 
+    Behaviour module for the SNMP agent mib storage. 
+  
+.SH DESCRIPTION
+.LP
+This module defines the behaviour of the SNMP agent mib storage\&.
+.LP
+The mib storage is used by the agent to store internal mib- related information\&. The mib storage module is used by several entities, not just the mib-server\&.
+.LP
+A \fIsnmpa_mib_storage\fR\& compliant module must export the following functions:
+.RS 2
+.TP 2
+*
+\fBopen/5\fR\&
+.LP
+.TP 2
+*
+\fBclose/1\fR\&
+.LP
+.TP 2
+*
+\fBread/2\fR\&
+.LP
+.TP 2
+*
+\fBwrite/2\fR\&
+.LP
+.TP 2
+*
+\fBdelete/1\fR\&
+.LP
+.TP 2
+*
+\fBdelete/2\fR\&
+.LP
+.TP 2
+*
+\fBmatch_object/2\fR\&
+.LP
+.TP 2
+*
+\fBmatch_delete/2\fR\&
+.LP
+.TP 2
+*
+\fBtab2list/1\fR\&
+.LP
+.TP 2
+*
+\fBinfo/1\fR\&
+.LP
+.TP 2
+*
+\fBsync/1\fR\&
+.LP
+.TP 2
+*
+\fBbackup/2\fR\&
+.LP
+.RE
+
+.LP
+The semantics of them and their exact signatures are explained below\&.
+.SH "CALLBACK FUNCTIONS"
+
+.LP
+The following functions must be exported from a \fImib-server\fR\& data callback module:
+.SH EXPORTS
+.LP
+.B
+Module:open(Name, RecordName, Fields, Type, Options) -> {ok, TabId} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Name = atom()
+.br
+RecordName = atom()
+.br
+Fields = [atom()]
+.br
+Type = set | bag()
+.br
+Options = list()
+.br
+TabId = term()
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Create or open a mib storage table\&.
+.LP
+Note that the \fIRecordName\fR\& and \fIFields\fR\& arguments my not be used in all implementations (they are actually only needed for mnesia-based implementations)\&.
+.LP
+Note also that the \fIOptions\fR\& argument comes from the \fIoptions\fR\& config option of the mib-storage config option, and is passed on as is\&.
+.RE
+.LP
+.B
+Module:close(TabId) -> void()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+State = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Close the mib-storage table\&.
+.RE
+.LP
+.B
+Module:read(TabId, Key) -> false | {value, Record}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+Key = term()
+.br
+Record = tuple()
+.br
+.RE
+.RE
+.RS
+.LP
+Read a record from the mib-storage table\&.
+.RE
+.LP
+.B
+Module:write(TabId, Record) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+Record = tuple()
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Write a record to the mib-storage table\&.
+.RE
+.LP
+.B
+Module:delete(TabId) -> void()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Delete an entire mib-storage table\&.
+.RE
+.LP
+.B
+Module:delete(TabId, Key) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+Key = term()
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Delete a record from the mib-storage table\&.
+.RE
+.LP
+.B
+Module:match_object(TabId, Pattern) -> {ok, Recs} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+Pattern = match_pattern()
+.br
+Recs = [tuple()]
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Search the mib-storage table for record that match the specified pattern\&.
+.RE
+.LP
+.B
+Module:match_delete(TabId, Pattern) -> {ok, Recs} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+Pattern = match_pattern()
+.br
+Recs = [tuple()]
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Search the mib-storage table for record that match the specified pattern and then delete them\&. The records deleted are also returned\&.
+.RE
+.LP
+.B
+Module:tab2list(TabId) -> Recs
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+Recs = [tuple()]
+.br
+.RE
+.RE
+.RS
+.LP
+Return all records in the mib-storage table in the form of a list\&.
+.RE
+.LP
+.B
+Module:info(TabId) -> {ok, Info} | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+Info = term()
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Retrieve implementation dependent mib-storage table information\&.
+.RE
+.LP
+.B
+Module:sync(TabId) -> void()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Synchronize the mib-storage table\&.
+.LP
+What this means, if anything, is implementation dependent\&.
+.RE
+.LP
+.B
+Module:backup(TabId, BackupDir) -> ok | {error, Reason}
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+TabId = term()
+.br
+BackupDir = string()
+.br
+Reason = term()
+.br
+.RE
+.RE
+.RS
+.LP
+Perform a backup of the mib-storage table\&.
+.LP
+What this means, if anything, is implementation dependent\&.
+.RE

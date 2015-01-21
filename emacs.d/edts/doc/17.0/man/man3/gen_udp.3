@@ -1,0 +1,385 @@
+.TH gen_udp 3 "kernel 3.0" "Ericsson AB" "Erlang Module Definition"
+.SH NAME
+gen_udp \- Interface to UDP sockets
+.SH DESCRIPTION
+.LP
+The \fIgen_udp\fR\& module provides functions for communicating with sockets using the UDP protocol\&.
+.SH DATA TYPES
+.nf
+
+\fBoption()\fR\& = {active, true | false | once | -32768\&.\&.32767}
+.br
+         | {add_membership,
+.br
+            {\fBinet:ip_address()\fR\&, \fBinet:ip_address()\fR\&}}
+.br
+         | {broadcast, boolean()}
+.br
+         | {buffer, integer() >= 0}
+.br
+         | {deliver, port | term}
+.br
+         | {dontroute, boolean()}
+.br
+         | {drop_membership,
+.br
+            {\fBinet:ip_address()\fR\&, \fBinet:ip_address()\fR\&}}
+.br
+         | {header, integer() >= 0}
+.br
+         | {high_msgq_watermark, integer() >= 1}
+.br
+         | {low_msgq_watermark, integer() >= 1}
+.br
+         | {mode, list | binary}
+.br
+         | list
+.br
+         | binary
+.br
+         | {multicast_if, \fBinet:ip_address()\fR\&}
+.br
+         | {multicast_loop, boolean()}
+.br
+         | {multicast_ttl, integer() >= 0}
+.br
+         | {priority, integer() >= 0}
+.br
+         | {raw,
+.br
+            Protocol :: integer() >= 0,
+.br
+            OptionNum :: integer() >= 0,
+.br
+            ValueBin :: binary()}
+.br
+         | {read_packets, integer() >= 0}
+.br
+         | {recbuf, integer() >= 0}
+.br
+         | {reuseaddr, boolean()}
+.br
+         | {sndbuf, integer() >= 0}
+.br
+         | {tos, integer() >= 0}
+.br
+         | {ipv6_v6only, boolean()}
+.br
+.fi
+.nf
+
+\fBoption_name()\fR\& = active
+.br
+              | broadcast
+.br
+              | buffer
+.br
+              | deliver
+.br
+              | dontroute
+.br
+              | header
+.br
+              | high_msgq_watermark
+.br
+              | low_msgq_watermark
+.br
+              | mode
+.br
+              | multicast_if
+.br
+              | multicast_loop
+.br
+              | multicast_ttl
+.br
+              | priority
+.br
+              | {raw,
+.br
+                 Protocol :: integer() >= 0,
+.br
+                 OptionNum :: integer() >= 0,
+.br
+                 ValueSpec :: (ValueSize :: integer() >= 0)
+.br
+                            | (ValueBin :: binary())}
+.br
+              | read_packets
+.br
+              | recbuf
+.br
+              | reuseaddr
+.br
+              | sndbuf
+.br
+              | tos
+.br
+              | ipv6_v6only
+.br
+.fi
+.nf
+
+.B
+\fBsocket()\fR\&
+.br
+.fi
+.RS
+.LP
+As returned by open/1,2\&.
+.RE
+.SH EXPORTS
+.LP
+.nf
+
+.B
+open(Port) -> {ok, Socket} | {error, Reason}
+.br
+.fi
+.br
+.nf
+
+.B
+open(Port, Opts) -> {ok, Socket} | {error, Reason}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Port = \fBinet:port_number()\fR\&
+.br
+Opts = [Option]
+.br
+Option = {ip, \fBinet:ip_address()\fR\&}
+.br
+       | {fd, integer() >= 0}
+.br
+       | {ifaddr, \fBinet:ip_address()\fR\&}
+.br
+       | \fBinet:address_family()\fR\&
+.br
+       | {port, \fBinet:port_number()\fR\&}
+.br
+       | \fBoption()\fR\&
+.br
+Socket = \fBsocket()\fR\&
+.br
+Reason = \fBinet:posix()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Associates a UDP port number (\fIPort\fR\&) with the calling process\&.
+.LP
+The available options are:
+.RS 2
+.TP 2
+.B
+\fIlist\fR\&:
+Received \fIPacket\fR\& is delivered as a list\&.
+.TP 2
+.B
+\fIbinary\fR\&:
+Received \fIPacket\fR\& is delivered as a binary\&.
+.TP 2
+.B
+\fI{ip, ip_address()}\fR\&:
+If the host has several network interfaces, this option specifies which one to use\&.
+.TP 2
+.B
+\fI{ifaddr, ip_address()}\fR\&:
+Same as \fI{ip, ip_address()}\fR\&\&. If the host has several network interfaces, this option specifies which one to use\&.
+.TP 2
+.B
+\fI{fd, integer() >= 0}\fR\&:
+If a socket has somehow been opened without using \fIgen_udp\fR\&, use this option to pass the file descriptor for it\&.
+.TP 2
+.B
+\fIinet6\fR\&:
+Set up the socket for IPv6\&.
+.TP 2
+.B
+\fIinet\fR\&:
+Set up the socket for IPv4\&.
+.TP 2
+.B
+\fI{udp_module, module()}\fR\&:
+Override which callback module is used\&. Defaults to \fIinet_udp\fR\& for IPv4 and \fIinet6_udp\fR\& for IPv6\&.
+.TP 2
+.B
+\fI{multicast_if, Address}\fR\&:
+Set the local device for a multicast socket\&.
+.TP 2
+.B
+\fI{multicast_loop, true | false}\fR\&:
+When \fItrue\fR\& sent multicast packets will be looped back to the local sockets\&.
+.TP 2
+.B
+\fI{multicast_ttl, Integer}\fR\&:
+The \fImulticast_ttl\fR\& option changes the time-to-live (TTL) for outgoing multicast datagrams in order to control the scope of the multicasts\&.
+.RS 2
+.LP
+Datagrams with a TTL of 1 are not forwarded beyond the local network\&. 
+.br
+Default: 1
+.RE
+.TP 2
+.B
+\fI{add_membership, {MultiAddress, InterfaceAddress}}\fR\&:
+Join a multicast group\&.
+.TP 2
+.B
+\fI{drop_membership, {MultiAddress, InterfaceAddress}}\fR\&:
+Leave multicast group\&.
+.TP 2
+.B
+\fIOpt\fR\&:
+See \fBinet:setopts/2\fR\&\&.
+.RE
+.LP
+The returned socket \fISocket\fR\& is used to send packets from this port with \fIsend/4\fR\&\&. When UDP packets arrive at the opened port, if the socket is in an active mode the packets are delivered as messages to the controlling process:
+.LP
+.nf
+
+{udp, Socket, IP, InPortNo, Packet}
+.fi
+.LP
+If the socket is not in an active mode, data can be retrieved via the \fBrecv/2,3\fR\& calls\&. Note that arriving UDP packets that are longer than the receive buffer option specifies, might be truncated without warning\&.
+.LP
+When a socket in \fI{active, N}\fR\& mode (see \fB inet:setopts/2\fR\& for details) transitions to passive (\fI{active, false}\fR\&) mode, the controlling process is notified by a message of the following form:
+.LP
+.nf
+
+{udp_passive, Socket}
+.fi
+.LP
+\fIIP\fR\& and \fIInPortNo\fR\& define the address from which \fIPacket\fR\& came\&. \fIPacket\fR\& is a list of bytes if the option \fIlist\fR\& was specified\&. \fIPacket\fR\& is a binary if the option \fIbinary\fR\& was specified\&.
+.LP
+Default value for the receive buffer option is \fI{recbuf, 8192}\fR\&\&.
+.LP
+If \fIPort == 0\fR\&, the underlying OS assigns a free UDP port, use \fIinet:port/1\fR\& to retrieve it\&.
+.RE
+.LP
+.nf
+
+.B
+send(Socket, Address, Port, Packet) -> ok | {error, Reason}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Address = \fBinet:ip_address()\fR\& | \fBinet:hostname()\fR\&
+.br
+Port = \fBinet:port_number()\fR\&
+.br
+Packet = iodata()
+.br
+Reason = not_owner | \fBinet:posix()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Sends a packet to the specified address and port\&. The \fIAddress\fR\& argument can be either a hostname, or an IP address\&.
+.RE
+.LP
+.nf
+
+.B
+recv(Socket, Length) ->
+.B
+        {ok, {Address, Port, Packet}} | {error, Reason}
+.br
+.fi
+.br
+.nf
+
+.B
+recv(Socket, Length, Timeout) ->
+.B
+        {ok, {Address, Port, Packet}} | {error, Reason}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Length = integer() >= 0
+.br
+Timeout = timeout()
+.br
+Address = \fBinet:ip_address()\fR\&
+.br
+Port = \fBinet:port_number()\fR\&
+.br
+Packet = string() | binary()
+.br
+Reason = not_owner | \fBinet:posix()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+This function receives a packet from a socket in passive mode\&.
+.LP
+The optional \fITimeout\fR\& parameter specifies a timeout in milliseconds\&. The default value is \fIinfinity\fR\&\&.
+.RE
+.LP
+.nf
+
+.B
+controlling_process(Socket, Pid) -> ok | {error, Reason}
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+Pid = pid()
+.br
+Reason = closed | not_owner | \fBinet:posix()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Assigns a new controlling process \fIPid\fR\& to \fISocket\fR\&\&. The controlling process is the process which receives messages from the socket\&. If called by any other process than the current controlling process, \fI{error, not_owner}\fR\& is returned\&.
+.RE
+.LP
+.nf
+
+.B
+close(Socket) -> ok
+.br
+.fi
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Socket = \fBsocket()\fR\&
+.br
+.RE
+.RE
+.RS
+.LP
+Closes a UDP socket\&.
+.RE

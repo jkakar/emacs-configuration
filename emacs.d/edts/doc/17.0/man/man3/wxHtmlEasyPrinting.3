@@ -1,0 +1,350 @@
+.TH wxHtmlEasyPrinting 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxHtmlEasyPrinting \- See external documentation: wxHtmlEasyPrinting.
+.SH DESCRIPTION
+.LP
+See external documentation: wxHtmlEasyPrinting\&.
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxHtmlEasyPrinting()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new() -> wxHtmlEasyPrinting()
+.br
+.RS
+.LP
+Equivalent to \fBnew([])\fR\&\&.
+.RE
+.LP
+.B
+new(Option::[Option]) -> wxHtmlEasyPrinting()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Option = {name, chardata() (see module unicode)} | {parentWindow, wxWindow() (see module wxWindow)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPrintData(This) -> wxPrintData() (see module wxPrintData)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPageSetupData(This) -> wxPageSetupDialogData() (see module wxPageSetupDialogData)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+previewFile(This, Htmlfile) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Htmlfile = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+previewText(This, Htmltext) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Htmltext = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBpreviewText(This, Htmltext, [])\fR\&\&.
+.RE
+.LP
+.B
+previewText(This, Htmltext, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Htmltext = chardata() (see module unicode)
+.br
+Option = {basepath, chardata() (see module unicode)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+printFile(This, Htmlfile) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Htmlfile = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+printText(This, Htmltext) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Htmltext = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBprintText(This, Htmltext, [])\fR\&\&.
+.RE
+.LP
+.B
+printText(This, Htmltext, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Htmltext = chardata() (see module unicode)
+.br
+Option = {basepath, chardata() (see module unicode)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+pageSetup(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFonts(This, Normal_face, Fixed_face) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Normal_face = chardata() (see module unicode)
+.br
+Fixed_face = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetFonts(This, Normal_face, Fixed_face, [])\fR\&\&.
+.RE
+.LP
+.B
+setFonts(This, Normal_face, Fixed_face, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Normal_face = chardata() (see module unicode)
+.br
+Fixed_face = chardata() (see module unicode)
+.br
+Option = {sizes, [integer()]}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHeader(This, Header) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Header = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetHeader(This, Header, [])\fR\&\&.
+.RE
+.LP
+.B
+setHeader(This, Header, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Header = chardata() (see module unicode)
+.br
+Option = {pg, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFooter(This, Footer) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Footer = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBsetFooter(This, Footer, [])\fR\&\&.
+.RE
+.LP
+.B
+setFooter(This, Footer, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxHtmlEasyPrinting()
+.br
+Footer = chardata() (see module unicode)
+.br
+Option = {pg, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroy(This::wxHtmlEasyPrinting()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

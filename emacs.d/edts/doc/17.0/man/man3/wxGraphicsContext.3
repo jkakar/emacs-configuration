@@ -1,0 +1,954 @@
+.TH wxGraphicsContext 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxGraphicsContext \- See external documentation: wxGraphicsContext.
+.SH DESCRIPTION
+.LP
+See external documentation: wxGraphicsContext\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxGraphicsObject\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxGraphicsContext()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+create() -> wxGraphicsContext()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+create(Dc) -> wxGraphicsContext()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Dc = wxWindowDC() (see module wxWindowDC) | wxWindow() (see module wxWindow)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+createPen(This, Pen) -> wxGraphicsPen() (see module wxGraphicsPen)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Pen = wxPen() (see module wxPen)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+createBrush(This, Brush) -> wxGraphicsBrush() (see module wxGraphicsBrush)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Brush = wxBrush() (see module wxBrush)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+createRadialGradientBrush(This, Xo, Yo, Xc, Yc, Radius, OColor, CColor) -> wxGraphicsBrush() (see module wxGraphicsBrush)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Xo = number()
+.br
+Yo = number()
+.br
+Xc = number()
+.br
+Yc = number()
+.br
+Radius = number()
+.br
+OColor = wx_colour() (see module wx)
+.br
+CColor = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+\fIThis function is deprecated: \fR\&deprecated function not available in wxWidgets-2\&.9 and later
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+createLinearGradientBrush(This, X1, Y1, X2, Y2, C1, C2) -> wxGraphicsBrush() (see module wxGraphicsBrush)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+X1 = number()
+.br
+Y1 = number()
+.br
+X2 = number()
+.br
+Y2 = number()
+.br
+C1 = wx_colour() (see module wx)
+.br
+C2 = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+\fIThis function is deprecated: \fR\&deprecated function not available in wxWidgets-2\&.9 and later
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+createFont(This, Font) -> wxGraphicsFont() (see module wxGraphicsFont)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Font = wxFont() (see module wxFont)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcreateFont(This, Font, [])\fR\&\&.
+.RE
+.LP
+.B
+createFont(This, Font, Option::[Option]) -> wxGraphicsFont() (see module wxGraphicsFont)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Font = wxFont() (see module wxFont)
+.br
+Option = {col, wx_colour() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+createMatrix(This) -> wxGraphicsMatrix() (see module wxGraphicsMatrix)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcreateMatrix(This, [])\fR\&\&.
+.RE
+.LP
+.B
+createMatrix(This, Option::[Option]) -> wxGraphicsMatrix() (see module wxGraphicsMatrix)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Option = {a, number()} | {b, number()} | {c, number()} | {d, number()} | {tx, number()} | {ty, number()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+createPath(This) -> wxGraphicsPath() (see module wxGraphicsPath)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clip(This, Region) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Region = wxRegion() (see module wxRegion)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+clip(This, X, Y, W, H) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+X = number()
+.br
+Y = number()
+.br
+W = number()
+.br
+H = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+resetClip(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+drawBitmap(This, Bmp, X, Y, W, H) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Bmp = wxBitmap() (see module wxBitmap)
+.br
+X = number()
+.br
+Y = number()
+.br
+W = number()
+.br
+H = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+drawEllipse(This, X, Y, W, H) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+X = number()
+.br
+Y = number()
+.br
+W = number()
+.br
+H = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+drawIcon(This, Icon, X, Y, W, H) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Icon = wxIcon() (see module wxIcon)
+.br
+X = number()
+.br
+Y = number()
+.br
+W = number()
+.br
+H = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+drawLines(This, Points) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Points = [{X::float(), Y::float()}]
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBdrawLines(This, Points, [])\fR\&\&.
+.RE
+.LP
+.B
+drawLines(This, Points, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Points = [{X::float(), Y::float()}]
+.br
+Option = {fillStyle, wx_enum() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+FillStyle = integer
+.RE
+.LP
+.B
+drawPath(This, Path) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Path = wxGraphicsPath() (see module wxGraphicsPath)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBdrawPath(This, Path, [])\fR\&\&.
+.RE
+.LP
+.B
+drawPath(This, Path, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Path = wxGraphicsPath() (see module wxGraphicsPath)
+.br
+Option = {fillStyle, wx_enum() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+FillStyle = integer
+.RE
+.LP
+.B
+drawRectangle(This, X, Y, W, H) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+X = number()
+.br
+Y = number()
+.br
+W = number()
+.br
+H = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+drawRoundedRectangle(This, X, Y, W, H, Radius) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+X = number()
+.br
+Y = number()
+.br
+W = number()
+.br
+H = number()
+.br
+Radius = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+drawText(This, Str, X, Y) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Str = chardata() (see module unicode)
+.br
+X = number()
+.br
+Y = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+drawText(This, Str, X, Y, Angle) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Str = chardata() (see module unicode)
+.br
+X = number()
+.br
+Y = number()
+.br
+Angle = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Also:
+.br
+drawText(This, Str, X, Y, BackgroundBrush) -> ok when
+.br
+This::wxGraphicsContext(), Str::unicode:chardata(), X::number(), Y::number(), BackgroundBrush::wxGraphicsBrush:wxGraphicsBrush()\&.
+.br
+
+.RE
+.LP
+.B
+drawText(This, Str, X, Y, Angle, BackgroundBrush) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Str = chardata() (see module unicode)
+.br
+X = number()
+.br
+Y = number()
+.br
+Angle = number()
+.br
+BackgroundBrush = wxGraphicsBrush() (see module wxGraphicsBrush)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+fillPath(This, Path) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Path = wxGraphicsPath() (see module wxGraphicsPath)
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBfillPath(This, Path, [])\fR\&\&.
+.RE
+.LP
+.B
+fillPath(This, Path, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Path = wxGraphicsPath() (see module wxGraphicsPath)
+.br
+Option = {fillStyle, wx_enum() (see module wx)}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+FillStyle = integer
+.RE
+.LP
+.B
+strokePath(This, Path) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Path = wxGraphicsPath() (see module wxGraphicsPath)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getPartialTextExtents(This, Text) -> [number()]
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTextExtent(This, Text) -> Result
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Result = {Width::number(), Height::number(), Descent::number(), ExternalLeading::number()}
+.br
+This = wxGraphicsContext()
+.br
+Text = chardata() (see module unicode)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+rotate(This, Angle) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Angle = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+scale(This, XScale, YScale) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+XScale = number()
+.br
+YScale = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+translate(This, Dx, Dy) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Dx = number()
+.br
+Dy = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getTransform(This) -> wxGraphicsMatrix() (see module wxGraphicsMatrix)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setTransform(This, Matrix) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Matrix = wxGraphicsMatrix() (see module wxGraphicsMatrix)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+concatTransform(This, Matrix) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Matrix = wxGraphicsMatrix() (see module wxGraphicsMatrix)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setBrush(This, Brush) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Brush = wxGraphicsBrush() (see module wxGraphicsBrush) | wxBrush() (see module wxBrush)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFont(This, Font) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Font = wxGraphicsFont() (see module wxGraphicsFont)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setFont(This, Font, Colour) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Font = wxFont() (see module wxFont)
+.br
+Colour = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setPen(This, Pen) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Pen = wxPen() (see module wxPen) | wxGraphicsPen() (see module wxGraphicsPen)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+strokeLine(This, X1, Y1, X2, Y2) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+X1 = number()
+.br
+Y1 = number()
+.br
+X2 = number()
+.br
+Y2 = number()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+strokeLines(This, Points) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxGraphicsContext()
+.br
+Points = [{X::float(), Y::float()}]
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+destroy(This::wxGraphicsContext()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>

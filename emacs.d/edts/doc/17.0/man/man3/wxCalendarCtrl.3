@@ -1,0 +1,548 @@
+.TH wxCalendarCtrl 3 "wx 1.2" "" "Erlang Module Definition"
+.SH NAME
+wxCalendarCtrl \- See external documentation: wxCalendarCtrl.
+.SH DESCRIPTION
+.LP
+See external documentation: wxCalendarCtrl\&.
+.LP
+This class is derived (and can use functions) from: 
+.br
+\fBwxControl\fR\& 
+.br
+\fBwxWindow\fR\& 
+.br
+\fBwxEvtHandler\fR\& 
+.SH "DATA TYPES"
+
+.RS 2
+.TP 2
+.B
+\fIwxCalendarCtrl()\fR\&:
+
+.RS 2
+.LP
+An object reference, The representation is internal and can be changed without notice\&. It can\&'t be used for comparsion stored on disc or distributed for use on other nodes\&.
+.RE
+.RE
+.SH EXPORTS
+.LP
+.B
+new() -> wxCalendarCtrl()
+.br
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+new(Parent, Id) -> wxCalendarCtrl()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+Id = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBnew(Parent, Id, [])\fR\&\&.
+.RE
+.LP
+.B
+new(Parent, Id, Option::[Option]) -> wxCalendarCtrl()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Parent = wxWindow() (see module wxWindow)
+.br
+Id = integer()
+.br
+Option = {date, wx_datetime() (see module wx)} | {pos, {X::integer(), Y::integer()}} | {size, {W::integer(), H::integer()}} | {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+create(This, Parent, Id) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Id = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBcreate(This, Parent, Id, [])\fR\&\&.
+.RE
+.LP
+.B
+create(This, Parent, Id, Option::[Option]) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Parent = wxWindow() (see module wxWindow)
+.br
+Id = integer()
+.br
+Option = {date, wx_datetime() (see module wx)} | {pos, {X::integer(), Y::integer()}} | {size, {W::integer(), H::integer()}} | {style, integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setDate(This, Date) -> boolean()
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Date = wx_datetime() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getDate(This) -> wx_datetime() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableYearChange(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+\fIThis function is deprecated: \fR\&deprecated function not available in wxWidgets-2\&.9 and later
+.LP
+Equivalent to \fBenableYearChange(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enableYearChange(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Option = {enable, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+\fIThis function is deprecated: \fR\&deprecated function not available in wxWidgets-2\&.9 and later
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableMonthChange(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBenableMonthChange(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enableMonthChange(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Option = {enable, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+enableHolidayDisplay(This) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+Equivalent to \fBenableHolidayDisplay(This, [])\fR\&\&.
+.RE
+.LP
+.B
+enableHolidayDisplay(This, Option::[Option]) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Option = {display, boolean()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHeaderColours(This, ColFg, ColBg) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+ColFg = wx_colour() (see module wx)
+.br
+ColBg = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHeaderColourFg(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHeaderColourBg(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHighlightColours(This, ColFg, ColBg) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+ColFg = wx_colour() (see module wx)
+.br
+ColBg = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHighlightColourFg(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHighlightColourBg(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHolidayColours(This, ColFg, ColBg) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+ColFg = wx_colour() (see module wx)
+.br
+ColBg = wx_colour() (see module wx)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHolidayColourFg(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getHolidayColourBg(This) -> wx_colour4() (see module wx)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+getAttr(This, Day) -> wxCalendarDateAttr() (see module wxCalendarDateAttr)
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Day = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setAttr(This, Day, Attr) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Day = integer()
+.br
+Attr = wxCalendarDateAttr() (see module wxCalendarDateAttr)
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+setHoliday(This, Day) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Day = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+resetAttr(This, Day) -> ok
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+This = wxCalendarCtrl()
+.br
+Day = integer()
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&.
+.RE
+.LP
+.B
+hitTest(This, Pos) -> Result
+.br
+.RS
+.LP
+Types:
+
+.RS 3
+Result = {Res::wx_enum() (see module wx), Date::wx_datetime() (see module wx), Wd::wx_enum() (see module wx)}
+.br
+This = wxCalendarCtrl()
+.br
+Pos = {X::integer(), Y::integer()}
+.br
+.RE
+.RE
+.RS
+.LP
+See external documentation\&. 
+.br
+Wd = ?wxDateTime_Sun | ?wxDateTime_Mon | ?wxDateTime_Tue | ?wxDateTime_Wed | ?wxDateTime_Thu | ?wxDateTime_Fri | ?wxDateTime_Sat | ?wxDateTime_Inv_WeekDay 
+.br
+Res = ?wxCAL_HITTEST_NOWHERE | ?wxCAL_HITTEST_HEADER | ?wxCAL_HITTEST_DAY | ?wxCAL_HITTEST_INCMONTH | ?wxCAL_HITTEST_DECMONTH | ?wxCAL_HITTEST_SURROUNDING_WEEK
+.RE
+.LP
+.B
+destroy(This::wxCalendarCtrl()) -> ok
+.br
+.RS
+.LP
+Destroys this object, do not use object again
+.RE
+.SH AUTHORS
+.LP
+
+.I
+<>
