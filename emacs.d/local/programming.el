@@ -1,5 +1,16 @@
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+;; Erlang
+
+(add-hook 'erlang-mode-hook
+      '(lambda () "Defaults for Erlang mode." (setq fill-column 75)))
+
+;; Elixir
+
+(add-hook 'elixir-mode-hook
+      '(lambda () "Defaults for Elixir mode." (setq fill-column 78)))
+(setq auto-mode-alist (cons '("\\.eex$" . web-mode) auto-mode-alist))
+
 ;; Go
 
 (setq gofmt-command "goimports")
@@ -87,6 +98,13 @@
 ;; Scala
 
 (setq auto-mode-alist (cons '("\\.sbt$" . scala-mode) auto-mode-alist))
+
+
+;; Mail
+
+;; (setq auto-mode-alist (cons '("mail\\.google\\.com." . ham-mode) auto-mode-alist))
+;; (setq ham-mode-hook
+;;       '(lambda () "Defaults for ham mode." (setq fill-column 68)))
 
 
 (provide 'programming)

@@ -27,7 +27,6 @@
 (load-library "less-css-mode.el")
 
 (require 'go-flymake)
-(require 'elixir-mode)
 
 (require 'appearance)
 (require 'interaction)

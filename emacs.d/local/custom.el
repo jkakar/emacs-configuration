@@ -62,5 +62,5 @@
  '(rst-level-4-face ((t (:foreground "grey64" :weight bold))) t)
  '(rst-level-5-face ((t (:foreground "grey57" :weight bold))) t)
  '(rst-level-6-face ((t (:foreground "grey50" :weight bold))) t)
- '(show-paren-match ((t (:background "#222244"))))
+ '(show-paren-match ((t (:background "#224444"))))
  '(smerge-refined-change ((t (:background "grey15")))))

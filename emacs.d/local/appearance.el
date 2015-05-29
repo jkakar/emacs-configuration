@@ -20,6 +20,7 @@
   (setq highlight-80+-columns 79)
   (add-hook 'emacs-lisp-mode-hook 'highlight-80+-mode)
   (add-hook 'erlang-mode-hook 'highlight-80+-mode)
+  (add-hook 'elixir-mode-hook 'highlight-80+-mode)
   (add-hook 'text-mode-hook 'highlight-80+-mode)
   (add-hook 'mail-mode-hook 'highlight-80+-mode)
   (add-hook 'html-mode-hook 'highlight-80+-mode)
