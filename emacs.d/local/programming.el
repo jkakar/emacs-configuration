@@ -30,6 +30,11 @@
 (setq auto-mode-alist (cons '("\\.tac$" . python-mode) auto-mode-alist))
 (setq tags-table-list-default '("~/.etags/twisted" "~/.etags/txamqp"))
 
+;; Configuration
+
+(setq auto-mode-alist (cons '("muttrc" . conf-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".offlineimaprc" . conf-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '(".msmtprc" . conf-mode) auto-mode-alist))
 
 ;; Ruby
 
@@ -105,6 +110,11 @@
 ;; (setq auto-mode-alist (cons '("mail\\.google\\.com." . ham-mode) auto-mode-alist))
 ;; (setq ham-mode-hook
 ;;       '(lambda () "Defaults for ham mode." (setq fill-column 68)))
+
+
+;; Docker
+
+(setq auto-mode-alist (cons '("Dockerfile" . conf-mode) auto-mode-alist))
 
 
 (provide 'programming)
