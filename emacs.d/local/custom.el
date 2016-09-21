@@ -41,8 +41,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(default ((t (:stipple nil :background "#000000" :foreground "#aaaaaa" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 155 :width normal :foundry "unknown" :family "Monaco"))))
- ;; '(default ((t (:stipple nil :background "#000000" :foreground "#aaaaaa" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 125 :width normal :foundry "unknown" :family "Monaco"))))
  '(default ((t (:stipple nil :background "#000000" :foreground "#aaaaaa" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "unknown" :family "Monaco"))))
  '(diff-added ((t (:inherit diff-changed :foreground "#729fcf"))))
  '(diff-context ((((class color grayscale) (min-colors 88)) (:inherit shadow))))
@@ -55,6 +53,7 @@
  '(flymake-errline ((((class color)) (:background "#8B3626"))))
  '(flymake-warnline ((((class color)) (:background "#8B3626"))))
  '(fringe ((((class color) (background dark)) (:background "#222222"))))
+ '(highlight ((t (:background "#0e5088" :foreground "gray100"))))
  '(highlight-80+ ((((background dark)) (:background "#223344"))))
  '(region ((t (:background "#0e5088"))))
  '(rst-level-1-face ((t (:foreground "grey85" :weight bold))) t)

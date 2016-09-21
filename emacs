@@ -18,7 +18,7 @@
 (package-initialize)
 
 ;; Local packages
-(add-to-list 'load-path "~/src/github.com/dougm/goflymake")
+;; (add-to-list 'load-path "~/src/github.com/dougm/goflymake")
 
 ;; Plugins
 
@@ -26,7 +26,7 @@
 (load-library "highlight-80+.el")
 (load-library "less-css-mode.el")
 
-(require 'go-flymake)
+;; (require 'go-flymake)
 
 (require 'appearance)
 (require 'interaction)

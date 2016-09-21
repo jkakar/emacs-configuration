@@ -1,4 +1,5 @@
 (add-hook 'find-file-hook 'flymake-find-file-hook)
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; Erlang
 
@@ -13,9 +14,14 @@
 
 ;; Go
 
+;; (eval-after-load 'flycheck
+;;   '(add-hook 'flycheck-mode-hook #'flycheck-gometalinter-setup))
+
+(add-hook 'go-mode-hook
+      '(lambda () "Defaults for Go mode." (setq fill-column 78)))
+(add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook 'gofmt-before-save)
-
 
 ;; Python
 

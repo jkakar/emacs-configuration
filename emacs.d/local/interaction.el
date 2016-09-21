@@ -1,6 +1,6 @@
 ;; Browsing
 
-(setq browse-url-generic-program "firefox")
+(setq browse-url-generic-program "chrome")
 (setq browse-url-browser-function 'browse-url-generic)
 
 
