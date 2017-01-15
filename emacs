@@ -25,6 +25,7 @@
 (load-library "markdown-mode.el")
 (load-library "highlight-80+.el")
 (load-library "less-css-mode.el")
+(load-library "alpaca-mode.el")
 
 ;; (require 'go-flymake)
 
