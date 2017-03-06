@@ -4,7 +4,7 @@
 ;; Erlang
 
 (add-hook 'erlang-mode-hook
-      '(lambda () "Defaults for Erlang mode." (setq fill-column 75)))
+      '(lambda () "Defaults for Erlang mode." (setq fill-column 78)))
 
 ;; Elixir
 

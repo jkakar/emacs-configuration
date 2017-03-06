@@ -21,7 +21,7 @@
  '(js2-mode-escape-quotes nil)
  '(package-selected-packages
    (quote
-    (yaml-mode erlang flycheck markdown-mode protobuf-mode go-guru go-mode)))
+    (elixir-mode yaml-mode erlang flycheck markdown-mode protobuf-mode go-guru go-mode)))
  '(python-honour-comment-indentation t)
  '(safe-local-variable-values
    (quote
