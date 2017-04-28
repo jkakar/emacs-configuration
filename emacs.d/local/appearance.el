@@ -11,7 +11,6 @@
 (defun whitespace-settings ()
   (setq default-tab-width 4))
 
-
 ;; Editing
 
 (defun highlight-region ()
