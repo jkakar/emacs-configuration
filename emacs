@@ -17,18 +17,13 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 
-;; Local packages
-;; (add-to-list 'load-path "~/src/github.com/dougm/goflymake")
-
 ;; Plugins
 
 (load-library "markdown-mode.el")
 (load-library "highlight-80+.el")
 (load-library "less-css-mode.el")
-(load-library "alpaca-mode.el")
-
-;; (require 'go-flymake)
 
 (require 'appearance)
 (require 'interaction)
 (require 'programming)
+(require 'stripe)

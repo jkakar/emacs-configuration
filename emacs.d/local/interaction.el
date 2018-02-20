@@ -3,7 +3,6 @@
 (setq browse-url-generic-program "chrome")
 (setq browse-url-browser-function 'browse-url-generic)
 
-
 ;; Usability
 
 (defun join-next-line ()
@@ -71,7 +70,6 @@ point reaches the beginning or end of the buffer, stop there."
 
   (global-set-key [?\C-j] 'join-next-line))
 
-
 ;; Spell checking
 
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
@@ -81,11 +79,13 @@ point reaches the beginning or end of the buffer, stop there."
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
 
+;; Dump jump
+
+(setq dumb-jump-force-searcher 'rg)
 
 ;; Edit server
 
 (server-start)
-
 
 ;; Load all settings
 

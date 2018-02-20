@@ -122,5 +122,9 @@
 
 (setq auto-mode-alist (cons '("Dockerfile" . conf-mode) auto-mode-alist))
 
+;; Dumb jump
+
+(dumb-jump-mode)
+(setq dumb-jump-prefer-searcher 'rg)
 
 (provide 'programming)
