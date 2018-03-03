@@ -9,7 +9,7 @@
  '(compilation-scroll-output t)
  '(custom-safe-themes
    (quote
-    ("7bef2d39bac784626f1635bd83693fae091f04ccac6b362e0405abf16a32230c" "3380a2766cf0590d50d6366c5a91e976bdc3c413df963a0ab9952314b4577299" default)))
+    ("ef04dd1e33f7cbd5aa3187981b18652b8d5ac9e680997b45dc5d00443e6a46e3" "0c3b1358ea01895e56d1c0193f72559449462e5952bded28c81a8e09b53f103f" "b8929cff63ffc759e436b0f0575d15a8ad7658932f4b2c99415f3dde09b32e97" "dd4628d6c2d1f84ad7908c859797b24cc6239dfe7d71b3363ccdd2b88963f336" "7bef2d39bac784626f1635bd83693fae091f04ccac6b362e0405abf16a32230c" "3380a2766cf0590d50d6366c5a91e976bdc3c413df963a0ab9952314b4577299" default)))
  '(dired-no-confirm (quote (delete move)))
  '(dvc-log-last-n t)
  '(dvc-tips-enabled nil)
@@ -58,5 +58,6 @@
  '(rst-level-5-face ((t (:foreground "grey57" :weight bold))) t)
  '(rst-level-6-face ((t (:foreground "grey50" :weight bold))) t)
  '(show-paren-match ((t (:foreground nil :background "#224444"))))
- '(smerge-refined-change ((t (:background "grey15"))) t))
+ '(smerge-refined-change ((t (:background "grey15"))) t)
+ '(smerge-refined-changed ((t (:background "grey15")))))
  ;; '(smerge-refined-change ((t (:background "grey15"))) t))
