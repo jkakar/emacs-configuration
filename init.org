@@ -1,0 +1,128 @@
+-*- eval: (add-hook 'after-save-hook 'org-babel-tangle nil t) -*-
+
+* Libraries and plumbing
+** Tangling hook
+   There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org:
+
+   - ~org-babel-load-file~ :: This approach is very simple to implement, but has
+        to tangle each file when emacs starts.
+   - ~org-babel-tangle~ :: This approach stores the tangled file on disk, but
+        you have to remember to re-tangle after each edit.
+
+   We can use a local ~after-save-hook~ to do the tangling automatically.
+   However, this file-local variable is not considered safe by default, so emacs
+   will prompt you the first time you open this file. I recommend saying ~n~ to
+   the prompt and tangling manually.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (add-to-list 'safe-local-eval-forms
+       '(add-hook 'after-save-hook 'org-babel-tangle nil t))
+   #+END_SRC
+
+** Package management
+   [[https://github.com/raxod502/straight.el][straight]] looks pretty nice, but I don't want to deviate too far from the
+   mainstream when it comes to package management. I want to rely on [[http://melpa.milkbox.net][melpa]] and
+   ~use-package~ as much as I can.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'package)
+     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+     (package-initialize)
+
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+
+     (eval-when-compile
+       (require 'use-package))
+   #+END_SRC
+
+** Theme
+   I've tried several themes, mostly within the base16 family, and seem to keep
+   coming back to ~base16-twilight~.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package base16-theme
+       :init
+       (load-theme 'base16-twilight))
+   #+END_SRC
+
+* Core UI
+** Built-ins
+   This is for built-in emacs miscellany that I want to reconfigure or turn
+   off. There’s quite a bit of stuff in here.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq auto-save-default nil)
+     (setq auto-save-list-file-prefix nil)
+     (setq create-lockfiles nil)
+     (setq make-backup-files nil)
+
+     (setq sentence-end-double-space nil)
+     (setq-default fill-column 80)
+
+     (tool-bar-mode -1)
+     (scroll-bar-mode -1)
+
+     (setq line-number-mode 1)
+     (setq column-number-mode 1)
+
+     (show-paren-delay 0)
+     (show-paren-mode 1)
+     (show-paren-style (quote expression)
+
+     (setq-default indent-tabs-mode nil)
+
+     (setq uniquify-buffer-name-style 'forward)
+
+
+     (setq scroll-conservatively 1)
+   #+END_SRC
+
+** Long lines and trailing whitespace
+   I want code and text to fit within 80 characters whenever reasonable.
+   Ideally, formatting would be taken care of by tooling that limits length
+   whenever reasonable. [[https://nschum.de/src/emacs/highlight-80+/][highlight-80+mode]] highlights lines that exceed 80
+   characters. This provides a useful signal to think about whether the line
+   should be broken up or not.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package highlight-80+-mode
+       :custom
+       (highlight-80+-columns 80))
+   #+END_SRC
+
+   I don't want to leave trailing whitespace in files. [[https://github.com/lewang/ws-butler][ws-butler]] deletes tailing
+   whitespace from lines, which helps keeps diffs clean.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq-default show-trailing-whitespace t)
+     (use-package ws-butler
+       :custom
+       (ws-butler-keep-whitespace-before-point nil)
+       :demand t
+       :config
+       (ws-butler-global-mode 1)
+       :diminish)
+   #+END_SRC
+
+* Major modes and filetypes
+** Markdown
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+   (use-package markdown-mode
+     :custom
+     (markdown-hide-urls t)
+     :init
+     (add-hook 'mark-down-mode 'highlight-80+-mode))
+  #+END_SRC
+
+** Ruby
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+   (use-package ruby-mode
+     :mode
+     ("\\.rb\\" "\\.gemspec$\\" "\\Gemfile\\" "\\Rakefile\\")
+     :init
+     (add-hook 'ruby-mode 'highlight-80+-mode))
+  #+END_SRC
