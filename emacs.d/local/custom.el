@@ -9,7 +9,7 @@
  '(compilation-scroll-output t)
  '(custom-safe-themes
    (quote
-    ("ef04dd1e33f7cbd5aa3187981b18652b8d5ac9e680997b45dc5d00443e6a46e3" "0c3b1358ea01895e56d1c0193f72559449462e5952bded28c81a8e09b53f103f" "b8929cff63ffc759e436b0f0575d15a8ad7658932f4b2c99415f3dde09b32e97" "dd4628d6c2d1f84ad7908c859797b24cc6239dfe7d71b3363ccdd2b88963f336" "7bef2d39bac784626f1635bd83693fae091f04ccac6b362e0405abf16a32230c" "3380a2766cf0590d50d6366c5a91e976bdc3c413df963a0ab9952314b4577299" default)))
+    ("196df8815910c1a3422b5f7c1f45a72edfa851f6a1d672b7b727d9551bb7c7ba" "d9dab332207600e49400d798ed05f38372ec32132b3f7d2ba697e59088021555" "ef04dd1e33f7cbd5aa3187981b18652b8d5ac9e680997b45dc5d00443e6a46e3" "0c3b1358ea01895e56d1c0193f72559449462e5952bded28c81a8e09b53f103f" "b8929cff63ffc759e436b0f0575d15a8ad7658932f4b2c99415f3dde09b32e97" "dd4628d6c2d1f84ad7908c859797b24cc6239dfe7d71b3363ccdd2b88963f336" "7bef2d39bac784626f1635bd83693fae091f04ccac6b362e0405abf16a32230c" "3380a2766cf0590d50d6366c5a91e976bdc3c413df963a0ab9952314b4577299" default)))
  '(dired-no-confirm (quote (delete move)))
  '(dvc-log-last-n t)
  '(dvc-tips-enabled nil)
@@ -25,7 +25,7 @@
  '(js2-mode-escape-quotes nil)
  '(package-selected-packages
    (quote
-    (csharp-mode coffee-mode php-mode dumb-jump flymake-ruby magit helm-projectile helm projectile prettier-js flycheck-flow company-flow web-mode use-package base16-theme elixir-mode yaml-mode erlang flycheck markdown-mode protobuf-mode go-guru go-mode)))
+    (graphviz-dot-mode csharp-mode coffee-mode php-mode dumb-jump flymake-ruby magit helm-projectile helm projectile prettier-js flycheck-flow company-flow web-mode use-package base16-theme elixir-mode yaml-mode erlang flycheck markdown-mode protobuf-mode go-guru go-mode)))
  '(python-honour-comment-indentation t)
  '(safe-local-variable-values
    (quote

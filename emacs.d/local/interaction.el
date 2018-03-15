@@ -13,8 +13,8 @@
   (setq-default indent-tabs-mode nil)
   (setq make-backup-files nil)
   (setq tramp-default-method "scp")
-  (iswitchb-mode t)
-  (toggle-uniquify-buffer-names)
+  ;; (iswitchb-mode t)
+  ;; (toggle-uniquify-buffer-names)
   (put 'narrow-to-region 'disabled nil)
   (setq ring-bell-function #'ignore)
   (setq confirm-kill-emacs 'yes-or-no-p))
@@ -91,6 +91,7 @@ point reaches the beginning or end of the buffer, stop there."
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'helm)
+          (setq dumb-jump-max-find-time 5)
   :ensure)
 
 ;; Edit server
