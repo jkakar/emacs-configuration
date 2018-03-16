@@ -1,5 +1,5 @@
-* Libraries and plumbing
-** Tangling hook
+* Bootstrapping and package management
+** Tangling
    There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org:
 
    - ~org-babel-load-file~ :: This approach is very simple to implement, but has
@@ -43,36 +43,56 @@
      (use-package base16-theme
        :init
        (load-theme 'base16-twilight))
+     ;((plist-get base16-twilight-colors ':base02)
    #+END_SRC
 
-* Interaction semantics
-** Built-ins
-   This is for built-in emacs miscellany that I want to reconfigure or turn
-   off. There’s quite a bit of stuff in here.
+* Core UI
+** Files and buffers
+   I never run more than one copy of emacs, nor do I ever make use of backup
+   files. Let's avoid ever leaving this junk lying around.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq auto-save-default nil)
      (setq auto-save-list-file-prefix nil)
      (setq create-lockfiles nil)
      (setq make-backup-files nil)
-
-     (setq sentence-end-double-space nil)
-
-     (tool-bar-mode -1)
-     (scroll-bar-mode -1)
-
-     (setq line-number-mode 1)
-     (setq column-number-mode 1)
-
      (setq show-paren-delay 0)
      (setq show-paren-mode 1)
      (setq show-paren-style (quote expression)
-
-     (setq-default indent-tabs-mode nil)
-
      (setq uniquify-buffer-name-style 'forward)
+   #+END_SRC
 
+   Uniquify buffer names using a style that matches file paths as much as
+   possible.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq uniquify-buffer-name-style 'forward)
+   #+END_SRC
+
+** Whitespace
+   I like spaces instead of tabs and a single space after a period.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq sentence-end-double-space nil)
+     (setq-default indent-tabs-mode nil)
+   #+END_SRC
+
+** Scrolling
+   Scroll one line at a time. The default behaviour is jarring.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
      (setq scroll-conservatively 1)
+   #+END_SRC
+
+** Chrome
+   I don't want the toolbar or scrollbars. I want the modeline to show line and
+   column numbers.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (tool-bar-mode -1)
+     (scroll-bar-mode -1)
+     (setq line-number-mode 1)
+     (setq column-number-mode 1)
    #+END_SRC
 
 ** Long lines and trailing whitespace
@@ -101,6 +121,15 @@
        :config
        (ws-butler-global-mode 1)
        :diminish)
+   #+END_SRC
+
+** Parentheses
+   Highlight text between matching parentheses without any delay.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq show-paren-delay 0)
+     (setq show-paren-mode 1)
+     (setq show-paren-style (quote expression)
    #+END_SRC
 
 * Major modes and filetypes
