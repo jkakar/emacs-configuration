@@ -35,6 +35,7 @@
        (require 'use-package))
    #+END_SRC
 
+* Interaction semantics
 ** Theme
    I've tried several themes, mostly within the base16 family, and seem to keep
    coming back to ~base16-twilight~.
@@ -45,7 +46,6 @@
        (load-theme 'base16-twilight))
    #+END_SRC
 
-* Interaction semantics
 ** Built-ins
    This is for built-in emacs miscellany that I want to reconfigure or turn
    off. There’s quite a bit of stuff in here.
@@ -129,6 +129,12 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package go-eldoc
        :hook (go-mode . go-eldoc-setup))
+   #+END_SRC
+
+** Graphviz
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package graphviz-mode)
    #+END_SRC
 
 ** Markdown
