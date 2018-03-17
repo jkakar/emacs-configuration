@@ -1,16 +1,9 @@
-* Libraries and plumbing
-** Tangling hook
-   There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org:
-
-   - ~org-babel-load-file~ :: This approach is very simple to implement, but has
-        to tangle each file when emacs starts.
-   - ~org-babel-tangle~ :: This approach stores the tangled file on disk, but
-        you have to remember to re-tangle after each edit.
-
-   We can use a local ~after-save-hook~ to do the tangling automatically.
-   However, this file-local variable is not considered safe by default, so emacs
-   will prompt you the first time you open this file. I recommend saying ~n~ to
-   the prompt and tangling manually.
+* Bootstrapping and package management
+** Tangling
+   There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org. I'm
+   choosing to rely on ~org-bable-tangle~, which means needing to run
+   ~org-babel-load-file~ manually after editing this file. It's a bit tedious,
+   but preferable to imposing startup delays.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-to-list 'safe-local-eval-forms
@@ -33,9 +26,11 @@
 
      (eval-when-compile
        (require 'use-package))
+
+     (setq use-package-always-ensure t)
    #+END_SRC
 
-* Interaction semantics
+* Core UI
 ** Theme
    I've tried several themes, mostly within the base16 family, and seem to keep
    coming back to ~base16-twilight~.
@@ -44,63 +39,119 @@
      (use-package base16-theme
        :init
        (load-theme 'base16-twilight))
+     ;((plist-get base16-twilight-colors ':base02)
    #+END_SRC
 
-** Built-ins
-   This is for built-in emacs miscellany that I want to reconfigure or turn
-   off. There’s quite a bit of stuff in here.
+** Files and buffers
+   I never run more than one copy of emacs, nor do I ever make use of backup
+   files. Don't keep junk lying around if it'll never be used.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq auto-save-default nil)
      (setq auto-save-list-file-prefix nil)
      (setq create-lockfiles nil)
      (setq make-backup-files nil)
+   #+END_SRC
 
-     (setq sentence-end-double-space nil)
+   Uniquify buffer names using a style that matches file paths as much as
+   possible.
 
-     (tool-bar-mode -1)
-     (scroll-bar-mode -1)
-
-     (setq line-number-mode 1)
-     (setq column-number-mode 1)
-
-     (setq show-paren-delay 0)
-     (setq show-paren-mode 1)
-     (setq show-paren-style (quote expression)
-
-     (setq-default indent-tabs-mode nil)
-
+   #+BEGIN_SRC emacs-lisp :tangle yes
      (setq uniquify-buffer-name-style 'forward)
+   #+END_SRC
 
+** Scrolling
+   Scroll one line at a time. The default behaviour is jarring.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
      (setq scroll-conservatively 1)
    #+END_SRC
 
-** Long lines and trailing whitespace
-   I want code and text to fit within 80 characters whenever reasonable.
+** Chrome
+   I don't want distractions like the startup screen, the toolbar or scrollbars.
+   I want the modeline to show line and column numbers.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq inhibit-startup-screen t)
+     (setq initial-scratch-message nil)
+     (setq tool-bar-mode -1)
+     (setq scroll-bar-mode -1)
+     (setq line-number-mode 1)
+     (setq column-number-mode 1)
+   #+END_SRC
+
+** Long lines and whitespace
+   I like spaces instead of tabs and a single space after a period. I also want
+   code and text to fit within 80 characters whenever reasonable.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq sentence-end-double-space nil)
+     (setq-default indent-tabs-mode nil)
+     (setq-default fill-column 80)
+   #+END_SRC
+
    Ideally, formatting would be taken care of by tooling that limits length
    whenever reasonable. [[https://nschum.de/src/emacs/highlight-80+/][highlight-80+-mode]] highlights lines that exceed 80
    characters. This provides a useful signal to think about whether the line
    should be broken up or not.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq-default fill-column 80)
-     (use-package highlight-80+-mode
-       :custom
-       (highlight-80+-columns 80))
+     (load-library "highlight-80+.el")
+     (setq highlight-80+-columns 81)
    #+END_SRC
 
-   I also don't want to leave trailing whitespace in files. [[https://github.com/lewang/ws-butler][ws-butler only]]
-   deletes tailing whitespace from edited lines, which helps keeps diffs clean.
+   I don't want to leave trailing whitespace in files. [[https://github.com/lewang/ws-butler][ws-butler only]] deletes
+   tailing whitespace from edited lines, which helps keeps diffs clean.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq-default show-trailing-whitespace t)
      (use-package ws-butler
-       :custom
-       (ws-butler-keep-whitespace-before-point nil)
        :demand t
        :config
-       (ws-butler-global-mode 1)
-       :diminish)
+       (setq ws-butler-keep-whitespace-before-point nil)
+       (ws-butler-global-mode 1))
+   #+END_SRC
+
+** Parentheses
+   Highlight all the text between matching parentheses without any delay.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq show-paren-delay 0)
+     (setq show-paren-mode 1)
+     (setq show-paren-style (quote expression)
+   #+END_SRC
+
+** Navigation
+   Ivy, counsel and swiper provide a simple and unified way to quickly navigate
+   buffers, find files, etc.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package ivy
+       :demand t
+       :config
+       (ivy-mode 1)
+       (ivy-use-virtual-buffers t)
+       (ivy-count-format "%d/%d"))
+   #+END_SRC
+
+** Magit
+   #+BEGIN_SRC emacs-lisp :tangle yes
+   (use-package magit
+     :config
+     (magit-completing-read-function 'ivy-completing-read))
+   #+END_SRC
+
+** Dump-jump
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package dumb-jump
+       :bind (("M-g o" . dumb-jump-go-other-window)
+              ("M-g j" . dumb-jump-go)
+              ("M-g i" . dumb-jump-go-prompt)
+              ("M-g x" . dumb-jump-go-prefer-external)
+              ("M-g z" . dumb-jump-go-prefer-external-other-window))
+       :config (setq dumb-jump-selector 'ivy)
+               (setq dumb-jump-max-find-time 5)
+       :ensure)
    #+END_SRC
 
 * Major modes and filetypes
