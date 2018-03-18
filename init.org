@@ -46,7 +46,7 @@
      (use-package base16-theme
        :init
        (load-theme 'base16-twilight))
-     ;((plist-get base16-twilight-colors ':base02)
+     ;;((plist-get base16-twilight-colors ':base02)
    #+END_SRC
 
 ** Fonts and faces
@@ -67,6 +67,13 @@
                                              :height 160)))
      (set-face-attribute 'fixed-pitch nil :family 'unspecified
                                           :inherit 'default)
+   #+END_SRC
+
+** Environment
+   We need to be able to find Homebrew-installed executables.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq exec-path (append exec-path '("/usr/local/bin")))
    #+END_SRC
 
 ** Files and buffers
@@ -126,8 +133,8 @@
    should be broken up or not.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (load-library "highlight-80+.el")
-     (setq highlight-80+-columns 81)
+     ;;(load-library "highlight-80+.el")
+     ;;(setq highlight-80+-columns 81)
    #+END_SRC
 
    I don't want to leave trailing whitespace in files. [[https://github.com/lewang/ws-butler][ws-butler only]] deletes
@@ -183,7 +190,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq show-paren-delay 0)
      (setq show-paren-mode 1)
-     (setq show-paren-style (quote expression)
+     (setq show-paren-style (quote expression))
    #+END_SRC
 
 ** Navigation
@@ -191,19 +198,48 @@
    buffers, find files, etc.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package swiper
+       :ensure t)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package counsel
+       :ensure t
+       :bind ("M-x" . counsel-M-x))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ivy
-       :demand t
+       :ensure t
+       :init (setq ivy-use-virtual-buffers t
+                   ivy-count-format "(%d/%d) ")
+       :bind (("C-c C-r" . ivy-resume)
+              :map ivy-minibuffer-map ("RET" . ivy-alt-done))
        :config
        (ivy-mode 1)
-       (ivy-use-virtual-buffers t)
-       (ivy-count-format "%d/%d"))
+       (global-set-key "\C-s" 'swiper)
+       (global-set-key (kbd "C-c C-r") 'ivy-resume)
+       (global-set-key (kbd "<f6>") 'ivy-resume)
+       (global-set-key (kbd "M-x") 'counsel-M-x)
+       (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+       (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+       (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+       (global-set-key (kbd "<f1> l") 'counsel-find-library)
+       (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+       (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+       (global-set-key (kbd "C-c g") 'counsel-git)
+       (global-set-key (kbd "C-c j") 'counsel-git-grep)
+       (global-set-key (kbd "C-c k") 'counsel-ag)
+       (global-set-key (kbd "C-x l") 'counsel-locate)
+       (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+       (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
    #+END_SRC
 
 ** Magit
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package magit
        :config
-       (magit-completing-read-function 'ivy-completing-read))
+       (setq magit-completing-read-function 'ivy-completing-read))
    #+END_SRC
 
 ** Jump to definition
@@ -232,7 +268,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package go-mode
        :config
-       (gofmt-command "goimports")
+       (setq gofmt-command "goimports")
        :custom
        (gofmt-show-errors nil)
        :hook (go-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
@@ -240,7 +276,6 @@
 
      ;;(setenv "GOPATH" (expand-file-name "~"))
      ;;(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/bin")))
-     ;;(setq exec-path (append exec-path '("/usr/local/bin")))
    #+END_SRC
 
    We don't want to add ~gofmt-before-save~ to the global ~before-save-hook~,
@@ -261,7 +296,7 @@
 ** Graphviz
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package graphviz-mode)
+     (use-package graphviz-dot-mode)
    #+END_SRC
 
 ** Markdown
@@ -278,8 +313,6 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package python-mode
-       :mode
-       "\\.py\\"
        :init
        (add-hook 'python-mode 'highlight-80+-mode))
    #+END_SRC
@@ -288,10 +321,9 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ruby-mode
-       :mode
-       ("\\.rb\\" "\\.gemspec$\\" "\\Gemfile\\" "\\Rakefile\\")
        :init
-       (add-hook 'ruby-mode 'highlight-80+-mode))
+       (add-hook 'ruby-mode 'highlight-80+-mode)
+       (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode)))
    #+END_SRC
 
 ** [[https://github.com/rust-lang/rust-mode][Rust]]
