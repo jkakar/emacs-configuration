@@ -30,7 +30,14 @@
      (setq use-package-always-ensure t)
    #+END_SRC
 
-* Core UI
+** Persistent editing
+   Run emacs as a server.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (server-start)
+   #+END_SRC
+
+* Core AI
 ** Theme
    I've tried several themes, mostly within the base16 family, and seem to keep
    coming back to ~base16-twilight~.
@@ -40,6 +47,26 @@
        :init
        (load-theme 'base16-twilight))
      ;((plist-get base16-twilight-colors ':base02)
+   #+END_SRC
+
+** Fonts and faces
+   I use on ~set-face-attribute~ for global faces instead of
+   ~custom-set-faces~ because I want to avoid using the Customize
+   interface, which would mutate my init file. It lets me twiddle any
+   individual part of any face (see the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html][full list of attributes]])
+   without going through Customize. For package-specific faces,
+   use-package offers the ~:custom-face~ keyword, which goes through
+   Customize while avoiding its major downside.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (cond ((eq system-type 'gnu/linux)
+            (set-face-attribute 'default nil :family "Input"
+                                             :height 100))
+           ((eq system-type 'darwin)
+            (set-face-attribute 'default nil :family "Monaco"
+                                             :height 160)))
+     (set-face-attribute 'fixed-pitch nil :family 'unspecified
+                                          :inherit 'default)
    #+END_SRC
 
 ** Files and buffers
@@ -68,8 +95,10 @@
    #+END_SRC
 
 ** Chrome
-   I don't want distractions like the startup screen, the toolbar or scrollbars.
-   I want the modeline to show line and column numbers.
+   I don't want distractions like the startup screen, the toolbar or
+   scrollbars. I want the modeline to show line and column numbers.
+   Don't waste my time asking me to type ~yes~ and ~no~ when ~y~ or
+   ~n~ will suffice.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq inhibit-startup-screen t)
@@ -78,6 +107,7 @@
      (setq scroll-bar-mode -1)
      (setq line-number-mode 1)
      (setq column-number-mode 1)
+     (defalias 'yes-or-no-p 'y-or-n-p)
    #+END_SRC
 
 ** Long lines and whitespace
@@ -112,7 +142,42 @@
        (ws-butler-global-mode 1))
    #+END_SRC
 
-** Parentheses
+** Line movement
+   The builtin ~move-beginning-of-line~ function jumps to the
+   beginning of the line, but most of the time I want to move to the
+   first non-whitespace character. ~smarter-move-beginning-of-line~
+   moves to the first non-whitespace character on the line, or if the
+   point is already there, to the beginning of the line. Invoking it
+   repeatedly toggles between these positions.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun smarter-move-beginning-of-line (arg)
+       (interactive "^p")
+       (setq arg (or arg 1))
+
+       (when (/= arg 1)
+         (let ((line-move-visual nil))
+           (forward-line (1- arg))))
+
+       (let ((orig-point (point)))
+         (back-to-indentation)
+         (when (= orig-point (point))
+           (move-beginning-of-line 1))))
+     (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
+   #+END_SRC
+
+** Joining lines
+   Using ~C-u M-^~ to join one line to another is really
+   tedious. Let's make this easier.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun join-next-line ()
+       (interactive)
+       (join-line t))
+     (global-set-key [?\C-j] 'join-next-line)
+   #+END_SRC
+
+** Matching parentheses
    Highlight all the text between matching parentheses without any delay.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -136,12 +201,16 @@
 
 ** Magit
    #+BEGIN_SRC emacs-lisp :tangle yes
-   (use-package magit
-     :config
-     (magit-completing-read-function 'ivy-completing-read))
+     (use-package magit
+       :config
+       (magit-completing-read-function 'ivy-completing-read))
    #+END_SRC
 
-** Dump-jump
+** Jump to definition
+   Dump-jump uses brute force very effectively. It provided decent
+   jump to definition behaviour while avoiding the tedium that comes
+   with managing TAGS files and such.
+
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package dumb-jump
        :bind (("M-g o" . dumb-jump-go-other-window)
@@ -149,10 +218,13 @@
               ("M-g i" . dumb-jump-go-prompt)
               ("M-g x" . dumb-jump-go-prefer-external)
               ("M-g z" . dumb-jump-go-prefer-external-other-window))
-       :config (setq dumb-jump-selector 'ivy)
+       :config (setq dumb-jump-force-searcher 'rg)
                (setq dumb-jump-max-find-time 5)
+               (setq dumb-jump-selector 'ivy)
        :ensure)
    #+END_SRC
+
+** TODO Spellcheck
 
 * Major modes and filetypes
 ** [[https://github.com/dominikh/go-mode.el][Go]]
@@ -165,6 +237,10 @@
        (gofmt-show-errors nil)
        :hook (go-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
        :defer t)
+
+     ;;(setenv "GOPATH" (expand-file-name "~"))
+     ;;(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/bin")))
+     ;;(setq exec-path (append exec-path '("/usr/local/bin")))
    #+END_SRC
 
    We don't want to add ~gofmt-before-save~ to the global ~before-save-hook~,
