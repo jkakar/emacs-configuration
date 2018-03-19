@@ -288,9 +288,6 @@
        (gofmt-show-errors nil)
        :hook (go-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
        :defer t)
-
-     ;;(setenv "GOPATH" (expand-file-name "~"))
-     ;;(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/bin")))
    #+END_SRC
 
    We don't want to add ~gofmt-before-save~ to the global ~before-save-hook~,
