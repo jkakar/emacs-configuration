@@ -251,6 +251,13 @@
        (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
    #+END_SRC
 
+   I want ~counsel-M-x~ to show me the most recently used commands. Installing
+   [[https://github.com/nonsequitur/smex][smex]] makes this the default behaviour.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package smex)
+   #+END_SRC
+
 ** Magit
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package magit
