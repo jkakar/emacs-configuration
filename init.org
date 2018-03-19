@@ -284,8 +284,8 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package flycheck
        :init
-       (setq flycheck-ruby-rubocop-executable "/Users/jkakar/.rbenv/shims/rubocop")
-       (setq flycheck-ruby-executable "/Users/jkakar/.rbenv/shims/ruby")
+       (setq flycheck-ruby-rubocop-executable (expand-file-name "~/.rbenv/shims/rubocop"))
+       (setq flycheck-ruby-executable (expand-file-name "~/.rbenv/shims/ruby"))
        :config
        (setq-default flycheck-disabled-checkers
                      (append flycheck-disabled-checkers
