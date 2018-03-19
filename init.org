@@ -88,8 +88,6 @@
                                              :height 160)))
      (set-face-attribute 'fixed-pitch nil :family 'unspecified
                                           :inherit 'default)
-     (set-face-attribute 'show-paren-match nil :foreground 'unspecified
-                                               :background (get-base16-color ':base01))
    #+END_SRC
 
 ** Environment
@@ -197,6 +195,8 @@
      (setq show-paren-delay 0)
      (setq show-paren-mode 1)
      (setq show-paren-style (quote expression))
+     (set-face-attribute 'show-paren-match nil :foreground 'unspecified
+                                               :background (get-base16-color ':base01))
    #+END_SRC
 
 ** Navigation
