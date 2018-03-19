@@ -1,0 +1,352 @@
+* Bootstrapping and package management
+** Tangling
+   There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org. I'm
+   choosing to rely on ~org-bable-tangle~, which means needing to run
+   ~org-babel-load-file~ manually after editing this file. It's a bit tedious,
+   but preferable to imposing startup delays.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (add-to-list 'safe-local-eval-forms
+       '(add-hook 'after-save-hook 'org-babel-tangle nil t))
+   #+END_SRC
+
+** Package management
+   [[https://github.com/raxod502/straight.el][straight]] looks pretty nice, but I don't want to deviate too far from the
+   mainstream when it comes to package management. I want to rely on [[http://melpa.milkbox.net][melpa]] and
+   ~use-package~ as much as I can.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'package)
+     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+     (package-initialize)
+
+     (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
+       (package-install 'use-package))
+
+     (eval-when-compile
+       (require 'use-package))
+
+     (setq use-package-always-ensure t)
+   #+END_SRC
+
+** Persistent editing
+   Run emacs as a server.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (server-start)
+   #+END_SRC
+
+* Core UI
+** Chrome
+   I don't want distractions like the startup screen, the toolbar or
+   scrollbars. I want the modeline to show line and column numbers.
+   Don't waste my time asking me to type ~yes~ and ~no~ when ~y~ or
+   ~n~ will suffice.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq inhibit-startup-screen t)
+     (setq initial-scratch-message nil)
+     (tool-bar-mode -1)
+     (scroll-bar-mode -1)
+     (setq line-number-mode 1)
+     (setq column-number-mode 1)
+     (defalias 'yes-or-no-p 'y-or-n-p)
+   #+END_SRC
+
+   I don't want a spurious Cmd-q to kill emacs on macOS.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq confirm-kill-emacs 'yes-or-no-p)
+   #+END_SRC
+
+
+** Theme
+   I've tried several themes, mostly within the base16 family, and seem to keep
+   coming back to ~base16-twilight~.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package base16-theme
+       :init
+       (load-theme 'base16-twilight t))
+     (defun get-base16-color (id)
+       (plist-get base16-twilight-colors id))
+   #+END_SRC
+
+** Fonts and faces
+   I use on ~set-face-attribute~ for global faces instead of
+   ~custom-set-faces~ because I want to avoid using the Customize
+   interface, which would mutate my init file. It lets me twiddle any
+   individual part of any face (see the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html][full list of attributes]])
+   without going through Customize. For package-specific faces,
+   use-package offers the ~:custom-face~ keyword, which goes through
+   Customize while avoiding its major downside.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (cond ((eq system-type 'gnu/linux)
+            (set-face-attribute 'default nil :family "Input"
+                                             :height 100))
+           ((eq system-type 'darwin)
+            (set-face-attribute 'default nil :family "Monaco"
+                                             :height 160)))
+     (set-face-attribute 'fixed-pitch nil :family 'unspecified
+                                          :inherit 'default)
+     (set-face-attribute 'show-paren-match nil :foreground 'unspecified
+                                               :background (get-base16-color ':base01))
+   #+END_SRC
+
+** Environment
+   We need to be able to find Homebrew-installed executables.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq exec-path (append exec-path '("/usr/local/bin")))
+   #+END_SRC
+
+** Files and buffers
+   I never run more than one copy of emacs, nor do I ever make use of backup
+   files. Don't keep junk lying around if it'll never be used.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq auto-save-default nil)
+     (setq auto-save-list-file-prefix nil)
+     (setq create-lockfiles nil)
+     (setq make-backup-files nil)
+   #+END_SRC
+
+   Uniquify buffer names using a style that matches file paths as much as
+   possible.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq uniquify-buffer-name-style 'forward)
+   #+END_SRC
+
+** Scrolling
+   Scroll one line at a time. The default behaviour is jarring.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq scroll-conservatively 1)
+   #+END_SRC
+
+** Long lines and whitespace
+   I like spaces instead of tabs and a single space after a period. I also want
+   code and text to fit within 80 characters whenever reasonable.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq sentence-end-double-space nil)
+     (setq-default indent-tabs-mode nil)
+     (setq-default fill-column 80)
+   #+END_SRC
+
+   Ideally, formatting would be taken care of by tooling that limits length
+   whenever reasonable. [[https://nschum.de/src/emacs/highlight-80+/][highlight-80+-mode]] highlights lines that exceed 80
+   characters. This provides a useful signal to think about whether the line
+   should be broken up or not.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     ;;(load-library "highlight-80+.el")
+     ;;(setq highlight-80+-columns 81)
+   #+END_SRC
+
+   I don't want to leave trailing whitespace in files. [[https://github.com/lewang/ws-butler][ws-butler only]] deletes
+   tailing whitespace from edited lines, which helps keeps diffs clean.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq-default show-trailing-whitespace t)
+     (use-package ws-butler
+       :demand t
+       :config
+       (setq ws-butler-keep-whitespace-before-point nil)
+       (ws-butler-global-mode 1))
+   #+END_SRC
+
+** Line movement
+   The builtin ~move-beginning-of-line~ function jumps to the
+   beginning of the line, but most of the time I want to move to the
+   first non-whitespace character. ~smarter-move-beginning-of-line~
+   moves to the first non-whitespace character on the line, or if the
+   point is already there, to the beginning of the line. Invoking it
+   repeatedly toggles between these positions.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun smarter-move-beginning-of-line (arg)
+       (interactive "^p")
+       (setq arg (or arg 1))
+
+       (when (/= arg 1)
+         (let ((line-move-visual nil))
+           (forward-line (1- arg))))
+
+       (let ((orig-point (point)))
+         (back-to-indentation)
+         (when (= orig-point (point))
+           (move-beginning-of-line 1))))
+     (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
+   #+END_SRC
+
+** Joining lines
+   Using ~C-u M-^~ to join one line to another is really
+   tedious. Let's make this easier.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun join-next-line ()
+       (interactive)
+       (join-line t))
+     (global-set-key [?\C-j] 'join-next-line)
+   #+END_SRC
+
+** Matching parentheses
+   Highlight all the text between matching parentheses without any delay.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq show-paren-delay 0)
+     (setq show-paren-mode 1)
+     (setq show-paren-style (quote expression))
+   #+END_SRC
+
+** Navigation
+   Ivy, counsel and swiper provide a simple and unified way to quickly navigate
+   buffers, find files, etc.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package swiper
+       :ensure t)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package counsel
+       :ensure t
+       :bind ("M-x" . counsel-M-x))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package ivy
+       :ensure t
+       :init (setq ivy-use-virtual-buffers t
+                   ivy-count-format "(%d/%d) ")
+       :bind (("C-c C-r" . ivy-resume)
+              :map ivy-minibuffer-map ("RET" . ivy-alt-done))
+       :config
+       (ivy-mode 1)
+       (global-set-key "\C-s" 'swiper)
+       (global-set-key (kbd "C-c C-r") 'ivy-resume)
+       (global-set-key (kbd "<f6>") 'ivy-resume)
+       (global-set-key (kbd "M-x") 'counsel-M-x)
+       (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+       (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+       (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+       (global-set-key (kbd "<f1> l") 'counsel-find-library)
+       (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+       (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+       (global-set-key (kbd "C-c g") 'counsel-git)
+       (global-set-key (kbd "C-c j") 'counsel-git-grep)
+       (global-set-key (kbd "C-c k") 'counsel-ag)
+       (global-set-key (kbd "C-x l") 'counsel-locate)
+       (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+       (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+   #+END_SRC
+
+** Magit
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package magit
+       :config
+       (setq magit-completing-read-function 'ivy-completing-read))
+   #+END_SRC
+
+** Jump to definition
+   Dump-jump uses brute force very effectively. It provided decent
+   jump to definition behaviour while avoiding the tedium that comes
+   with managing TAGS files and such.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package dumb-jump
+       :bind (("M-g o" . dumb-jump-go-other-window)
+              ("M-g j" . dumb-jump-go)
+              ("M-g i" . dumb-jump-go-prompt)
+              ("M-g x" . dumb-jump-go-prefer-external)
+              ("M-g z" . dumb-jump-go-prefer-external-other-window))
+       :config (setq dumb-jump-force-searcher 'rg)
+               (setq dumb-jump-max-find-time 5)
+               (setq dumb-jump-rg-cmd "/usr/local/bin/rg") ;; TODO /usr/local/bin is in exec-path... why is this needed?
+               (setq dumb-jump-selector 'ivy)
+       :ensure)
+   #+END_SRC
+
+** TODO Spellcheck
+
+* Major modes and filetypes
+** [[https://github.com/dominikh/go-mode.el][Go]]
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package go-mode
+       :config
+       (setq gofmt-command "goimports")
+       :custom
+       (gofmt-show-errors nil)
+       :hook (go-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
+       :defer t)
+
+     ;;(setenv "GOPATH" (expand-file-name "~"))
+     ;;(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/bin")))
+   #+END_SRC
+
+   We don't want to add ~gofmt-before-save~ to the global ~before-save-hook~,
+   because that would cause go-mode to be loaded in every buffer, whether it was
+   a go buffer or not. Instead we add to the local ~before-save-hook~. We then
+   have to explicitly request deferred loading. Normally ~:hook~ implies ~:defer
+   t~, but [[https://github.com/jwiegley/use-package/commit/b0e53b4][only]] if the target of the hook is a function symbol. If it's a
+   lambda, then use-package will resort to its default behavior of demanding the
+   package, to ensure that the package is loaded when the lambda runs. In our
+   case, we know the lambda doesn't need that, so we can safely ask for
+   deferral.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package go-eldoc
+       :hook (go-mode . go-eldoc-setup))
+   #+END_SRC
+
+** Graphviz
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package graphviz-dot-mode)
+   #+END_SRC
+
+** Markdown
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package markdown-mode
+       :custom
+       (markdown-hide-urls t)
+       :init
+       (add-hook 'mark-down-mode 'highlight-80+-mode))
+   #+END_SRC
+
+** Python
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package python-mode
+       :init
+       (add-hook 'python-mode 'highlight-80+-mode))
+   #+END_SRC
+
+** Ruby
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package ruby-mode
+       :init
+       (add-hook 'ruby-mode 'highlight-80+-mode)
+       (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode)))
+   #+END_SRC
+
+** [[https://github.com/rust-lang/rust-mode][Rust]]
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package rust-mode
+       :custom
+       (rust-format-on-save t)
+       :defer t)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package flycheck-rust
+       :hook (rust-mode . flycheck-rust-setup))
+   #+END_SRC
