@@ -1,0 +1,4 @@
+* emacs-configuration
+  This is my emacs configuration. If you want to try it out, open a fresh emacs
+  and run ~org-babel-load-file~ with ~init.org~. Put the resulting ~init.el~ in
+  ~~/.emacs~ and try it out.

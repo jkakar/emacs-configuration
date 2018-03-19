@@ -1,9 +1,8 @@
 * Bootstrapping and package management
 ** Tangling
    There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org. I'm
-   choosing to rely on ~org-bable-tangle~, which means needing to run
-   ~org-babel-load-file~ manually after editing this file. It's a bit tedious,
-   but preferable to imposing startup delays.
+   choosing to run ~org-babel-load-file~ manually after editing this file. It's
+   a bit tedious, but preferable to imposing startup delays.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (add-to-list 'safe-local-eval-forms
@@ -13,7 +12,7 @@
 ** Package management
    [[https://github.com/raxod502/straight.el][straight]] looks pretty nice, but I don't want to deviate too far from the
    mainstream when it comes to package management. I want to rely on [[http://melpa.milkbox.net][melpa]] and
-   ~use-package~ as much as I can.
+   [[https://github.com/jwiegley/use-package][use-package]] as much as I can.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (require 'package)
@@ -39,10 +38,9 @@
 
 * Core UI
 ** Chrome
-   I don't want distractions like the startup screen, the toolbar or
-   scrollbars. I want the modeline to show line and column numbers.
-   Don't waste my time asking me to type ~yes~ and ~no~ when ~y~ or
-   ~n~ will suffice.
+   I don't want distractions like the startup screen, the toolbar or scrollbars.
+   I want the modeline to show line and column numbers. Don't waste my time
+   asking me to type ~yes~ and ~no~ when ~y~ or ~n~ will suffice.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq inhibit-startup-screen t)
@@ -74,12 +72,11 @@
    #+END_SRC
 
 ** Fonts and faces
-   I use on ~set-face-attribute~ for global faces instead of
-   ~custom-set-faces~ because I want to avoid using the Customize
-   interface, which would mutate my init file. It lets me twiddle any
-   individual part of any face (see the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html][full list of attributes]])
-   without going through Customize. For package-specific faces,
-   use-package offers the ~:custom-face~ keyword, which goes through
+   I use on ~set-face-attribute~ for global faces instead of ~custom-set-faces~
+   because I want to avoid using the Customize interface, which would mutate my
+   init file. It lets me twiddle any individual part of any face (see the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html][full
+   list of attributes]]) without going through Customize. For package-specific
+   faces, use-package offers the ~:custom-face~ keyword, which goes through
    Customize while avoiding its major downside.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -160,12 +157,11 @@
    #+END_SRC
 
 ** Line movement
-   The builtin ~move-beginning-of-line~ function jumps to the
-   beginning of the line, but most of the time I want to move to the
-   first non-whitespace character. ~smarter-move-beginning-of-line~
-   moves to the first non-whitespace character on the line, or if the
-   point is already there, to the beginning of the line. Invoking it
-   repeatedly toggles between these positions.
+   The builtin ~move-beginning-of-line~ function jumps to the beginning of the
+   line, but most of the time I want to move to the first non-whitespace
+   character. ~smarter-move-beginning-of-line~ moves to the first non-whitespace
+   character on the line, or if the point is already there, to the beginning of
+   the line. Invoking it repeatedly toggles between these positions.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun smarter-move-beginning-of-line (arg)
@@ -184,8 +180,8 @@
    #+END_SRC
 
 ** Joining lines
-   Using ~C-u M-^~ to join one line to another is really
-   tedious. Let's make this easier.
+   Using ~C-u M-^~ to join one line to another is really tedious. Let's make
+   this easier.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun join-next-line ()
@@ -253,9 +249,9 @@
    #+END_SRC
 
 ** Jump to definition
-   Dump-jump uses brute force very effectively. It provided decent
-   jump to definition behaviour while avoiding the tedium that comes
-   with managing TAGS files and such.
+   Dump-jump uses brute force very effectively. It provides decent jump to
+   definition behaviour while avoiding the tedium that comes with managing TAGS
+   files and such.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package dumb-jump
@@ -290,13 +286,13 @@
    #+END_SRC
 
    We don't want to add ~gofmt-before-save~ to the global ~before-save-hook~,
-   because that would cause go-mode to be loaded in every buffer, whether it was
-   a go buffer or not. Instead we add to the local ~before-save-hook~. We then
-   have to explicitly request deferred loading. Normally ~:hook~ implies ~:defer
-   t~, but [[https://github.com/jwiegley/use-package/commit/b0e53b4][only]] if the target of the hook is a function symbol. If it's a
-   lambda, then use-package will resort to its default behavior of demanding the
-   package, to ensure that the package is loaded when the lambda runs. In our
-   case, we know the lambda doesn't need that, so we can safely ask for
+   because that would cause ~go-mode~ to be loaded in every buffer, whether it
+   was a Go buffer or not. Instead we add to the local ~before-save-hook~. We
+   then have to explicitly request deferred loading. Normally ~:hook~ implies
+   ~:defer t~, but [[https://github.com/jwiegley/use-package/commit/b0e53b4][only]] if the target of the hook is a function symbol. If it's
+   a lambda, then use-package will resort to its default behavior of demanding
+   the package, to ensure that the package is loaded when the lambda runs. In
+   our case, we know the lambda doesn't need that, so we can safely ask for
    deferral.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
