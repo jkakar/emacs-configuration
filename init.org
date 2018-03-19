@@ -91,10 +91,19 @@
    #+END_SRC
 
 ** Environment
-   We need to be able to find Homebrew-installed executables.
+   [[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]] ensures that Emacs.app on macOS uses the same paths as
+   my user environment.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq exec-path (append exec-path '("/usr/local/bin")))
+     (use-package exec-path-from-shell
+       :if (eq system-type 'darwin)
+       :custom
+       (exec-path-from-shell-check-startup-files nil)
+       (exec-path-from-shell-variables '("PATH"
+                                         "MANPATH"
+                                         "GOPATH"))
+       :config
+       (exec-path-from-shell-initialize))
    #+END_SRC
 
 ** Files and buffers
@@ -123,7 +132,7 @@
    #+END_SRC
 
 ** Long lines and whitespace
-   I like spaces instead of tabs and a single space after a period. I also want
+   I prefer spaces to tabs and use a single space after a period. I also want
    code and text to fit within 80 characters whenever reasonable.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -262,7 +271,6 @@
               ("M-g z" . dumb-jump-go-prefer-external-other-window))
        :config (setq dumb-jump-force-searcher 'rg)
                (setq dumb-jump-max-find-time 5)
-               (setq dumb-jump-rg-cmd "/usr/local/bin/rg") ;; TODO /usr/local/bin is in exec-path... why is this needed?
                (setq dumb-jump-selector 'ivy)
        :ensure)
    #+END_SRC
