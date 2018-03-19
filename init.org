@@ -18,6 +18,7 @@
      (require 'package)
      (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
      (package-initialize)
+     (setq package-enable-at-startup nil)
 
      (unless (package-installed-p 'use-package)
        (package-refresh-contents)
@@ -278,6 +279,22 @@
 ** TODO Spellcheck
 
 * Major modes and filetypes
+** Flycheck
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package flycheck
+       :init
+       (setq flycheck-ruby-rubocop-executable "/Users/jkakar/.rbenv/shims/rubocop")
+       (setq flycheck-ruby-executable "/Users/jkakar/.rbenv/shims/ruby")
+       :config
+       (setq-default flycheck-disabled-checkers
+                     (append flycheck-disabled-checkers
+                             '(javascript-jshint)
+                             '(ruby-rubylint)
+                             '(json-jsonlist)))
+       (global-flycheck-mode))
+   #+END_SRC
+
 ** [[https://github.com/dominikh/go-mode.el][Go]]
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -321,6 +338,14 @@
        (add-hook 'mark-down-mode 'highlight-80+-mode))
    #+END_SRC
 
+** Prettier Javascript
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package prettier-js
+       :init
+       (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode)))))
+   #+END_SRC
+
 ** Python
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -335,7 +360,8 @@
      (use-package ruby-mode
        :init
        (add-hook 'ruby-mode 'highlight-80+-mode)
-       (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode)))
+       (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
+       (setq ruby-insert-encoding-magic-comment nil))
    #+END_SRC
 
 ** [[https://github.com/rust-lang/rust-mode][Rust]]
@@ -350,4 +376,27 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package flycheck-rust
        :hook (rust-mode . flycheck-rust-setup))
+   #+END_SRC
+
+** Web
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package web-mode
+       :config
+       (setq web-mode-markup-indent-offset 2)
+       (setq web-mode-attr-indent-offset 2)
+       (setq web-mode-css-indent-offset 2)
+       (setq web-mode-code-indent-offset 2)
+       (setq web-mode-enable-auto-pairing t)
+       (setq web-mode-enable-css-colorization t)
+       (add-hook 'before-save-hook 'delete-trailing-whitespace nil 'local)
+       :mode ("\\.html?\\'" "\\.erb\\'" "\\.hbs\\'"
+              "\\.jsx?\\'" "\\.json\\'" "\\.s?css\\'"
+              "\\.less\\'" "\\.sass\\'"))
+   #+END_SRC
+
+** YAML
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package yaml-mode)
    #+END_SRC
