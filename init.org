@@ -72,7 +72,7 @@
    #+END_SRC
 
 ** Fonts and faces
-   I use on ~set-face-attribute~ for global faces instead of ~custom-set-faces~
+   I use ~set-face-attribute~ for global faces instead of ~custom-set-faces~
    because I want to avoid using the Customize interface, which would mutate my
    init file. It lets me twiddle any individual part of any face (see the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html][full
    list of attributes]]) without going through Customize. For package-specific
