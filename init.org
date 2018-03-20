@@ -4,6 +4,21 @@
    choosing to run ~org-babel-load-file~ manually after editing this file. It's
    a bit tedious, but preferable to imposing startup delays.
 
+** Customize
+   I'd ideally like to never do anything that invokes Customize options, but
+   this setup isn't there yet. I want to be able to clone this repository to
+   =~/.emacs.d= and run ~org-babel-load-file~ to generate an ~init.el~ in place
+   that is used to boot emacs from then on. At present, doing this generates
+   custom options that are written to =~/.emacs=. The presence of that file then
+   blocks emacs from using =~/.emacs.d/init.el= during startup.
+
+   Declaring a file, just for Customize options, works around this.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+     (load custom-file)
+   #+END_SRC
+
 ** Package management
    [[https://github.com/raxod502/straight.el][straight]] looks pretty nice, but I don't want to deviate too far from the
    mainstream when it comes to package management. I want to rely on [[http://melpa.milkbox.net][melpa]] and
@@ -23,21 +38,6 @@
        (require 'use-package))
 
      (setq use-package-always-ensure t)
-   #+END_SRC
-
-** Customize
-   I'd ideally like to never do anything that invokes Customize options, but
-   this setup isn't there yet. I want to be able to clone this repository to
-   =~/.emacs.d= and run ~org-babel-load-file~ to generate an ~init.el~ in place
-   that is used to boot emacs from then on. At present, doing this generates
-   custom options that are written to =~/.emacs=. The presence of that file then
-   blocks emacs from using =~/.emacs.d/init.el= during startup.
-
-   Declaring a file, just for Customize options, works around this.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-     (load custom-file)
    #+END_SRC
 
 ** Persistent editing
