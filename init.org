@@ -163,8 +163,8 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (load-library (expand-file-name "highlight-80+.el" user-emacs-directory))
      (setq highlight-80+-columns 81)
-     (set-face-attribute highlight-80+ nil :foreground 'unspecified
-                                           :background (get-base16-color ':base01))
+     (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
+                                            :background (get-base16-color ':base01))
    #+END_SRC
 
    I don't want to leave trailing whitespace in files. [[https://github.com/lewang/ws-butler][ws-butler only]] deletes
@@ -373,7 +373,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package python-mode
        :init
-       (add-hook 'python-mode 'highlight-80+-mode))
+       (add-hook 'python-mode-hook 'highlight-80+-mode))
    #+END_SRC
 
 ** Ruby
@@ -381,8 +381,9 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ruby-mode
        :init
-       (add-hook 'ruby-mode 'highlight-80+-mode)
        (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
+       (add-hook 'ruby-mode-hook 'highlight-80+-mode)
+       :config
        (setq ruby-insert-encoding-magic-comment nil))
    #+END_SRC
 

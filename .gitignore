@@ -2,3 +2,4 @@ auto-save-list/
 elpa/
 init.el
 recentf
+smex-items
