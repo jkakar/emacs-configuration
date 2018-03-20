@@ -157,6 +157,9 @@
    characters. This provides a useful signal to think about whether the line
    should be broken up or not.
 
+   The builtin [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/whitespace.el][whitespace-mode]] can do this now. It'd be good to switchover to it
+   and drop this unmaintained package.
+
    #+BEGIN_SRC emacs-lisp :tangle yes
      (load-library (expand-file-name "highlight-80+.el" user-emacs-directory))
      (setq highlight-80+-columns 81)
