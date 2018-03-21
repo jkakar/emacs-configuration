@@ -51,7 +51,7 @@
    the single instance receive calls to it. I use [[https://emacsformacosx.com/][emacsformacosx]] so the script
    uses the ~emacsclient~ that comes with it.
 
-   #+BEGIN_SRC
+   #+BEGIN_SRC bash
      #!/bin/sh
 
      /Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n $@
