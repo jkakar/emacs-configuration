@@ -79,6 +79,11 @@
      (setq confirm-kill-emacs 'yes-or-no-p)
    #+END_SRC
 
+   I never want to hear a single peep out of my editor.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq ring-bell-function #'ignore)
+   #+END_SRC
 
 ** Theme
    I've tried several themes, mostly within the base16 family, and seem to keep
@@ -240,13 +245,19 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package swiper
-       :ensure t)
+       :ensure t
+       :config
+       (global-set-key (kbd "C-s") 'swiper))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package counsel
        :ensure t
-       :bind ("M-x" . counsel-M-x))
+       :config
+       (global-set-key (kbd "M-x") 'counsel-M-x)
+       (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+       (global-set-key (kbd "C-c k") 'counsel-rg)
+       (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -258,22 +269,7 @@
               :map ivy-minibuffer-map ("RET" . ivy-alt-done))
        :config
        (ivy-mode 1)
-       (global-set-key "\C-s" 'swiper)
-       (global-set-key (kbd "C-c C-r") 'ivy-resume)
-       (global-set-key (kbd "<f6>") 'ivy-resume)
-       (global-set-key (kbd "M-x") 'counsel-M-x)
-       (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-       (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-       (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-       (global-set-key (kbd "<f1> l") 'counsel-find-library)
-       (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-       (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-       (global-set-key (kbd "C-c g") 'counsel-git)
-       (global-set-key (kbd "C-c j") 'counsel-git-grep)
-       (global-set-key (kbd "C-c k") 'counsel-ag)
-       (global-set-key (kbd "C-x l") 'counsel-locate)
-       (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-       (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+       (global-set-key (kbd "C-c C-r") 'ivy-resume))
    #+END_SRC
 
    I want ~counsel-M-x~ to show me the most recently used commands. Installing
@@ -283,17 +279,18 @@
      (use-package smex)
    #+END_SRC
 
-** Magit
+** [[https://magit.vc/][Magit]]
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package magit
        :config
-       (setq magit-completing-read-function 'ivy-completing-read))
+       (setq magit-completing-read-function 'ivy-completing-read)
+       (global-set-key (kbd "C-x g") 'magit-status))
    #+END_SRC
 
 ** Jump to definition
-   Dump-jump uses brute force very effectively. It provides decent jump to
+   [[https://github.com/jacktasia/dumb-jump][dump-jump]] uses brute force very effectively. It provides decent jump to
    definition behaviour while avoiding the tedium that comes with managing TAGS
-   files and such.
+   files and such. I've found ~rg~ provides the best results.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package dumb-jump
