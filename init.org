@@ -47,6 +47,16 @@
      (server-start)
    #+END_SRC
 
+   I put an executable script in =~/bin= to invoke emacs from a shell and have
+   the single instance receive calls to it. I use [[https://emacsformacosx.com/][emacsformacosx]] so the script
+   uses the ~emacsclient~ that comes with it.
+
+   #+BEGIN_SRC
+     #!/bin/sh
+
+     /Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n $@
+   #+END_SRC
+
 * Core UI
 ** Chrome
    I don't want distractions like the startup screen, the toolbar or scrollbars.
