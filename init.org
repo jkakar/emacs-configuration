@@ -102,7 +102,7 @@
    because I want to avoid using the Customize interface, which would mutate my
    init file. It lets me twiddle any individual part of any face (see the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html][full
    list of attributes]]) without going through Customize. For package-specific
-   faces, use-package offers the ~:custom-face~ keyword, which goes through
+   faces, ~use-package~ offers the ~:custom-face~ keyword, which goes through
    Customize while avoiding its major downside.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -269,6 +269,7 @@
               :map ivy-minibuffer-map ("RET" . ivy-alt-done))
        :config
        (ivy-mode 1)
+       (setq ivy-height 12)
        (global-set-key (kbd "C-c C-r") 'ivy-resume))
    #+END_SRC
 
@@ -341,7 +342,7 @@
    was a Go buffer or not. Instead we add to the local ~before-save-hook~. We
    then have to explicitly request deferred loading. Normally ~:hook~ implies
    ~:defer t~, but [[https://github.com/jwiegley/use-package/commit/b0e53b4][only]] if the target of the hook is a function symbol. If it's
-   a lambda, then use-package will resort to its default behavior of demanding
+   a lambda, then ~use-package~ will resort to its default behavior of demanding
    the package, to ensure that the package is loaded when the lambda runs. In
    our case, we know the lambda doesn't need that, so we can safely ask for
    deferral.
@@ -388,7 +389,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ruby-mode
        :init
-       (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
+       (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|rbi\\|ru\\|thor\\)\\'" . ruby-mode))
        (add-hook 'ruby-mode-hook 'highlight-80+-mode)
        :config
        (setq ruby-insert-encoding-magic-comment nil))
