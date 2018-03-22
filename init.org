@@ -225,7 +225,7 @@
      (defun join-next-line ()
        (interactive)
        (join-line t))
-     (global-set-key [?\C-j] 'join-next-line)
+     (global-set-key [kbd "C-j"] 'join-next-line)
    #+END_SRC
 
 ** Matching parentheses
