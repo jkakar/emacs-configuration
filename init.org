@@ -150,6 +150,12 @@
      (setq uniquify-buffer-name-style 'forward)
    #+END_SRC
 
+   I prefer ~ibuffer~ to the builtin buffer menu functionality.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (global-set-key (kbd "C-x C-b") 'ibuffer)
+   #+END_SRC
+
 ** Scrolling
    Scroll one line at a time. The default behaviour is jarring.
 
