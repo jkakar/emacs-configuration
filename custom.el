@@ -5,11 +5,11 @@
  ;; If there is more than one, they won't work right.
  '(exec-path-from-shell-check-startup-files nil)
  '(exec-path-from-shell-variables (quote ("PATH" "MANPATH" "GOPATH")))
- '(gofmt-show-errors nil)
+ '(gofmt-show-errors nil t)
  '(markdown-hide-urls t)
  '(package-selected-packages
    (quote
-    (graphviz-dot-mode go-eldoc go-mode flycheck dumb-jump magit smex counsel swiper ws-butler exec-path-from-shell base16-theme use-package)))
+    (crux graphviz-dot-mode go-eldoc go-mode flycheck dumb-jump magit smex counsel swiper ws-butler exec-path-from-shell base16-theme use-package)))
  '(rust-format-on-save t t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

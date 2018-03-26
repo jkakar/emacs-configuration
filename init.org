@@ -203,24 +203,14 @@
 ** Line movement
    The builtin ~move-beginning-of-line~ function jumps to the beginning of the
    line, but most of the time I want to move to the first non-whitespace
-   character. ~smarter-move-beginning-of-line~ moves to the first non-whitespace
+   character. ~crux-move-beginning-of-line~ moves to the first non-whitespace
    character on the line, or if the point is already there, to the beginning of
    the line. Invoking it repeatedly toggles between these positions.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun smarter-move-beginning-of-line (arg)
-       (interactive "^p")
-       (setq arg (or arg 1))
-
-       (when (/= arg 1)
-         (let ((line-move-visual nil))
-           (forward-line (1- arg))))
-
-       (let ((orig-point (point)))
-         (back-to-indentation)
-         (when (= orig-point (point))
-           (move-beginning-of-line 1))))
-     (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
+     (use-package crux
+      :ensure t
+      :bind (("C-a" . crux-move-beginning-of-line)))
    #+END_SRC
 
 ** Joining lines
