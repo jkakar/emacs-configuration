@@ -329,7 +329,10 @@
        (setq gofmt-command "goimports")
        :custom
        (gofmt-show-errors nil)
-       :hook (go-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
+       :hook
+       (go-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
+       :init
+       (add-hook 'go-mode-hook 'highlight-80+-mode)
        :defer t)
    #+END_SRC
 
