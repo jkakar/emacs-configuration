@@ -111,7 +111,7 @@
                                              :height 100))
            ((eq system-type 'darwin)
             (set-face-attribute 'default nil :family "Monaco"
-                                             :height 160)))
+                                             :height 150)))
      (set-face-attribute 'fixed-pitch nil :family 'unspecified
                                           :inherit 'default)
    #+END_SRC
