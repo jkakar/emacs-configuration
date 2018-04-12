@@ -111,7 +111,7 @@
                                              :height 100))
            ((eq system-type 'darwin)
             (set-face-attribute 'default nil :family "Monaco"
-                                             :height 150)))
+                                             :height 160)))
      (set-face-attribute 'fixed-pitch nil :family 'unspecified
                                           :inherit 'default)
    #+END_SRC
@@ -274,6 +274,33 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package smex)
+   #+END_SRC
+
+   I mainly use projectile for fuzzy searching an entire project’s files and
+   buffers. It’s quite refreshing to never think about which files are “open”
+   and which ones aren’t. The concept of a “root” directory is also important
+   for things like rg searching.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package projectile
+       :custom
+       (projectile-globally-ignored-file-suffixes '(".pdf"))
+       (projectile-globally-unignored-files '(".projectile" ".dir-locals.el"))
+       :demand t
+       :config
+       (setq projectile-enable-caching t)
+       (projectile-mode 1))
+   #+END_SRC
+
+   I want to be able to jump to any file quickly without having to navigate
+   through directories by hand. [[https://github.com/ericdanan/counsel-projectile][counsel-projectile]] provides a nice way to do
+   this.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package counsel-projectile
+      :demand t
+      :config
+      (counsel-projectile-mode 1))
    #+END_SRC
 
 ** [[https://magit.vc/][Magit]]
