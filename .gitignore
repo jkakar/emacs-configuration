@@ -1,7 +1,7 @@
 auto-save-list/
 elpa/
 init.el
-projectile-bookmark.eld
+projectile-bookmarks.eld
 projectile.cache
 recentf
 smex-items

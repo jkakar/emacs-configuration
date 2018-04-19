@@ -156,6 +156,16 @@
      (global-set-key (kbd "C-x C-b") 'ibuffer)
    #+END_SRC
 
+   I like closing all buffers to reset emacs to a clean slate when I switch from
+   one task to another. Using ~C-x C-b % n <ENTER> D~ is pretty tedious. ~M-x
+   close-all-buffers~ is a touch easier.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun close-all-buffers ()
+       (interactive)
+       (mapc 'kill-buffer (buffer-list)))
+   #+END_SRC
+
 ** Scrolling
    Scroll one line at a time. The default behaviour is jarring.
 
