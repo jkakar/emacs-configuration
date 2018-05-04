@@ -9,7 +9,9 @@
  '(markdown-hide-urls t)
  '(package-selected-packages
    (quote
-    (projectile counsel-projectile crux graphviz-dot-mode go-eldoc go-mode flycheck dumb-jump magit smex counsel swiper ws-butler exec-path-from-shell base16-theme use-package)))
+    (thrift projectile counsel-projectile crux graphviz-dot-mode go-eldoc go-mode flycheck dumb-jump magit smex counsel swiper ws-butler exec-path-from-shell base16-theme use-package)))
+ '(projectile-globally-ignored-file-suffixes (quote (".pdf")))
+ '(projectile-globally-unignored-files (quote (".projectile" ".dir-locals.el")))
  '(rust-format-on-save t t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

@@ -1,4 +1,9 @@
 * Bootstrapping and package management
+** TODO
+*** Switch to railwaycats emacs to see if the vfork patch helps performance on macOS
+*** Learn more about ivy-occur
+*** Install wgrep and figure out how to use it with ivy-occur
+
 ** Tangling
    There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org. I'm
    choosing to run ~org-babel-load-file~ manually after editing this file. It's
@@ -443,6 +448,12 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package flycheck-rust
        :hook (rust-mode . flycheck-rust-setup))
+   #+END_SRC
+
+** Thrift
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package thrift)
    #+END_SRC
 
 ** Web
