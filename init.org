@@ -347,6 +347,29 @@
 ** TODO Spellcheck
 
 * Major modes and filetypes
+** Erlang
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package erlang
+       :init
+       (add-to-list 'auto-mode-alist '("\\.P\\'" . erlang-mode))
+       (add-to-list 'auto-mode-alist '("\\.E\\'" . erlang-mode))
+       (add-to-list 'auto-mode-alist '("\\.S\\'" . erlang-mode))
+       :config
+       (add-hook 'erlang-mode-hook
+         (lambda ()
+           (setq mode-name "erl"
+                 erlang-compile-extra-opts '((i . "../include"))
+                 erlang-root-dir "/usr/local/lib/erlang"))))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package edts
+       :init
+       (setq edts-inhibit-package-check t
+             edts-man-root "~/.emacs.d/edts/doc/18.2.1"))
+   #+END_SRC
+
 ** Flycheck
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -354,6 +377,8 @@
        :init
        (setq flycheck-ruby-rubocop-executable (expand-file-name "~/.rbenv/shims/rubocop"))
        (setq flycheck-ruby-executable (expand-file-name "~/.rbenv/shims/ruby"))
+       (setq flycheck-erlang-include-path '("../include"))
+       (setq flycheck-erlang-library-path '())
        :config
        (setq-default flycheck-disabled-checkers
                      (append flycheck-disabled-checkers
