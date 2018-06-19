@@ -1,15 +1,19 @@
 * Bootstrapping and package management
+
 ** TODO
+
 *** Switch to railwaycats emacs to see if the vfork patch helps performance on macOS
 *** Learn more about ivy-occur
 *** Install wgrep and figure out how to use it with ivy-occur
 
 ** Tangling
+
    There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org. I'm
    choosing to run ~org-babel-load-file~ manually after editing this file. It's
    a bit tedious, but preferable to imposing startup delays.
 
 ** Customize
+
    I'd ideally like to never do anything that invokes Customize options, but
    this setup isn't there yet. I want to be able to clone this repository to
    =~/.emacs.d= and run ~org-babel-load-file~ to generate an ~init.el~ in place
@@ -25,6 +29,7 @@
    #+END_SRC
 
 ** Package management
+
    [[https://github.com/raxod502/straight.el][straight]] looks pretty nice, but I don't want to deviate too far from the
    mainstream when it comes to package management. I want to rely on [[http://melpa.milkbox.net][melpa]] and
    [[https://github.com/jwiegley/use-package][use-package]] as much as I can.
@@ -46,6 +51,7 @@
    #+END_SRC
 
 ** Persistent editing
+
    Run emacs as a server.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -63,7 +69,9 @@
    #+END_SRC
 
 * Core UI
+
 ** Chrome
+
    I don't want distractions like the startup screen, the toolbar or scrollbars.
    I want the modeline to show line and column numbers. Don't waste my time
    asking me to type ~yes~ and ~no~ when ~y~ or ~n~ will suffice.
@@ -91,6 +99,7 @@
    #+END_SRC
 
 ** Theme
+
    I've tried several themes, mostly within the base16 family, and seem to keep
    coming back to ~base16-twilight~.
 
@@ -103,6 +112,7 @@
    #+END_SRC
 
 ** Fonts and faces
+
    I use ~set-face-attribute~ for global faces instead of ~custom-set-faces~
    because I want to avoid using the Customize interface, which would mutate my
    init file. It lets me twiddle any individual part of any face (see the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Face-Attributes.html][full
@@ -122,6 +132,7 @@
    #+END_SRC
 
 ** Environment
+
    [[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]] ensures that Emacs.app on macOS uses the same paths as
    my user environment.
 
@@ -138,6 +149,7 @@
    #+END_SRC
 
 ** Files and buffers
+
    I never run more than one copy of emacs, nor do I ever make use of backup
    files. Don't keep junk lying around if it'll never be used.
 
@@ -172,6 +184,7 @@
    #+END_SRC
 
 ** Scrolling
+
    Scroll one line at a time. The default behaviour is jarring.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -179,6 +192,7 @@
    #+END_SRC
 
 ** Long lines and whitespace
+
    I prefer spaces to tabs and use a single space after a period. I also want
    code and text to fit within 80 characters whenever reasonable.
 
@@ -216,6 +230,7 @@
    #+END_SRC
 
 ** Line movement
+
    The builtin ~move-beginning-of-line~ function jumps to the beginning of the
    line, but most of the time I want to move to the first non-whitespace
    character. ~crux-move-beginning-of-line~ moves to the first non-whitespace
@@ -229,6 +244,7 @@
    #+END_SRC
 
 ** Joining lines
+
    Using ~C-u M-^~ to join one line to another is really tedious. Let's make
    this easier.
 
@@ -240,6 +256,7 @@
    #+END_SRC
 
 ** Matching parentheses
+
    Highlight all the text between matching parentheses without any delay.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -251,6 +268,7 @@
    #+END_SRC
 
 ** Navigation
+
    Ivy, counsel and swiper provide a simple and unified way to quickly navigate
    buffers, find files, etc.
 
@@ -319,6 +337,7 @@
    #+END_SRC
 
 ** [[https://magit.vc/][Magit]]
+
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package magit
        :config
@@ -327,6 +346,7 @@
    #+END_SRC
 
 ** Jump to definition
+
    [[https://github.com/jacktasia/dumb-jump][dump-jump]] uses brute force very effectively. It provides decent jump to
    definition behaviour while avoiding the tedium that comes with managing TAGS
    files and such. I've found ~rg~ provides the best results.
@@ -347,6 +367,7 @@
 ** TODO Spellcheck
 
 * Major modes and filetypes
+
 ** Erlang
 
    #+BEGIN_SRC emacs-lisp :tangle yes
