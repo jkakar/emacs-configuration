@@ -336,13 +336,30 @@
       (counsel-projectile-mode 1))
    #+END_SRC
 
-** [[https://magit.vc/][Magit]]
+** Git
+
+   [[https://magit.vc/][Magit]] provides a great interface for working with git.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package magit
        :config
        (setq magit-completing-read-function 'ivy-completing-read)
        (global-set-key (kbd "C-x g") 'magit-status))
+   #+END_SRC
+
+   I frequently want to share a GitHub link to code I'm working with in emacs.
+   Navigating to files and selecting lines in the browser is rather tedious.
+   [[https://github.com/sshaw/git-link][git-link]] provides a way to quickly generate GitHub (and other code hosting
+   service) URLs.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package git-link
+       :config
+       (global-set-key (kbd "C-c g l") 'git-link)
+       (add-to-list 'git-link-remote-alist
+                    '("git\\.corp\\.stripe\\.com" git-link-github))
+       (add-to-list 'git-link-commit-remote-alist
+                    '("git\\.corp\\.stripe\\.com" git-link-commit-github)))
    #+END_SRC
 
 ** Jump to definition
