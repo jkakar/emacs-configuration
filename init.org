@@ -431,7 +431,7 @@
        :custom
        (markdown-hide-urls t)
        :init
-       (add-hook 'mark-down-mode 'highlight-80+-mode))
+       (add-hook 'markdown-mode-hook 'highlight-80+-mode))
    #+END_SRC
 
 ** Prettier Javascript
