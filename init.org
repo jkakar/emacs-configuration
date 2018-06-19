@@ -280,7 +280,7 @@
               :map ivy-minibuffer-map ("RET" . ivy-alt-done))
        :config
        (ivy-mode 1)
-       (setq ivy-height 12)
+       (setq ivy-height 15)
        (global-set-key (kbd "C-c C-r") 'ivy-resume))
    #+END_SRC
 
