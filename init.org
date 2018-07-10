@@ -2,9 +2,10 @@
 
 ** TODO
 
-*** Switch to railwaycats emacs to see if the vfork patch helps performance on macOS
-*** Learn more about ivy-occur
-*** Install wgrep and figure out how to use it with ivy-occur
+- Switch to railwaycats emacs to see if the vfork patch helps performance on macOS
+- Learn more about ivy-occur
+- Install wgrep and figure out how to use it with ivy-occur
+- Checkout https://github.com/joaotavora/eglot
 
 ** Tangling
 
