@@ -288,6 +288,8 @@
        (global-set-key (kbd "C-x C-f") 'counsel-find-file)
        (global-set-key (kbd "C-c k") 'counsel-rg)
        (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+       (setq counsel-git-cmd "rg --files")
+       (setq counsel-rg-base-command "rg -i -M 120 --no-heading --line-number --color never %s .")
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -298,9 +300,9 @@
        :bind (("C-c C-r" . ivy-resume)
               :map ivy-minibuffer-map ("RET" . ivy-alt-done))
        :config
-       (ivy-mode 1)
-       (setq ivy-height 15)
        (global-set-key (kbd "C-c C-r") 'ivy-resume))
+       (setq ivy-height 15)
+       (ivy-mode 1)
    #+END_SRC
 
    I want ~counsel-M-x~ to show me the most recently used commands. Installing
