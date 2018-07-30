@@ -394,6 +394,7 @@
        (add-to-list 'auto-mode-alist '("\\.E\\'" . erlang-mode))
        (add-to-list 'auto-mode-alist '("\\.S\\'" . erlang-mode))
        :config
+       (add-hook 'erlang-mode-hook 'highlight-80+-mode)
        (add-hook 'erlang-mode-hook
          (lambda ()
            (setq mode-name "erl"
