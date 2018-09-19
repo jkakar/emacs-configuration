@@ -466,6 +466,12 @@
      (use-package graphviz-dot-mode)
    #+END_SRC
 
+** JSON
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package json-mode)
+   #+END_SRC
+
 ** [[https://jblevins.org/projects/markdown-mode/][Markdown]]
 
    ~C-c C-l~ is the keyboard shortcut for ~markdown-insert-link~ which is needed
