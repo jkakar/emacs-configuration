@@ -107,9 +107,9 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package base16-theme
        :init
-       (load-theme 'base16-twilight t))
+       (load-theme 'base16-phd t))
      (defun get-base16-color (id)
-       (plist-get base16-twilight-colors id))
+       (plist-get base16-phd-colors id))
    #+END_SRC
 
 ** Fonts and faces
@@ -417,7 +417,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package flycheck
        :init
-       (setq flycheck-ruby-rubocop-executable (expand-file-name "~/.rbenv/shims/rubocop"))
+       (setq flycheck-ruby-rubocop-executable (expand-file-name "~/stripe/pay-server/scripts/bin/rubocop"))
        (setq flycheck-ruby-executable (expand-file-name "~/.rbenv/shims/ruby"))
        (setq flycheck-erlang-include-path '("../include"))
        (setq flycheck-erlang-library-path '())
