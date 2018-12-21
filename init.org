@@ -109,7 +109,7 @@
        :init
        (load-theme 'base16-irblack t))
      (defun get-base16-color (id)
-       (plist-get base16-phd-colors id))
+       (plist-get base16-irblack-colors id))
    #+END_SRC
 
 ** Fonts and faces
@@ -500,6 +500,15 @@
      (use-package prettier-js
        :init
        (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode)))))
+   #+END_SRC
+
+** Protocol buffers
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package protobuf-mode
+       :init
+       (defconst my-protobuf-style '((c-basic-offset . 2) (indent-tabs-mode . nil)))
+       (add-hook 'protobuf-mode-hook (lambda () (c-add-style "my-style" my-protobuf-style t))))
    #+END_SRC
 
 ** Python
