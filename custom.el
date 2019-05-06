@@ -9,7 +9,7 @@
  '(markdown-hide-urls t)
  '(package-selected-packages
    (quote
-    (protobuf-mode elixir elixir-mode base16-theme json-mode sql-mode git-link edts erlang thrift projectile counsel-projectile crux graphviz-dot-mode go-eldoc go-mode flycheck dumb-jump magit smex counsel swiper ws-butler exec-path-from-shell use-package)))
+    (wgrep protobuf-mode elixir elixir-mode base16-theme json-mode sql-mode git-link edts erlang thrift projectile counsel-projectile crux graphviz-dot-mode go-eldoc go-mode flycheck dumb-jump magit smex counsel swiper ws-butler exec-path-from-shell use-package)))
  '(projectile-globally-ignored-file-suffixes (quote (".pdf")))
  '(projectile-globally-unignored-files (quote (".projectile" ".dir-locals.el")))
  '(rust-format-on-save t t)

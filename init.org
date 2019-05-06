@@ -325,6 +325,7 @@
        :demand t
        :config
        (setq projectile-enable-caching t)
+       (setq projectile-indexing-method 'alien)
        (projectile-mode 1))
    #+END_SRC
 
@@ -384,7 +385,41 @@
        :ensure)
    #+END_SRC
 
+** Multi-line editing
+
+   [[https://melpa.org/#/wgrep][wgrep]] integrates with ivy-occur to provide multi-line editing capabilities.
+
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (use-package wgrep)
+  #+END_SRC
+
+  Search for text you want to edit, hit C-o C-o (ivy-occur) to open the matches
+  in a buffer. Use C-x C-q (ivy-wgrep-change-to-wgrep-mode) in the buffer to
+  switch into editing mode. Finally, use C-c C-c (wgrep-finish-edit) to apply
+  the changes.
+
 ** TODO Spellcheck
+
+* Stripe
+
+** Running tests
+
+   Run tests right from a buffer.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun my-git-relative-path ()
+       (concat (magit-rev-parse "--show-prefix") "/"
+         (file-name-nondirectory (buffer-file-name (current-buffer)))))
+
+     (defun pay-test-this-file ()
+       (interactive)
+       (compile (concat "pay test " (my-git-relative-path))))
+
+     (defun pay-test-at-point ()
+       (interactive)
+       (compile (concat "pay test " (my-git-relative-path)
+                        " -l " (int-to-string (line-number-at-pos)))))
+   #+END_SRC
 
 * Major modes and filetypes
 
