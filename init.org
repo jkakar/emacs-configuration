@@ -406,7 +406,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun my-git-relative-path ()
-       (concat (magit-rev-parse "--show-prefix") "/"
+       (concat (magit-rev-parse "--show-prefix")
          (file-name-nondirectory (buffer-file-name (current-buffer)))))
 
      (defun pay-test-this-file ()
@@ -417,6 +417,10 @@
        (interactive)
        (compile (concat "pay test " (my-git-relative-path)
                         " -l " (int-to-string (line-number-at-pos)))))
+
+     (defun pay-typecheck ()
+       (interactive)
+       (compile "pay exec ./scripts/bin/typecheck"))
    #+END_SRC
 
 * Major modes and filetypes
