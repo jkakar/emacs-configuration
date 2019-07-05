@@ -4,6 +4,7 @@
 
 - Switch to railwaycats emacs to see if the vfork patch helps performance on macOS
 - Checkout https://github.com/joaotavora/eglot
+- Spellchecking
 
 ** Tangling
 
@@ -43,9 +44,7 @@
        (package-refresh-contents)
        (package-install 'use-package))
 
-     (eval-when-compile
-       (require 'use-package))
-
+     (eval-when-compile (require 'use-package))
      (setq use-package-always-ensure t)
    #+END_SRC
 
@@ -396,7 +395,18 @@
   switch into editing mode. Finally, use C-c C-c (wgrep-finish-edit) to apply
   the changes.
 
-** TODO Spellcheck
+** Compilation buffers
+
+   Enable ANSI colors in compilation buffers.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun colorize-compilation-buffer ()
+       (toggle-read-only)
+       (ansi-color-apply-on-region compilation-filter-start (point))
+       (toggle-read-only))
+
+     (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+   #+END_SRC
 
 * Stripe
 
