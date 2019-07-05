@@ -409,18 +409,22 @@
        (concat (magit-rev-parse "--show-prefix")
          (file-name-nondirectory (buffer-file-name (current-buffer)))))
 
-     (defun pay-test-this-file ()
+     (defun pay-test-branch ()
        (interactive)
-       (compile (concat "pay test " (my-git-relative-path))))
+       (compile "time pay test $(git diff --name-only $(git merge-base HEAD master)|grep test)"))
+
+     (defun pay-test-buffer ()
+       (interactive)
+       (compile (concat "time pay test " (my-git-relative-path))))
 
      (defun pay-test-at-point ()
        (interactive)
-       (compile (concat "pay test " (my-git-relative-path)
+       (compile (concat "time pay test " (my-git-relative-path)
                         " -l " (int-to-string (line-number-at-pos)))))
 
      (defun pay-typecheck ()
        (interactive)
-       (compile "pay exec ./scripts/bin/typecheck"))
+       (compile "time pay exec ./scripts/bin/typecheck"))
    #+END_SRC
 
 * Major modes and filetypes
