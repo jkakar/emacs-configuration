@@ -4,6 +4,7 @@
 
 - Switch to railwaycats emacs to see if the vfork patch helps performance on macOS
 - Checkout https://github.com/joaotavora/eglot
+- Checkuot https://github.com/TommyX12/company-tabnine
 - Spellchecking
 
 ** Tangling
