@@ -31,23 +31,33 @@
 
 ** Package management
 
-   [[https://github.com/raxod502/straight.el][straight]] looks pretty nice, but I don't want to deviate too far from the
-   mainstream when it comes to package management. I want to rely on [[http://melpa.milkbox.net][melpa]] and
-   [[https://github.com/jwiegley/use-package][use-package]] as much as I can.
+   I use [[https://github.com/raxod502/straight.el][straight]] and [[https://github.com/jwiegley/use-package][use-package]] to manage packages.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (require 'package)
-     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-     (package-initialize)
-     (setq package-enable-at-startup nil)
+     (setq load-prefer-newer t)
+     (setq straight-repository-branch "master")
+     (setq straight-check-for-modifications '(find-when-checking))
+     (setq straight-use-package-by-default t)
+     (setq straight-cache-autoloads t)
 
-     (unless (package-installed-p 'use-package)
-       (package-refresh-contents)
-       (package-install 'use-package))
+     (let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+       (bootstrap-version 5))
+     (unless (file-exists-p bootstrap-file)
+       (with-current-buffer
+           (url-retrieve-synchronously
+            "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+            'silent 'inhibit-cookies)
+         (goto-char (point-max))
+         (eval-print-last-sexp)))
+     (load bootstrap-file nil 'nomessage))
 
-     (eval-when-compile (require 'use-package))
-     (setq use-package-always-ensure t)
+     (straight-use-package 'use-package)
    #+END_SRC
+
+   Run ~M-x straight-freeze-versions~ to save the currently checked out
+   revisions of all packages. The ~~/.emacs.d/straight/versions/default.el~,
+   file, together with this file, perfectly define the package configuration.
 
 ** Persistent editing
 
@@ -210,7 +220,8 @@
    and drop this unmaintained package.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (load-library (expand-file-name "highlight-80+.el" user-emacs-directory))
+     (straight-use-package
+       '(highlight-80+ :type git :host github :repo "jkakar/highlight-80-mode"))
      (setq highlight-80+-columns 81)
      (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
                                             :background (get-base16-color ':base01))
@@ -238,7 +249,6 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package crux
-      :ensure t
       :bind (("C-a" . crux-move-beginning-of-line)))
    #+END_SRC
 
@@ -273,14 +283,12 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package swiper
-       :ensure t
        :config
        (global-set-key (kbd "C-s") 'swiper))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package counsel
-       :ensure t
        :config
        (global-set-key (kbd "M-x") 'counsel-M-x)
        (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -295,7 +303,6 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ivy
-       :ensure t
        :init (setq ivy-use-virtual-buffers t
                    ivy-count-format "(%d/%d) ")
        :bind (("C-c C-r" . ivy-resume)
@@ -382,8 +389,7 @@
               ("M-g z" . dumb-jump-go-prefer-external-other-window))
        :config (setq dumb-jump-force-searcher 'rg)
                (setq dumb-jump-max-find-time 10)
-               (setq dumb-jump-selector 'ivy)
-       :ensure)
+               (setq dumb-jump-selector 'ivy))
    #+END_SRC
 
 ** Multi-line editing
