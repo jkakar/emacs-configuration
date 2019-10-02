@@ -220,8 +220,8 @@
    and drop this unmaintained package.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (straight-use-package
-       '(highlight-80+ :type git :host github :repo "jkakar/highlight-80-mode"))
+     (use-package highlight-80+
+       :straight (highlight-80+ :type git :host github :repo "jkakar/highlight-80-mode"))
      (setq highlight-80+-columns 81)
      (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
                                             :background (get-base16-color ':base01))
