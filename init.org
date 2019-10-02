@@ -381,7 +381,7 @@
               ("M-g x" . dumb-jump-go-prefer-external)
               ("M-g z" . dumb-jump-go-prefer-external-other-window))
        :config (setq dumb-jump-force-searcher 'rg)
-               (setq dumb-jump-max-find-time 5)
+               (setq dumb-jump-max-find-time 10)
                (setq dumb-jump-selector 'ivy)
        :ensure)
    #+END_SRC
