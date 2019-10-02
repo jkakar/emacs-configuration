@@ -39,6 +39,7 @@
      (setq straight-check-for-modifications '(find-when-checking))
      (setq straight-use-package-by-default t)
      (setq straight-cache-autoloads t)
+     (setq use-package-inject-hooks t)
 
      (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -418,35 +419,6 @@
      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
    #+END_SRC
 
-* Stripe
-
-** Running tests
-
-   Run tests right from a buffer.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun my-git-relative-path ()
-       (concat (magit-rev-parse "--show-prefix")
-         (file-name-nondirectory (buffer-file-name (current-buffer)))))
-
-     (defun pay-test-branch ()
-       (interactive)
-       (compile "time pay test $(git diff --name-only $(git merge-base HEAD master)|grep test)"))
-
-     (defun pay-test-buffer ()
-       (interactive)
-       (compile (concat "time pay test " (my-git-relative-path))))
-
-     (defun pay-test-at-point ()
-       (interactive)
-       (compile (concat "time pay test " (my-git-relative-path)
-                        " -l " (int-to-string (line-number-at-pos)))))
-
-     (defun pay-typecheck ()
-       (interactive)
-       (compile "time pay exec ./scripts/bin/typecheck"))
-   #+END_SRC
-
 * Major modes and filetypes
 
 ** Elixir
@@ -536,6 +508,13 @@
      (use-package graphviz-dot-mode)
    #+END_SRC
 
+** LSP
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package lsp-ivy
+       :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
+   #+END_SRC
+
 ** JSON
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -578,17 +557,6 @@
      (use-package python-mode
        :init
        (add-hook 'python-mode-hook 'highlight-80+-mode))
-   #+END_SRC
-
-** React
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     ;; (use-package rjsx-mode
-     ;;   :init
-     ;;   (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))
-     ;;   (add-hook 'rjsx-mode-hook 'highlight-80+-mode)
-     ;;   :config
-     ;;  (setq js-indent-level 2))
    #+END_SRC
 
 ** Ruby
@@ -644,4 +612,98 @@
      (use-package yaml-mode
        :config
        (add-hook 'yaml-mode-hook 'highlight-80+-mode))
+   #+END_SRC
+
+* Stripe
+
+** Running tests
+
+   Run tests right from a buffer.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun my-git-relative-path ()
+       (concat (magit-rev-parse "--show-prefix")
+         (file-name-nondirectory (buffer-file-name (current-buffer)))))
+
+     (defun pay-test-branch ()
+       (interactive)
+       (compile "time pay test $(git diff --name-only $(git merge-base HEAD master)|grep test)"))
+
+     (defun pay-test-buffer ()
+       (interactive)
+       (compile (concat "time pay test " (my-git-relative-path))))
+
+     (defun pay-test-at-point ()
+       (interactive)
+       (compile (concat "time pay test " (my-git-relative-path)
+                        " -l " (int-to-string (line-number-at-pos)))))
+
+     (defun pay-typecheck ()
+       (interactive)
+       (compile "time pay exec ./scripts/bin/typecheck"))
+   #+END_SRC
+
+** Sorbet LSP integration
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     ;; (defmacro define-use-package-post-config-hook (package hook-name &rest body)
+     ;;   (let ((hook-function-name (intern (format "pay--use-package-post-hook-%s" hook-name)))
+     ;;     (use-package-hook-name (intern (format "use-package--%s--post-config-hook" package))))
+     ;;     `(progn
+     ;;        (defvar ,hook-function-name nil)
+     ;;        (add-hook ',use-package-hook-name
+     ;;          (defun ,hook-function-name ()
+     ;;            (unless ,hook-function-name
+     ;;              (setq ,hook-function-name t)
+     ;;                ,@body)))
+     ;;        (when (featurep ',package)
+     ;;          (,hook-function-name)))))
+
+     ;; (defconst pay-lsp-sorbet-dirs '("pay-server" "space-commander"))
+
+     ;; (defun pay-is-payserver-buffer-p ()
+     ;;   "Returns T if the current buffer is a pay-server project"
+     ;;   (and buffer-file-name
+     ;;     (string-prefix-p (expand-file-name "~/stripe/pay-server")
+     ;;      buffer-file-name)))
+
+     ;; (defun pay-is-payserver-ruby-buffer-p ()
+     ;;   "Returns T if the current buffer is ruby in pay-server."
+     ;;   (and (pay-is-payserver-buffer-p)
+     ;;     (eq major-mode 'ruby-mode)))
+
+     ;; (defun pay-activate-pay-server-sorbet-p (filename mode)
+     ;;   (and
+     ;;     (string-prefix-p (expand-file-name "~/stripe/pay-server") filename)
+     ;;     (eq major-mode 'ruby-mode)))
+
+     ;; (define-use-package-post-config-hook lsp-mode pay-define-lsp-sorbet-connection
+     ;;   (lsp-register-client
+     ;;     (make-lsp-client
+     ;;       :new-connection (lsp-stdio-connection '("srb" "t" "-v" "--lsp" "."))
+     ;;       :major-modes '(ruby-mode)
+     ;;       :priority 21
+     ;;       :server-id 'sorbet_lsp))
+
+     ;;   (lsp-register-client
+     ;;     (make-lsp-client
+     ;;       :new-connection (lsp-stdio-connection '("pay" "exec" "scripts/bin/typecheck" "--lsp"
+     ;;                                               ;; experimental features (https://github.com/sorbet/sorbet/blob/508a91d09363038e471942ebcb7a407b0141bcd1/main/options/options.cc#L334-L346):
+     ;;                                               "--enable-all-experimental-lsp-features"))
+     ;;       :major-modes '(ruby-mode)
+     ;;       :priority 25
+     ;;       :activation-fn pay-activate-pay-server-sorbet-p
+     ;;       :server-id 'sorbet_payserver)))
+
+     ;; (add-hook 'ruby-mode-hook
+     ;;   (defun pay-activate-lsp-in-sorbet-projects ()
+     ;;     (dolist (dir pay-lsp-sorbet-dirs)
+     ;;       (when (string-prefix-p (expand-file-name dir "~/stripe/") buffer-file-name)
+     ;;         (lsp)
+     ;;         (return t)))))
+
+     ;; (add-hook 'ruby-mode-hook
+     ;;   (defun pay-activate-lsp-in-pay-server ()
+     ;;     (when (pay-is-payserver-buffer-p)
+     ;;       (lsp))))
    #+END_SRC
