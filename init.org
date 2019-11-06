@@ -649,7 +649,6 @@
    you were.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-   ;;(use-package lsp)
      (use-package lsp-mode :commands lsp)
      (use-package lsp-ui :commands lsp-ui-mode)
      (use-package company-lsp :commands company-lsp)
@@ -657,6 +656,7 @@
      (setq lsp-prefer-flymake :none)
      (setq lsp-log-io t)
      (setq lsp-enable-snippet nil)
+     (setq lsp-enable-doc nil)
 
      (defun pay-activate-server-sorbet-p (filename mode)
        (and
