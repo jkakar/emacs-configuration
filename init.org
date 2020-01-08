@@ -640,7 +640,7 @@
 
      (defun pay-typecheck ()
        (interactive)
-       (compile "time pay exec ./scripts/bin/typecheck"))
+       (compile (concat "time pay exec /pay/src/pay-server/scripts/bin/typecheck")))
    #+END_SRC
 
 ** Sorbet LSP integration
@@ -654,7 +654,7 @@
      (use-package company-lsp :commands company-lsp)
      (add-hook 'ruby-mode-hook #'lsp)
      (setq lsp-prefer-flymake :none)
-     (setq lsp-log-io t)
+     ;; (setq lsp-log-io t)
      (setq lsp-enable-snippet nil)
      (setq lsp-enable-doc nil)
 
