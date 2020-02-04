@@ -631,11 +631,11 @@
 
      (defun pay-test-buffer ()
        (interactive)
-       (compile (concat "time pay test " (my-git-relative-path))))
+       (compile (concat "time pay test /pay/src/pay-server/" (my-git-relative-path))))
 
      (defun pay-test-at-point ()
        (interactive)
-       (compile (concat "time pay test " (my-git-relative-path)
+       (compile (concat "time pay test /pay/src/pay-server/" (my-git-relative-path)
                         " -l " (int-to-string (line-number-at-pos)))))
 
      (defun pay-typecheck ()
@@ -657,6 +657,7 @@
      ;; (setq lsp-log-io t)
      (setq lsp-enable-snippet nil)
      (setq lsp-enable-doc nil)
+     (setq lsp-ui-doc-enable nil)
 
      (defun pay-activate-server-sorbet-p (filename mode)
        (and
