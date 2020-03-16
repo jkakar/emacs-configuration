@@ -6,6 +6,7 @@
 - Checkout https://github.com/joaotavora/eglot
 - Checkout https://github.com/TommyX12/company-tabnine
 - Checkout https://github.com/gregsexton/origami.el
+- Checkout https://github.com/alphapapa/bufler.el
 - Spellchecking
 
 ** Tangling
