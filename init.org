@@ -586,6 +586,13 @@
        :hook (rust-mode . flycheck-rust-setup))
    #+END_SRC
 
+** Scala
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package scala-mode
+       :interpreter ("scala" . scala-mode))
+   #+END_SRC
+
 ** Thrift
 
    #+BEGIN_SRC emacs-lisp :tangle yes
