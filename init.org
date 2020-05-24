@@ -421,6 +421,21 @@
      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
    #+END_SRC
 
+** LSP
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package lsp-mode :commands lsp)
+     (use-package lsp-ui :commands lsp-ui-mode)
+     (use-package company-lsp :commands company-lsp)
+     (use-package lsp-ivy :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
+
+     (setq lsp-prefer-flymake :none)
+     ;; (setq lsp-log-io t)
+     (setq lsp-enable-snippet nil)
+     (setq lsp-enable-doc nil)
+     (setq lsp-ui-doc-enable nil)
+   #+END_SRC
+
 * Major modes and filetypes
 
 ** Elixir
@@ -446,7 +461,8 @@
          (lambda ()
            (setq mode-name "erl"
                  erlang-compile-extra-opts '((i . "../include"))
-                 erlang-root-dir "/usr/local/lib/erlang"))))
+                 erlang-root-dir "/usr/local/lib/erlang"))
+       (add-hook 'erlang-mode-hook #'lsp)))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -510,13 +526,6 @@
      (use-package graphviz-dot-mode)
    #+END_SRC
 
-** LSP
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package lsp-ivy
-       :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
-   #+END_SRC
-
 ** JSON
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -570,6 +579,7 @@
        (add-hook 'ruby-mode-hook 'highlight-80+-mode)
        :config
        (setq ruby-insert-encoding-magic-comment nil))
+     (add-hook 'ruby-mode-hook #'lsp)
    #+END_SRC
 
 ** [[https://github.com/rust-lang/rust-mode][Rust]]
@@ -658,16 +668,6 @@
    you were.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package lsp-mode :commands lsp)
-     (use-package lsp-ui :commands lsp-ui-mode)
-     (use-package company-lsp :commands company-lsp)
-     (add-hook 'ruby-mode-hook #'lsp)
-     (setq lsp-prefer-flymake :none)
-     ;; (setq lsp-log-io t)
-     (setq lsp-enable-snippet nil)
-     (setq lsp-enable-doc nil)
-     (setq lsp-ui-doc-enable nil)
-
      (defun pay-activate-server-sorbet-p (filename mode)
        (and
         (string-prefix-p (expand-file-name "~/stripe/pay-server")
