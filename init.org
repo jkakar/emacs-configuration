@@ -58,9 +58,10 @@
      (straight-use-package 'use-package)
    #+END_SRC
 
-   Run ~M-x straight-freeze-versions~ to save the currently checked out
-   revisions of all packages. The ~~/.emacs.d/straight/versions/default.el~,
-   file, together with this file, perfectly define the package configuration.
+   Run ~M-x straight-pull-all~ to update all packages, and then run ~M-x
+   straight-freeze-versions~ to save the currently checked out revisions of all
+   packages. The ~~/.emacs.d/straight/versions/default.el~, file, together with
+   this file, perfectly define the package configuration.
 
 ** Persistent editing
 
