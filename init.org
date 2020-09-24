@@ -82,6 +82,15 @@
      /Applications/Emacs.app/Contents/MacOS/bin/emacsclient -n $@
    #+END_SRC
 
+** Code formatting
+
+   Reformatter runs command-line formatters to automatically format code in a
+   buffer.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (straight-use-package 'reformatter)
+   #+END_SRC
+
 * Core UI
 
 ** Chrome
@@ -452,6 +461,12 @@
 ** Erlang
 
    #+BEGIN_SRC emacs-lisp :tangle yes
+     (reformatter-define erlfmt
+       :program "/Users/jkakar/bin/erlfmt"
+       :args '("-"))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package erlang
        :init
        (add-to-list 'auto-mode-alist '("\\.P\\'" . erlang-mode))
@@ -464,7 +479,8 @@
            (setq mode-name "erl"
                  erlang-compile-extra-opts '((i . "../include"))
                  erlang-root-dir "/usr/local/lib/erlang"))
-       (add-hook 'erlang-mode-hook #'lsp)))
+       (add-hook 'erlang-mode-hook #'lsp))
+       (add-hook 'erlang-mode-hook 'erlfmt-on-save-mode))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -479,7 +495,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package flycheck
        :init
-       (setq flycheck-ruby-rubocop-executable (expand-file-name "~/stripe/pay-server/scripts/bin/rubocop"))
+       ;; (setq flycheck-ruby-rubocop-executable (expand-file-name "~/stripe/pay-server/scripts/bin/rubocop"))
        (setq flycheck-ruby-executable (expand-file-name "~/.rbenv/shims/ruby"))
        (setq flycheck-erlang-include-path '("../include"))
        (setq flycheck-erlang-library-path '())
