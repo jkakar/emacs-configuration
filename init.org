@@ -548,6 +548,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package json-mode)
+     (use-package jsonnet-mode)
    #+END_SRC
 
 ** [[https://jblevins.org/projects/markdown-mode/][Markdown]]
