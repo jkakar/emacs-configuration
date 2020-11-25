@@ -480,6 +480,7 @@
                  erlang-compile-extra-opts '((i . "../include"))
                  erlang-root-dir "/usr/local/lib/erlang"))
        (add-hook 'erlang-mode-hook #'lsp))
+       ;; TODO Figure out how to turn this off for *.yrl files.
        (add-hook 'erlang-mode-hook 'erlfmt-on-save-mode))
    #+END_SRC
 
