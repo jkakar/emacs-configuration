@@ -205,6 +205,13 @@
        (mapc 'kill-buffer (buffer-list)))
    #+END_SRC
 
+   Show the full path to the file in the current buffer in the window title.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+    (setq frame-title-format
+      (list '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
+   #+END_SRC
+
 ** Scrolling
 
    Scroll one line at a time. The default behaviour is jarring.
