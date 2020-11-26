@@ -381,11 +381,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package git-link
        :config
-       (global-set-key (kbd "C-c g l") 'git-link)
-       (add-to-list 'git-link-remote-alist
-                    '("git\\.corp\\.stripe\\.com" git-link-github))
-       (add-to-list 'git-link-commit-remote-alist
-                    '("git\\.corp\\.stripe\\.com" git-link-commit-github)))
+       (global-set-key (kbd "C-c g l") 'git-link))
    #+END_SRC
 
 ** Jump to definition
@@ -441,7 +437,6 @@
      (use-package lsp-ivy :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
 
      (setq lsp-prefer-flymake :none)
-     ;; (setq lsp-log-io t)
      (setq lsp-enable-snippet nil)
      (setq lsp-enable-doc nil)
      (setq lsp-ui-doc-enable nil)
