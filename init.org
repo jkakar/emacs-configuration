@@ -498,7 +498,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package flycheck
        :init
-       ;; (setq flycheck-ruby-rubocop-executable (expand-file-name "~/stripe/pay-server/scripts/bin/rubocop"))
+       (setq flycheck-ruby-rubocop-executable (expand-file-name "~/.rbenv/shims/rubocop"))
        (setq flycheck-ruby-executable (expand-file-name "~/.rbenv/shims/ruby"))
        (setq flycheck-erlang-include-path '("../include"))
        (setq flycheck-erlang-library-path '())
@@ -599,6 +599,7 @@
        :init
        (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|rbi\\|ru\\|thor\\)\\'" . ruby-mode))
        (add-hook 'ruby-mode-hook 'highlight-80+-mode)
+       (add-hook 'ruby-mode-hook (lambda () (flycheck-disable-checker 'ruby-reek)))
        :config
        (setq ruby-insert-encoding-magic-comment nil))
      (add-hook 'ruby-mode-hook #'lsp)
