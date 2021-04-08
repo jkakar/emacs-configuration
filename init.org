@@ -170,6 +170,17 @@
        (exec-path-from-shell-initialize))
    #+END_SRC
 
+** Clipboard
+
+   I want emacs to fit in naturally with the rest of my environment and give me
+   access to functionality I don't otherwise have, if the ergonomics are good.
+   Saving clipboard contents to the kill ring provides access to data that is
+   otherwise easily lost.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setq save-interprogram-paste-before-kill t)
+   #+END_SRC
+
 ** Files and buffers
 
    I never run more than one copy of emacs, nor do I ever make use of backup
