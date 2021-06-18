@@ -241,6 +241,7 @@
      (setq-default indent-tabs-mode nil)
      (setq-default fill-column 80)
      (setq default-tab-width 4)
+     (setq tab-width 4)
    #+END_SRC
 
    Ideally, formatting would be taken care of by tooling that limits length
@@ -458,6 +459,10 @@
      (setq lsp-enable-snippet nil)
      (setq lsp-enable-doc nil)
      (setq lsp-ui-doc-enable nil)
+
+     (setq lsp-idle-delay 0.500)
+     (setq read-process-output-max (* 1024 1024))
+     (setq gc-cons-threshold 100000000)
    #+END_SRC
 
 * Major modes and filetypes
@@ -540,6 +545,8 @@
        (add-hook 'go-mode-hook 'highlight-80+-mode)
        (add-hook 'go-mode-hook #'lsp-deferred)
        (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+       (add-hook 'go-mode-local-vars-hook #'lsp!)
+       (add-hook 'go-mode-hook #'go-eldoc-setup)
        :defer t)
    #+END_SRC
 
@@ -561,7 +568,10 @@
 ** Graphviz
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package graphviz-dot-mode)
+     (use-package graphviz-dot-mode
+       :init
+       (add-hook 'graphviz-dot-mode-hook 'highlight-80+-mode)
+       (add-hook 'graphviz-dot-mode-hook (lambda () (setq tab-width 4))))
    #+END_SRC
 
 ** JSON
@@ -640,6 +650,12 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package scala-mode
        :interpreter ("scala" . scala-mode))
+   #+END_SRC
+
+** Terraform
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package terraform-mode)
    #+END_SRC
 
 ** Thrift
