@@ -628,7 +628,7 @@
        (add-hook 'ruby-mode-hook 'highlight-80+-mode)
        :config
        (setq ruby-insert-encoding-magic-comment nil))
-     (add-hook 'ruby-mode-hook #'lsp)
+     ;; (add-hook 'ruby-mode-hook #'lsp)
    #+END_SRC
 
 ** [[https://github.com/rust-lang/rust-mode][Rust]]
