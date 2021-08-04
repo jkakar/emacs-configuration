@@ -165,7 +165,8 @@
        (exec-path-from-shell-check-startup-files nil)
        (exec-path-from-shell-variables '("PATH"
                                          "MANPATH"
-                                         "GOPATH"))
+                                         "GOPATH"
+                                         "GOPRIVATE"))
        :config
        (exec-path-from-shell-initialize))
    #+END_SRC
@@ -514,10 +515,11 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package flycheck
        :init
-       (setq flycheck-ruby-executable (expand-file-name "~/.rbenv/shims/ruby"))
-       (setq flycheck-ruby-rubocop-executable (expand-file-name "~/.rbenv/shims/rubocop"))
+       ;; (setq flycheck-ruby-executable (expand-file-name "~/.rbenv/shims/ruby"))
+       ;; (setq flycheck-ruby-rubocop-executable (expand-file-name "~/.rbenv/shims/rubocop"))
        (setq flycheck-erlang-include-path '("../include"))
        (setq flycheck-erlang-library-path '())
+       (add-hook 'ruby-mode-hook (lambda () (flycheck-disable-checker 'ruby-reek)))
        :config
        (setq-default flycheck-disabled-checkers
                      (append flycheck-disabled-checkers
