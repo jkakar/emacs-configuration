@@ -607,10 +607,11 @@
 ** Protocol buffers
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package protobuf-mode
-       :init
-       (defconst my-protobuf-style '((c-basic-offset . 2) (indent-tabs-mode . nil)))
-       (add-hook 'protobuf-mode-hook (lambda () (c-add-style "my-style" my-protobuf-style t))))
+      (use-package protobuf-mode
+        :init
+        (defconst my-protobuf-style '((c-basic-offset . 2) (indent-tabs-mode . nil)))
+        (add-hook 'protobuf-mode-hook (lambda () (c-add-style "my-style" my-protobuf-style t)))
+        (add-hook 'protobuf-mode-hook 'highlight-80+-mode)))
    #+END_SRC
 
 ** Python
