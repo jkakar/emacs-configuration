@@ -61,8 +61,8 @@
 
    Run ~M-x straight-pull-all~ to update all packages, and then run ~M-x
    straight-freeze-versions~ to save the currently checked out revisions of all
-   packages. The ~~/.emacs.d/straight/versions/default.el~, file, together with
-   this file, perfectly define the package configuration.
+   packages. The ~~/.emacs.d/straight/versions/default.el~ file, together with
+   this file, define the package configuration.
 
 ** Persistent editing
 
@@ -347,17 +347,21 @@
        (ivy-mode 1)
    #+END_SRC
 
-   I want ~counsel-M-x~ to show me the most recently used commands. Installing
-   [[https://github.com/nonsequitur/smex][smex]] makes this the default behaviour.
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package ivy-hydra)
+   #+END_SRC
+
+     I want ~counsel-M-x~ to show me the most recently used commands. Installing
+     [[https://github.com/nonsequitur/smex][smex]] makes this the default behaviour.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package smex)
    #+END_SRC
 
    I mainly use projectile for fuzzy searching an entire project’s files and
-   buffers. It’s quite refreshing to never think about which files are “open”
-   and which ones aren’t. The concept of a “root” directory is also important
-   for things like rg searching.
+   buffers. It’s quite refreshing to never think about which files are open and
+   which ones aren’t. The concept of a root directory is also important for
+   things like ~rg~ searching.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package projectile
