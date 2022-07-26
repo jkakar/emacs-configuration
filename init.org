@@ -504,10 +504,10 @@
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package edts
-       :init
-       (setq edts-inhibit-package-check t
-             edts-man-root "~/.emacs.d/edts/doc/18.2.1"))
+     ;;(use-package edts
+     ;;  :init
+     ;;  (setq edts-inhibit-package-check t
+     ;;        edts-man-root "~/.emacs.d/edts/doc/18.2.1"))
    #+END_SRC
 
 ** Flycheck
