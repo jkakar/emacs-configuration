@@ -479,6 +479,14 @@
 
 * Major modes and filetypes
 
+** Dockerfile
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package dockerfile-mode
+       :config
+       (add-hook 'dockerfile-mode-hook 'highlight-80+-mode))
+   #+END_SRC
+
 ** Elixir
 
    #+BEGIN_SRC emacs-lisp :tangle yes
