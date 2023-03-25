@@ -8,6 +8,7 @@
 - Checkout https://github.com/gregsexton/origami.el
 - Checkout https://github.com/alphapapa/bufler.el
 - Checkout https://www.reddit.com/r/emacs/comments/bb3nw7/connecting_workflows_with_aws_redshift/
+- Checkout https://xenodium.com/a-chatgpt-emacs-shell/
 - Spellchecking
 
 ** Tangling
