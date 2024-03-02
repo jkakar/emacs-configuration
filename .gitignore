@@ -9,3 +9,4 @@ smex-items
 straight/*
 !straight/versions
 transient
+tree-sitter

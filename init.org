@@ -131,7 +131,7 @@
        :init
        (load-theme 'base16-irblack t))
      (defun get-base16-color (id)
-       (plist-get base16-irblack-colors id))
+       (plist-get base16-irblack-theme-colors id))
    #+END_SRC
 
 ** Fonts and faces
@@ -389,10 +389,10 @@
    [[https://magit.vc/][Magit]] provides a great interface for working with git.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package magit
-       :config
-       (setq magit-completing-read-function 'ivy-completing-read)
-       (global-set-key (kbd "C-x g") 'magit-status))
+     ;; (use-package magit
+     ;;   :config
+     ;;   (setq magit-completing-read-function 'ivy-completing-read)
+     ;;   (global-set-key (kbd "C-x g") 'magit-status))
    #+END_SRC
 
    I frequently want to share a GitHub link to code I'm working with in emacs.
@@ -453,19 +453,21 @@
 ** LSP
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package lsp-mode :commands lsp)
+     (use-package lsp-mode
+       ;; :hook ((terraform-mode . lsp-deferred))
+       :commands lsp)
      (use-package lsp-ui :commands lsp-ui-mode)
      (use-package company-lsp :commands company-lsp)
      (use-package lsp-ivy :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
 
-     (setq lsp-prefer-flymake :none)
-     (setq lsp-enable-snippet nil)
-     (setq lsp-enable-doc nil)
-     (setq lsp-ui-doc-enable nil)
-
-     (setq lsp-idle-delay 0.500)
-     (setq read-process-output-max (* 1024 1024))
      (setq gc-cons-threshold 100000000)
+     ;; (setq lsp-disabled-clients '(tfls))
+     (setq lsp-enable-doc nil)
+     (setq lsp-enable-snippet nil)
+     (setq lsp-idle-delay 0.500)
+     (setq lsp-prefer-flymake :none)
+     (setq lsp-ui-doc-enable nil)
+     (setq read-process-output-max (* 1024 1024))
    #+END_SRC
 
 ** ChatGPT
@@ -590,6 +592,22 @@
        (add-hook 'graphviz-dot-mode-hook (lambda () (setq tab-width 4))))
    #+END_SRC
 
+** Javascript
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package prettier-js
+       :init
+       (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
+       (add-hook 'js-ts-mode-hook 'prettier-js-mode)
+       (add-hook 'js-ts-mode-hook #'(lambda () (setq prettier-js-args '(
+                                                    "--tab-width" "4"
+                                              )))))
+       (add-hook 'typescript-ts-mode-hook 'prettier-js-mode)
+       (add-hook 'typescript-ts-mode-hook #'(lambda () (setq prettier-js-args '(
+                                                    "--tab-width" "4"
+                                              )))))
+   #+END_SRC
+
 ** JSON
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -608,14 +626,6 @@
        (markdown-hide-urls t)
        :init
        (add-hook 'markdown-mode-hook 'highlight-80+-mode))
-   #+END_SRC
-
-** Prettier Javascript
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package prettier-js
-       :init
-       (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode)))))
    #+END_SRC
 
 ** Protocol buffers
@@ -681,6 +691,61 @@
      (use-package thrift)
    #+END_SRC
 
+** Tree-sitter
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package tree-sitter-langs)
+   #+END_SRC
+
+** Typescript
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+        (use-package treesit-auto
+     :custom
+     (treesit-auto-install 'prompt)
+     :config
+     (treesit-auto-add-to-auto-mode-alist 'all)
+     (global-treesit-auto-mode))
+
+     ;; this fixes a problem where v0.20.4 of this grammar blows up with emacs
+        ;; (defvar jkakar/tsx-treesit-auto-recipe
+        ;;   (make-treesit-auto-recipe
+        ;;    :lang 'tsx
+        ;;    :ts-mode 'tsx-ts-mode
+        ;;    :remap '(typescript-tsx-mode)
+        ;;    :requires 'typescript
+        ;;    :url "https://github.com/tree-sitter/tree-sitter-typescript"
+        ;;    :revision "v0.20.3"
+        ;;    :source-dir "tsx/src"
+        ;;    :ext "\\.tsx\\'")
+        ;;   "Recipe for libtree-sitter-tsx.dylib")
+        ;; (add-to-list 'treesit-auto-recipe-list jkakar/tsx-treesit-auto-recipe)
+
+        ;; (defvar jkakar/typescript-treesit-auto-recipe
+        ;;   (make-treesit-auto-recipe
+        ;;    :lang 'typescript
+        ;;    :ts-mode 'typescript-ts-mode
+        ;;    :remap 'typescript-mode
+        ;;    :requires 'tsx
+        ;;    :url "https://github.com/tree-sitter/tree-sitter-typescript"
+        ;;    :revision "v0.20.3"
+        ;;    :source-dir "typescript/src"
+        ;;    :ext "\\.ts\\'")
+        ;;   "Recipe for libtree-sitter-typescript.dylib")
+        ;; (add-to-list 'treesit-auto-recipe-list jkakar/typescript-treesit-auto-recipe)
+
+        ;; (use-package typescript-ts-mode
+        ;;   :init
+        ;;   (add-to-list 'auto-mode-alist '("\\.ts?\\'" . typescript-ts-mode))
+        ;;   (add-hook 'typescript-ts-mode-hook 'highlight-80+-mode))
+        (use-package typescript-ts-mode
+          :config
+          (add-hook 'typescript-ts-mode-hook #'lsp)
+          :mode
+          (("\\.ts\\'" . typescript-ts-mode)
+            ("\\.tsx\\'" . tsx-ts-mode)))
+  #+END_SRC
+
 ** Web
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -703,4 +768,12 @@
      (use-package yaml-mode
        :config
        (add-hook 'yaml-mode-hook 'highlight-80+-mode))
+   #+END_SRC
+
+** Zig
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package zig-mode
+       :config
+       (add-hook 'zig-mode-hook #'lsp))
    #+END_SRC
