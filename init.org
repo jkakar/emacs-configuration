@@ -601,7 +601,7 @@
        (add-hook 'js-ts-mode-hook 'prettier-js-mode)
        (add-hook 'js-ts-mode-hook #'(lambda () (setq prettier-js-args '(
                                                     "--tab-width" "4"
-                                              )))))
+                                              ))))
        (add-hook 'typescript-ts-mode-hook 'prettier-js-mode)
        (add-hook 'typescript-ts-mode-hook #'(lambda () (setq prettier-js-args '(
                                                     "--tab-width" "4"
@@ -700,12 +700,12 @@
 ** Typescript
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-        (use-package treesit-auto
-     :custom
-     (treesit-auto-install 'prompt)
-     :config
-     (treesit-auto-add-to-auto-mode-alist 'all)
-     (global-treesit-auto-mode))
+     (use-package treesit-auto
+       :custom
+       (treesit-auto-install 'prompt)
+       :config
+       (treesit-auto-add-to-auto-mode-alist 'all)
+       (global-treesit-auto-mode))
 
      ;; this fixes a problem where v0.20.4 of this grammar blows up with emacs
         ;; (defvar jkakar/tsx-treesit-auto-recipe
@@ -738,12 +738,12 @@
         ;;   :init
         ;;   (add-to-list 'auto-mode-alist '("\\.ts?\\'" . typescript-ts-mode))
         ;;   (add-hook 'typescript-ts-mode-hook 'highlight-80+-mode))
-        (use-package typescript-ts-mode
-          :config
-          (add-hook 'typescript-ts-mode-hook #'lsp)
-          :mode
-          (("\\.ts\\'" . typescript-ts-mode)
-            ("\\.tsx\\'" . tsx-ts-mode)))
+    (use-package typescript-ts-mode
+      :config
+      (add-hook 'typescript-ts-mode-hook #'lsp)
+      :mode
+      (("\\.ts\\'" . typescript-ts-mode)
+        ("\\.tsx\\'" . tsx-ts-mode)))
   #+END_SRC
 
 ** Web
