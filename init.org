@@ -385,15 +385,6 @@
 
 ** Git
 
-   [[https://magit.vc/][Magit]] provides a great interface for working with git.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     ;; (use-package magit
-     ;;   :config
-     ;;   (setq magit-completing-read-function 'ivy-completing-read)
-     ;;   (global-set-key (kbd "C-x g") 'magit-status))
-   #+END_SRC
-
    I frequently want to share a GitHub link to code I'm working with in emacs.
    Navigating to files and selecting lines in the browser is rather tedious.
    [[https://github.com/sshaw/git-link][git-link]] provides a way to quickly generate GitHub (and other code hosting
@@ -598,13 +589,9 @@
        :init
        (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
        (add-hook 'js-ts-mode-hook 'prettier-js-mode)
-       (add-hook 'js-ts-mode-hook #'(lambda () (setq prettier-js-args '(
-                                                    "--tab-width" "4"
-                                              ))))
-       (add-hook 'typescript-ts-mode-hook 'prettier-js-mode)
-       (add-hook 'typescript-ts-mode-hook #'(lambda () (setq prettier-js-args '(
-                                                    "--tab-width" "4"
-                                              )))))
+       (add-hook 'typescript-ts-mode-hook 'prettier-js-mode))
+     (add-hook 'js-ts-mode-hook (lambda () (setq js-indent-level 2)))
+     (add-hook 'typescript-ts-mode-hook (lambda () (setq js-indent-level 2)))
    #+END_SRC
 
 ** JSON
