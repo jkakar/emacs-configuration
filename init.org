@@ -587,7 +587,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package prettier-js
        :init
-       (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
+       ;; (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
        (add-hook 'js-ts-mode-hook 'prettier-js-mode)
        (add-hook 'typescript-ts-mode-hook 'prettier-js-mode))
      (add-hook 'js-ts-mode-hook (lambda () (setq js-indent-level 2)))
@@ -597,8 +597,8 @@
 ** JSON
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package json-mode)
-     (use-package jsonnet-mode)
+     ;; (use-package json-mode)
+     ;; (use-package jsonnet-mode)
    #+END_SRC
 
 ** [[https://jblevins.org/projects/markdown-mode/][Markdown]]
