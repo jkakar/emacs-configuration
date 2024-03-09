@@ -582,16 +582,28 @@
        (add-hook 'graphviz-dot-mode-hook (lambda () (setq tab-width 4))))
    #+END_SRC
 
-** Javascript
+** Javascript and Typescript
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package prettier-js
        :init
        ;; (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
        (add-hook 'js-ts-mode-hook 'prettier-js-mode)
+       (add-hook 'tsx-ts-mode-hook 'prettier-js-mode)
        (add-hook 'typescript-ts-mode-hook 'prettier-js-mode))
      (add-hook 'js-ts-mode-hook (lambda () (setq js-indent-level 2)))
+     (add-hook 'js-ts-mode-hook #'lsp)
+     (add-hook 'tsx-ts-mode-hook (lambda () (setq js-indent-level 2)))
+     (add-hook 'tsx-ts-mode-hook #'lsp)
      (add-hook 'typescript-ts-mode-hook (lambda () (setq js-indent-level 2)))
+     (add-hook 'typescript-ts-mode-hook #'lsp)
+   #+END_SRC
+
+   Also setup syntax highlight for the Prisma ORM.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package prisma-ts-mode
+       :mode ("\\.prisma\\'"))
    #+END_SRC
 
 ** JSON
