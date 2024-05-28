@@ -146,9 +146,12 @@
      (cond ((eq system-type 'gnu/linux)
             (set-face-attribute 'default nil :family "Input"
                                              :height 100))
+           ;; ((eq system-type 'darwin)
+           ;;  (set-face-attribute 'default nil :family "Monaco"
+           ;;                                   :height 160)))
            ((eq system-type 'darwin)
-            (set-face-attribute 'default nil :family "Monaco"
-                                             :height 160)))
+            (set-face-attribute 'default nil :family "Source Code Pro"
+                                             :height 200)))
      (set-face-attribute 'fixed-pitch nil :family 'unspecified
                                           :inherit 'default)
    #+END_SRC
@@ -231,6 +234,15 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq scroll-conservatively 1)
+   #+END_SRC
+
+** Line numbers
+
+   Show line numbers.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (global-display-line-numbers-mode t)
+     (setq display-line-numbers-width 4)
    #+END_SRC
 
 ** Long lines and whitespace
@@ -585,32 +597,35 @@
 ** Javascript and Typescript
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package prettier-js
-       :init
-       ;; (add-hook 'web-mode-hook #'(lambda () (enable-minor-mode '("\\.jsx?\\'" . prettier-js-mode))))
-       (add-hook 'js-ts-mode-hook 'prettier-js-mode)
-       (add-hook 'tsx-ts-mode-hook 'prettier-js-mode)
-       (add-hook 'typescript-ts-mode-hook 'prettier-js-mode))
+     (defun biome-format-and-save ()
+       "Format the current file with Biome and refresh the buffer."
+       (interactive)
+       (let ((current-file (buffer-file-name)))
+         (when current-file
+           (let ((exit-code (call-process "biome" nil nil nil "check" "--apply" current-file)))
+             (if (eq exit-code 0)
+                 (progn
+                   (message "Formatting successful, reverting buffer.")
+                   (revert-buffer t t t))
+               (message "Error formatting file with Biome."))))))
+
+     (defun setup-js-ts-modes ()
+       (add-hook 'after-save-hook 'biome-format-and-save nil t))
+
+     ;; Apply this setup for js, ts, jsx, and tsx files
+     (add-hook 'js-ts-mode-hook 'setup-js-ts-modes)
+     (add-hook 'tsx-ts-mode-hook 'setup-js-ts-modes)
+     (add-hook 'typescript-ts-mode-hook 'setup-js-ts-modes)
+     (add-hook 'js-mode-hook 'setup-js-ts-modes)  ;; Assuming js-mode for JavaScript
      (add-hook 'js-ts-mode-hook (lambda () (setq js-indent-level 2)))
      (add-hook 'js-ts-mode-hook #'lsp)
      (add-hook 'tsx-ts-mode-hook (lambda () (setq js-indent-level 2)))
      (add-hook 'tsx-ts-mode-hook #'lsp)
      (add-hook 'typescript-ts-mode-hook (lambda () (setq js-indent-level 2)))
      (add-hook 'typescript-ts-mode-hook #'lsp)
-   #+END_SRC
-
-   Also setup syntax highlight for the Prisma ORM.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package prisma-ts-mode
-       :mode ("\\.prisma\\'"))
-   #+END_SRC
-
-** JSON
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     ;; (use-package json-mode)
-     ;; (use-package jsonnet-mode)
+     (add-hook 'tsx-ts-mode-hook 'auto-revert-mode)
+     (add-hook 'typescript-ts-mode-hook 'auto-revert-mode)
+     (add-hook 'js-ts-mode-hook 'auto-revert-mode)
    #+END_SRC
 
 ** [[https://jblevins.org/projects/markdown-mode/][Markdown]]
@@ -698,50 +713,51 @@
 ** Typescript
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package treesit-auto
-       :custom
-       (treesit-auto-install 'prompt)
+      (use-package treesit-auto
+        :custom
+        (treesit-auto-install 'prompt)
+        :config
+        (treesit-auto-add-to-auto-mode-alist 'all)
+        (global-treesit-auto-mode))
+
+      ;; this fixes a problem where v0.20.4 of this grammar blows up with emacs
+         (defvar jkakar/tsx-treesit-auto-recipe
+           (make-treesit-auto-recipe
+            :lang 'tsx
+            :ts-mode 'tsx-ts-mode
+            :remap '(typescript-tsx-mode)
+            :requires 'typescript
+            :url "https://github.com/tree-sitter/tree-sitter-typescript"
+            :revision "v0.20.3"
+            :source-dir "tsx/src"
+            :ext "\\.tsx\\'")
+           "Recipe for libtree-sitter-tsx.dylib")
+         (add-to-list 'treesit-auto-recipe-list jkakar/tsx-treesit-auto-recipe)
+
+         (defvar jkakar/typescript-treesit-auto-recipe
+           (make-treesit-auto-recipe
+            :lang 'typescript
+            :ts-mode 'typescript-ts-mode
+            :remap 'typescript-mode
+            :requires 'tsx
+            :url "https://github.com/tree-sitter/tree-sitter-typescript"
+            :revision "v0.20.3"
+            :source-dir "typescript/src"
+            :ext "\\.ts\\'")
+           "Recipe for libtree-sitter-typescript.dylib")
+         (add-to-list 'treesit-auto-recipe-list jkakar/typescript-treesit-auto-recipe)
+
+         ;; (use-package typescript-ts-mode
+         ;;   :init
+         ;;   (add-to-list 'auto-mode-alist '("\\.ts?\\'" . typescript-ts-mode))
+         ;;   (add-hook 'typescript-ts-mode-hook 'highlight-80+-mode))
+     (use-package typescript-ts-mode
        :config
-       (treesit-auto-add-to-auto-mode-alist 'all)
-       (global-treesit-auto-mode))
-
-     ;; this fixes a problem where v0.20.4 of this grammar blows up with emacs
-        ;; (defvar jkakar/tsx-treesit-auto-recipe
-        ;;   (make-treesit-auto-recipe
-        ;;    :lang 'tsx
-        ;;    :ts-mode 'tsx-ts-mode
-        ;;    :remap '(typescript-tsx-mode)
-        ;;    :requires 'typescript
-        ;;    :url "https://github.com/tree-sitter/tree-sitter-typescript"
-        ;;    :revision "v0.20.3"
-        ;;    :source-dir "tsx/src"
-        ;;    :ext "\\.tsx\\'")
-        ;;   "Recipe for libtree-sitter-tsx.dylib")
-        ;; (add-to-list 'treesit-auto-recipe-list jkakar/tsx-treesit-auto-recipe)
-
-        ;; (defvar jkakar/typescript-treesit-auto-recipe
-        ;;   (make-treesit-auto-recipe
-        ;;    :lang 'typescript
-        ;;    :ts-mode 'typescript-ts-mode
-        ;;    :remap 'typescript-mode
-        ;;    :requires 'tsx
-        ;;    :url "https://github.com/tree-sitter/tree-sitter-typescript"
-        ;;    :revision "v0.20.3"
-        ;;    :source-dir "typescript/src"
-        ;;    :ext "\\.ts\\'")
-        ;;   "Recipe for libtree-sitter-typescript.dylib")
-        ;; (add-to-list 'treesit-auto-recipe-list jkakar/typescript-treesit-auto-recipe)
-
-        ;; (use-package typescript-ts-mode
-        ;;   :init
-        ;;   (add-to-list 'auto-mode-alist '("\\.ts?\\'" . typescript-ts-mode))
-        ;;   (add-hook 'typescript-ts-mode-hook 'highlight-80+-mode))
-    (use-package typescript-ts-mode
-      :config
-      (add-hook 'typescript-ts-mode-hook #'lsp)
-      :mode
-      (("\\.ts\\'" . typescript-ts-mode)
-        ("\\.tsx\\'" . tsx-ts-mode)))
+       (add-hook 'typescript-ts-mode-hook #'lsp)
+       :mode
+       (("\\.ts\\'" . typescript-ts-mode)
+        ("\\.mts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode)))
   #+END_SRC
 
 ** Web
