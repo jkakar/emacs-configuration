@@ -557,19 +557,20 @@
        (add-hook 'before-save-hook #'lsp-format-buffer t t)
        (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
-     (use-package go-mode
+     (use-package go-ts-mode
        :config
        (setq gofmt-command "goimports")
+       (add-hook 'go-ts-mode-hook #'lsp-deferred)
        :custom
        (gofmt-show-errors nil)
        :hook
-       (go-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
+       (go-ts-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
        :init
-       (add-hook 'go-mode-hook (lambda () (setq tab-width 4)))
-       (add-hook 'go-mode-hook 'highlight-80+-mode)
-       (add-hook 'go-mode-hook #'lsp-deferred)
-       (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-       (add-hook 'go-mode-local-vars-hook #'lsp!)
+       (add-hook 'go-ts-mode-hook (lambda () (setq tab-width 4)))
+       (add-hook 'go-ts-mode-hook 'highlight-80+-mode)
+       (add-hook 'go-ts-mode-hook #'lsp-deferred)
+       (add-hook 'go-ts-mode-hook #'lsp-go-install-save-hooks)
+       (add-hook 'go-ts-mode-local-vars-hook #'lsp!)
        :defer t)
    #+END_SRC
 
@@ -625,6 +626,54 @@
      (add-hook 'typescript-ts-mode-hook 'auto-revert-mode)
      (add-hook 'js-ts-mode-hook 'auto-revert-mode)
    #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+      (use-package treesit-auto
+        :custom
+        (treesit-auto-install 'prompt)
+        :config
+        (treesit-auto-add-to-auto-mode-alist 'all)
+        (global-treesit-auto-mode))
+
+      ;; this fixes a problem where v0.20.4 of this grammar blows up with emacs
+         (defvar jkakar/tsx-treesit-auto-recipe
+           (make-treesit-auto-recipe
+            :lang 'tsx
+            :ts-mode 'tsx-ts-mode
+            :remap '(typescript-tsx-mode)
+            :requires 'typescript
+            :url "https://github.com/tree-sitter/tree-sitter-typescript"
+            :revision "v0.20.3"
+            :source-dir "tsx/src"
+            :ext "\\.tsx\\'")
+           "Recipe for libtree-sitter-tsx.dylib")
+         (add-to-list 'treesit-auto-recipe-list jkakar/tsx-treesit-auto-recipe)
+
+         (defvar jkakar/typescript-treesit-auto-recipe
+           (make-treesit-auto-recipe
+            :lang 'typescript
+            :ts-mode 'typescript-ts-mode
+            :remap 'typescript-mode
+            :requires 'tsx
+            :url "https://github.com/tree-sitter/tree-sitter-typescript"
+            :revision "v0.20.3"
+            :source-dir "typescript/src"
+            :ext "\\.ts\\'")
+           "Recipe for libtree-sitter-typescript.dylib")
+         (add-to-list 'treesit-auto-recipe-list jkakar/typescript-treesit-auto-recipe)
+
+         ;; (use-package typescript-ts-mode
+         ;;   :init
+         ;;   (add-to-list 'auto-mode-alist '("\\.ts?\\'" . typescript-ts-mode))
+         ;;   (add-hook 'typescript-ts-mode-hook 'highlight-80+-mode))
+     (use-package typescript-ts-mode
+       :config
+       (add-hook 'typescript-ts-mode-hook #'lsp)
+       :mode
+       (("\\.ts\\'" . typescript-ts-mode)
+        ("\\.mts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode)))
+  #+END_SRC
 
 ** [[https://jblevins.org/projects/markdown-mode/][Markdown]]
 
@@ -707,56 +756,6 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package tree-sitter-langs)
    #+END_SRC
-
-** Typescript
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-      (use-package treesit-auto
-        :custom
-        (treesit-auto-install 'prompt)
-        :config
-        (treesit-auto-add-to-auto-mode-alist 'all)
-        (global-treesit-auto-mode))
-
-      ;; this fixes a problem where v0.20.4 of this grammar blows up with emacs
-         (defvar jkakar/tsx-treesit-auto-recipe
-           (make-treesit-auto-recipe
-            :lang 'tsx
-            :ts-mode 'tsx-ts-mode
-            :remap '(typescript-tsx-mode)
-            :requires 'typescript
-            :url "https://github.com/tree-sitter/tree-sitter-typescript"
-            :revision "v0.20.3"
-            :source-dir "tsx/src"
-            :ext "\\.tsx\\'")
-           "Recipe for libtree-sitter-tsx.dylib")
-         (add-to-list 'treesit-auto-recipe-list jkakar/tsx-treesit-auto-recipe)
-
-         (defvar jkakar/typescript-treesit-auto-recipe
-           (make-treesit-auto-recipe
-            :lang 'typescript
-            :ts-mode 'typescript-ts-mode
-            :remap 'typescript-mode
-            :requires 'tsx
-            :url "https://github.com/tree-sitter/tree-sitter-typescript"
-            :revision "v0.20.3"
-            :source-dir "typescript/src"
-            :ext "\\.ts\\'")
-           "Recipe for libtree-sitter-typescript.dylib")
-         (add-to-list 'treesit-auto-recipe-list jkakar/typescript-treesit-auto-recipe)
-
-         ;; (use-package typescript-ts-mode
-         ;;   :init
-         ;;   (add-to-list 'auto-mode-alist '("\\.ts?\\'" . typescript-ts-mode))
-         ;;   (add-hook 'typescript-ts-mode-hook 'highlight-80+-mode))
-     (use-package typescript-ts-mode
-       :config
-       (add-hook 'typescript-ts-mode-hook #'lsp)
-       :mode
-       (("\\.ts\\'" . typescript-ts-mode)
-        ("\\.mts\\'" . typescript-ts-mode)
-         ("\\.tsx\\'" . tsx-ts-mode)))
-  #+END_SRC
 
 ** Web
 
