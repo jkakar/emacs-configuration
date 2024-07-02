@@ -151,7 +151,7 @@
            ;;                                   :height 160)))
            ((eq system-type 'darwin)
             (set-face-attribute 'default nil :family "Source Code Pro"
-                                             :height 200)))
+                                             :height 180)))
      (set-face-attribute 'fixed-pitch nil :family 'unspecified
                                           :inherit 'default)
    #+END_SRC
@@ -159,7 +159,7 @@
 ** Environment
 
    [[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]] ensures that Emacs.app on macOS uses the same paths as
-   my user environment.
+   my shell environment.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package exec-path-from-shell
@@ -238,11 +238,11 @@
 
 ** Line numbers
 
-   Show line numbers.
+   Show line numbers to make it easier to pair with others.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (global-display-line-numbers-mode t)
-     (setq display-line-numbers-width 4)
+     (setq display-line-numbers-width 3)
    #+END_SRC
 
 ** Long lines and whitespace
@@ -456,14 +456,12 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package lsp-mode
-       ;; :hook ((terraform-mode . lsp-deferred))
        :commands lsp)
      (use-package lsp-ui :commands lsp-ui-mode)
      (use-package company-lsp :commands company-lsp)
      (use-package lsp-ivy :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
 
      (setq gc-cons-threshold 100000000)
-     ;; (setq lsp-disabled-clients '(tfls))
      (setq lsp-enable-doc nil)
      (setq lsp-enable-snippet nil)
      (setq lsp-idle-delay 0.500)
