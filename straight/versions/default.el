@@ -52,7 +52,7 @@
  ("straight.el" . "b3760f5829dba37e855add7323304561eb57a3d4")
  ("swiper" . "4546ce0ca4655512387116b02939ef42ae21fb9f")
  ("terraform-mode" . "e8b57df8c2a3d3171f3768f60eb84067f553289c")
- ("transient" . "6b9c93af9c1d1646be4445656c46ee9390c9f129")
+ ("transient" . "2a680c21e2be0b055e0e801d43c92792e5305acc")
  ("tree-sitter-langs" . "8fdad590493d9cb9121eb6494843c8ef8ff810f5")
  ("use-package" . "a6e856418d2ebd053b34e0ab2fda328abeba731c")
  ("web-mode" . "f19788e76c2359075975c20b8fda1f0b5080f042")

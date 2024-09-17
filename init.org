@@ -462,23 +462,74 @@
      (use-package lsp-ivy :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
 
      (setq gc-cons-threshold 100000000)
-     (setq lsp-enable-doc nil)
+     (setq lsp-enable-doc t)
      (setq lsp-enable-snippet nil)
      (setq lsp-idle-delay 0.500)
      (setq lsp-prefer-flymake :none)
-     (setq lsp-ui-doc-enable nil)
+     (setq lsp-ui-doc-enable t)
      (setq read-process-output-max (* 1024 1024))
    #+END_SRC
 
-** ChatGPT
-
-   The ChatGPT package provides commands for interacting with OpenAI to respond
-   to prompts, explain snippets, generate tests, and more.
+   Define ~C-c C-d~ and ~C-c C-g~ to show and hide LSP UI docs, respectively.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (setq chatgpt-file (expand-file-name "chatgpt.el" user-emacs-directory))
-     (load chatgpt-file)
+     (define-key lsp-mode-map (kbd "C-c C-d") 'lsp-ui-doc-show)
+     (define-key lsp-mode-map (kbd "C-c C-g") 'lsp-ui-doc-hide)
    #+END_SRC
+
+** LLM
+
+   The GPTel package provides commands for interacting with LLMs to respond to
+   prompts, explain snippets, generate tests, and more.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package gptel)
+     (setq gptel-model "claude-3-sonnet-20240229"
+           gptel-backend (gptel-make-anthropic "Claude"
+           :stream t :key "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"))
+     (global-set-key (kbd "C-c RET") 'gptel-send)
+   #+END_SRC
+
+   The Copilot package provides completions using GitHub Copilot. Use ~M-x
+   copilot-install-server~ and ~M-x copilot-login~ to get started.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package copilot
+       :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+       :ensure t)
+     (add-hook 'prog-mode-hook 'copilot-mode)
+     (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+     (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+
+     ;; (defun jkakar/no-copilot-mode ()
+     ;;   "Helper for `jkakar/no-copilot-modes'."
+     ;;   (copilot-mode -1))
+
+     ;; (defvar jkakar/no-copilot-modes '(shell-mode
+     ;;                                   inferior-python-mode
+     ;;                                   eshell-mode
+     ;;                                   term-mode
+     ;;                                   vterm-mode
+     ;;                                   comint-mode
+     ;;                                   compilation-mode
+     ;;                                   debugger-mode
+     ;;                                   dired-mode-hook
+     ;;                                   compilation-mode-hook
+     ;;                                   flutter-mode-hook
+     ;;                                   minibuffer-mode-hook)
+     ;;   "Modes in which copilot is inconvenient.")
+
+     ;; (defun jkakar/copilot-disable-predicate ()
+     ;;   "When copilot should not automatically show completions."
+     ;;   (or jkakar/copilot-manual-mode
+     ;;       (member major-mode jkakar/no-copilot-modes)
+     ;;       (company--active-p)))
+
+     ;; (add-to-list 'copilot-disable-predicates #'jkakar/copilot-disable-predicate)
+   #+END_SRC
+
+   [[https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/]] has useful
+   information about customized the copilot.el package.
 
 * Major modes and filetypes
 
@@ -628,44 +679,40 @@
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-      (use-package treesit-auto
-        :custom
-        (treesit-auto-install 'prompt)
-        :config
-        (treesit-auto-add-to-auto-mode-alist 'all)
-        (global-treesit-auto-mode))
+     (use-package treesit-auto
+       :custom
+       (treesit-auto-install 'prompt)
+       :config
+       (treesit-auto-add-to-auto-mode-alist 'all)
+       (global-treesit-auto-mode))
 
-      ;; this fixes a problem where v0.20.4 of this grammar blows up with emacs
-         (defvar jkakar/tsx-treesit-auto-recipe
-           (make-treesit-auto-recipe
-            :lang 'tsx
-            :ts-mode 'tsx-ts-mode
-            :remap '(typescript-tsx-mode)
-            :requires 'typescript
-            :url "https://github.com/tree-sitter/tree-sitter-typescript"
-            :revision "v0.20.3"
-            :source-dir "tsx/src"
-            :ext "\\.tsx\\'")
-           "Recipe for libtree-sitter-tsx.dylib")
-         (add-to-list 'treesit-auto-recipe-list jkakar/tsx-treesit-auto-recipe)
+     ;; this fixes a problem where v0.20.4 of this grammar blows up with emacs
+     (defvar jkakar/tsx-treesit-auto-recipe
+       (make-treesit-auto-recipe
+        :lang 'tsx
+        :ts-mode 'tsx-ts-mode
+        :remap '(typescript-tsx-mode)
+        :requires 'typescript
+        :url "https://github.com/tree-sitter/tree-sitter-typescript"
+        :revision "v0.20.3"
+        :source-dir "tsx/src"
+        :ext "\\.tsx\\'")
+       "Recipe for libtree-sitter-tsx.dylib")
+     (add-to-list 'treesit-auto-recipe-list jkakar/tsx-treesit-auto-recipe)
 
-         (defvar jkakar/typescript-treesit-auto-recipe
-           (make-treesit-auto-recipe
-            :lang 'typescript
-            :ts-mode 'typescript-ts-mode
-            :remap 'typescript-mode
-            :requires 'tsx
-            :url "https://github.com/tree-sitter/tree-sitter-typescript"
-            :revision "v0.20.3"
-            :source-dir "typescript/src"
-            :ext "\\.ts\\'")
-           "Recipe for libtree-sitter-typescript.dylib")
-         (add-to-list 'treesit-auto-recipe-list jkakar/typescript-treesit-auto-recipe)
+     (defvar jkakar/typescript-treesit-auto-recipe
+       (make-treesit-auto-recipe
+        :lang 'typescript
+        :ts-mode 'typescript-ts-mode
+        :remap 'typescript-mode
+        :requires 'tsx
+        :url "https://github.com/tree-sitter/tree-sitter-typescript"
+        :revision "v0.20.3"
+        :source-dir "typescript/src"
+        :ext "\\.ts\\'")
+       "Recipe for libtree-sitter-typescript.dylib")
+     (add-to-list 'treesit-auto-recipe-list jkakar/typescript-treesit-auto-recipe)
 
-         ;; (use-package typescript-ts-mode
-         ;;   :init
-         ;;   (add-to-list 'auto-mode-alist '("\\.ts?\\'" . typescript-ts-mode))
-         ;;   (add-hook 'typescript-ts-mode-hook 'highlight-80+-mode))
      (use-package typescript-ts-mode
        :config
        (add-hook 'typescript-ts-mode-hook #'lsp)
