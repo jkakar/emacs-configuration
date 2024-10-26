@@ -485,9 +485,6 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package gptel)
-     (setq gptel-model "claude-3-sonnet-20240229"
-           gptel-backend (gptel-make-anthropic "Claude"
-           :stream t :key "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"))
      (global-set-key (kbd "C-c RET") 'gptel-send)
    #+END_SRC
 
