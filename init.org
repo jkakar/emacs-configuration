@@ -468,6 +468,7 @@
      (setq lsp-prefer-flymake :none)
      (setq lsp-ui-doc-enable t)
      (setq read-process-output-max (* 1024 1024))
+     (global-set-key (kbd "C-c h") 'lsp-ui-doc-glance)
    #+END_SRC
 
    Define ~C-c C-d~ and ~C-c C-g~ to show and hide LSP UI docs, respectively.
@@ -494,12 +495,12 @@
    copilot-install-server~ and ~M-x copilot-login~ to get started.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package copilot
-       :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-       :ensure t)
-     (add-hook 'prog-mode-hook 'copilot-mode)
-     (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-     (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+     ;; (use-package copilot
+     ;;   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+     ;;   :ensure t)
+     ;; (add-hook 'prog-mode-hook 'copilot-mode)
+     ;; (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
+     ;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
 
      ;; (defun jkakar/no-copilot-mode ()
      ;;   "Helper for `jkakar/no-copilot-modes'."
