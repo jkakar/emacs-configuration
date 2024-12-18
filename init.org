@@ -606,14 +606,21 @@
        (add-hook 'before-save-hook #'lsp-format-buffer t t)
        (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
+     (use-package go-mode
+       :ensure t)
      (use-package go-ts-mode
        :config
        (setq gofmt-command "goimports")
+       (setq-default tab-width 4)
        (add-hook 'go-ts-mode-hook #'lsp-deferred)
        :custom
        (gofmt-show-errors nil)
        :hook
        (go-ts-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
+       (go-ts-mode . (lambda ()
+                       (setq tab-width 4)
+                       (setq go-ts-mode-indent-offset tab-width)
+                       (setq indent-tabs-mode t)))
        :init
        (add-hook 'go-ts-mode-hook (lambda () (setq tab-width 4)))
        (add-hook 'go-ts-mode-hook 'highlight-80+-mode)
@@ -623,7 +630,8 @@
        :defer t)
    #+END_SRC
 
-   We don't want to add ~gofmt-before-save~ to the global ~before-save-hook~,
+   We install ~go-mode~ because it defines the ~gofmt-before-save~ hook. We
+   don't want to add ~gofmt-before-save~ to the global ~before-save-hook~,
    because that would cause ~go-mode~ to be loaded in every buffer, whether it
    was a Go buffer or not. Instead we add to the local ~before-save-hook~. We
    then have to explicitly request deferred loading. Normally ~:hook~ implies
