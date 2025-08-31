@@ -10,6 +10,13 @@
 - Checkout https://xenodium.com/a-chatgpt-emacs-shell/
 - Spellchecking
 
+** Fix native compilation
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (setenv "PATH" "/opt/homebrew/bin:/opt/homebrew/sbin:/Users/jkakar/.bun/bin:/Users/jkakar/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:/Applications/Postgres.app/Contents/Versions/16/bin:/opt/homebrew/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/iTerm.app/Contents/Resources/utilities")
+     (setq exec-path (split-string (getenv "PATH") path-separator))
+   #+END_SRC
+
 ** Tangling
 
    There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org. I'm
@@ -170,7 +177,8 @@
                                          "MANPATH"
                                          "GOPATH"
                                          "GOPRIVATE"
-                                         "OPENAI_API_KEY"))
+                                         "OPENAI_API_KEY"
+                                         "ANTHROPIC_API_KEY"))
        :config
        (exec-path-from-shell-initialize))
    #+END_SRC
@@ -178,9 +186,8 @@
 ** Clipboard
 
    I want emacs to fit in naturally with the rest of my environment and give me
-   access to functionality I don't otherwise have, if the ergonomics are good.
-   Saving clipboard contents to the kill ring provides access to data that is
-   otherwise easily lost.
+   access to functionality I don't otherwise have. Saving clipboard contents to
+   the kill ring provides access to data that is otherwise easily lost.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (setq save-interprogram-paste-before-kill t)
@@ -478,7 +485,7 @@
      (define-key lsp-mode-map (kbd "C-c C-g") 'lsp-ui-doc-hide)
    #+END_SRC
 
-** LLM
+** GPTel
 
    The GPTel package provides commands for interacting with LLMs to respond to
    prompts, explain snippets, generate tests, and more.
@@ -487,6 +494,8 @@
      (use-package gptel)
      (global-set-key (kbd "C-c RET") 'gptel-send)
    #+END_SRC
+
+** Copilot
 
    The Copilot package provides completions using GitHub Copilot. Use ~M-x
    copilot-install-server~ and ~M-x copilot-login~ to get started.
@@ -527,7 +536,20 @@
    #+END_SRC
 
    [[https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/]] has useful
-   information about customized the copilot.el package.
+   information about customizing the copilot.el package.
+
+** Aidermacs
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package aidermacs
+       :bind (("C-c a" . aidermacs-transient-menu))
+       :config
+       (setenv "ANTHROPIC_API_KEY" (getenv "ANTHROPIC_API_KEY"))
+       (setq exec-path (split-string (getenv "PATH") path-separator))
+       :custom
+       (aidermacs-use-architect-mode t)
+       (aidermacs-default-model "sonnet"))
+   #+END_SRC
 
 * Major modes and filetypes
 
@@ -658,7 +680,7 @@
        (interactive)
        (let ((current-file (buffer-file-name)))
          (when current-file
-           (let ((exit-code (call-process "biome" nil nil nil "check" "--apply" current-file)))
+           (let ((exit-code (call-process "/opt/homebrew/bin/biome" nil nil nil "check" "--write" current-file)))
              (if (eq exit-code 0)
                  (progn
                    (message "Formatting successful, reverting buffer.")
