@@ -1,10 +1,12 @@
 .cache
 .lsp-session-v1
 auto-save-list/
+eln-cache/
 elpa/
 init.el
 projectile-bookmarks.eld
 projectile.cache
+org-persist/
 recentf
 smex-items
 straight/*

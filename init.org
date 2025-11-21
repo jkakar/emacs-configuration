@@ -235,6 +235,13 @@
       (list '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
    #+END_SRC
 
+   Automatically revert buffers when the underlying file changes on disk.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (global-auto-revert-mode t)
+     (setq auto-revert-use-notify t)
+   #+END_SRC
+
 ** Scrolling
 
    Scroll one line at a time. The default behaviour is jarring.
@@ -541,14 +548,14 @@
 ** Aidermacs
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package aidermacs
-       :bind (("C-c a" . aidermacs-transient-menu))
-       :config
-       (setenv "ANTHROPIC_API_KEY" (getenv "ANTHROPIC_API_KEY"))
-       (setq exec-path (split-string (getenv "PATH") path-separator))
-       :custom
-       (aidermacs-use-architect-mode t)
-       (aidermacs-default-model "sonnet"))
+     ;; (use-package aidermacs
+     ;;   :bind (("C-c a" . aidermacs-transient-menu))
+     ;;   :config
+     ;;   (setenv "ANTHROPIC_API_KEY" (getenv "ANTHROPIC_API_KEY"))
+     ;;   (setq exec-path (split-string (getenv "PATH") path-separator))
+     ;;   :custom
+     ;;   (aidermacs-use-architect-mode t)
+     ;;   (aidermacs-default-model "sonnet"))
    #+END_SRC
 
 * Major modes and filetypes
