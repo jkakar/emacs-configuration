@@ -2,8 +2,6 @@
 
 ** TODO
 
-- Checkout https://github.com/joaotavora/eglot
-- Checkout https://github.com/TommyX12/company-tabnine
 - Checkout https://github.com/gregsexton/origami.el
 - Checkout https://github.com/alphapapa/bufler.el
 - Checkout https://www.reddit.com/r/emacs/comments/bb3nw7/connecting_workflows_with_aws_redshift/
@@ -278,10 +276,11 @@
        :straight (highlight-80+ :type git :host github :repo "jkakar/highlight-80-mode")
        :hook ((prog-mode . highlight-80+-mode)
               (markdown-mode . highlight-80+-mode)
-              (yaml-mode . highlight-80+-mode)))
-     (setq highlight-80+-columns 81)
-     (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
-                                            :background (get-base16-color ':base01))
+              (yaml-mode . highlight-80+-mode))
+       :config
+       (setq highlight-80+-columns 81)
+       (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
+                                              :background (get-base16-color ':base01)))
    #+END_SRC
 
    I don't want to leave trailing whitespace in files. [[https://github.com/lewang/ws-butler][ws-butler only]] deletes
@@ -454,29 +453,39 @@
      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
    #+END_SRC
 
-** LSP
+** Eglot
+
+   Eglot is a lightweight LSP client built into Emacs 29+. It uses native Emacs
+   facilities like flymake for diagnostics and eldoc for documentation.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package lsp-mode
-       :commands lsp)
-     (use-package lsp-ui :commands lsp-ui-mode)
-     (use-package lsp-ivy :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
-
-     (setq gc-cons-threshold 100000000)
-     (setq lsp-enable-doc t)
-     (setq lsp-enable-snippet nil)
-     (setq lsp-idle-delay 0.500)
-     (setq lsp-prefer-flymake :none)
-     (setq lsp-ui-doc-enable t)
-     (setq read-process-output-max (* 1024 1024))
-     (global-set-key (kbd "C-c h") 'lsp-ui-doc-glance)
+     (use-package eglot
+       :straight (:type built-in)
+       :config
+       (setq gc-cons-threshold 100000000)
+       (setq read-process-output-max (* 1024 1024))
+       (setq eglot-autoshutdown t)
+       (setq eglot-events-buffer-size 0)
+       :bind (:map eglot-mode-map
+              ("C-c h" . eldoc)
+              ("C-c r" . eglot-rename)
+              ("C-c a" . eglot-code-actions)))
    #+END_SRC
 
-   Define ~C-c C-d~ and ~C-c C-g~ to show and hide LSP UI docs, respectively.
+** Corfu
+
+   Corfu provides in-buffer completion popups. It's lightweight and integrates
+   well with eglot and native Emacs completion.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (define-key lsp-mode-map (kbd "C-c C-d") 'lsp-ui-doc-show)
-     (define-key lsp-mode-map (kbd "C-c C-g") 'lsp-ui-doc-hide)
+     (use-package corfu
+       :custom
+       (corfu-auto t)
+       (corfu-auto-delay 0.2)
+       (corfu-auto-prefix 2)
+       (corfu-cycle t)
+       :init
+       (global-corfu-mode))
    #+END_SRC
 
 ** GPTel
@@ -524,7 +533,7 @@
            (setq mode-name "erl"
                  erlang-compile-extra-opts '((i . "../include"))
                  erlang-root-dir "/usr/local/lib/erlang"))
-       (add-hook 'erlang-mode-hook #'lsp))
+       (add-hook 'erlang-mode-hook #'eglot-ensure))
        ;; TODO Figure out how to turn this off for *.yrl files.
        (add-hook 'erlang-mode-hook 'erlfmt-on-save-mode))
    #+END_SRC
@@ -568,7 +577,7 @@
                        (setq go-ts-mode-indent-offset tab-width)
                        (setq indent-tabs-mode t)
                        (add-hook 'before-save-hook 'gofmt-before-save nil t)))
-       (go-ts-mode . lsp-deferred)
+       (go-ts-mode . eglot-ensure)
        :config
        (setq gofmt-command "goimports")
        :defer t)
@@ -617,15 +626,15 @@
      (add-hook 'typescript-ts-mode-hook 'setup-js-ts-modes)
      (add-hook 'js-mode-hook 'setup-js-ts-modes)  ;; Assuming js-mode for JavaScript
      (add-hook 'js-ts-mode-hook (lambda () (setq js-indent-level 2)))
-     (add-hook 'js-ts-mode-hook #'lsp)
+     (add-hook 'js-ts-mode-hook #'eglot-ensure)
      (add-hook 'tsx-ts-mode-hook (lambda ()
                                    (setq typescript-ts-mode-indent-offset 2)
                                    (setq indent-tabs-mode nil)))
-     (add-hook 'tsx-ts-mode-hook #'lsp)
+     (add-hook 'tsx-ts-mode-hook #'eglot-ensure)
      (add-hook 'typescript-ts-mode-hook (lambda ()
                                           (setq typescript-ts-mode-indent-offset 2)
                                           (setq indent-tabs-mode nil)))
-     (add-hook 'typescript-ts-mode-hook #'lsp)
+     (add-hook 'typescript-ts-mode-hook #'eglot-ensure)
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -664,8 +673,6 @@
      (add-to-list 'treesit-auto-recipe-list jkakar/typescript-treesit-auto-recipe)
 
      (use-package typescript-ts-mode
-       :config
-       (add-hook 'typescript-ts-mode-hook #'lsp)
        :mode
        (("\\.ts\\'" . typescript-ts-mode)
         ("\\.mts\\'" . typescript-ts-mode)
@@ -773,6 +780,5 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package zig-mode
-       :config
-       (add-hook 'zig-mode-hook #'lsp))
+       :hook (zig-mode . eglot-ensure))
    #+END_SRC

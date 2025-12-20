@@ -11,6 +11,7 @@ recentf
 smex-items
 straight/*
 !straight/versions
+tramp
 transient
 tree-sitter
 url
