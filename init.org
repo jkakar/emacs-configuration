@@ -10,13 +10,6 @@
 - Checkout https://xenodium.com/a-chatgpt-emacs-shell/
 - Spellchecking
 
-** Fix native compilation
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (setenv "PATH" "/opt/homebrew/bin:/opt/homebrew/sbin:/Users/jkakar/.bun/bin:/Users/jkakar/bin:/usr/local/bin:/usr/local/sbin:/opt/homebrew/sbin:/Applications/Postgres.app/Contents/Versions/16/bin:/opt/homebrew/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Applications/iTerm.app/Contents/Resources/utilities")
-     (setq exec-path (split-string (getenv "PATH") path-separator))
-   #+END_SRC
-
 ** Tangling
 
    There are [[https://www.reddit.com/r/emacs/comments/372nxd/][two main approaches]] to writing your emacs configuration in org. I'm
@@ -282,7 +275,10 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package highlight-80+
-       :straight (highlight-80+ :type git :host github :repo "jkakar/highlight-80-mode"))
+       :straight (highlight-80+ :type git :host github :repo "jkakar/highlight-80-mode")
+       :hook ((prog-mode . highlight-80+-mode)
+              (markdown-mode . highlight-80+-mode)
+              (yaml-mode . highlight-80+-mode)))
      (setq highlight-80+-columns 81)
      (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
                                             :background (get-base16-color ':base01))
@@ -374,13 +370,6 @@
        (ivy-mode 1))
    #+END_SRC
 
-   I want ~counsel-M-x~ to show me the most recently used commands. Installing
-   [[https://github.com/nonsequitur/smex][smex]] makes this the default behaviour.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package smex)
-   #+END_SRC
-
    I mainly use projectile for fuzzy searching an entire project’s files and
    buffers. It’s quite refreshing to never think about which files are open and
    which ones aren’t. The concept of a root directory is also important for
@@ -459,9 +448,8 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun colorize-compilation-buffer ()
-       (toggle-read-only)
-       (ansi-color-apply-on-region compilation-filter-start (point))
-       (toggle-read-only))
+       (let ((inhibit-read-only t))
+         (ansi-color-apply-on-region compilation-filter-start (point))))
 
      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
    #+END_SRC
@@ -472,7 +460,6 @@
      (use-package lsp-mode
        :commands lsp)
      (use-package lsp-ui :commands lsp-ui-mode)
-     (use-package company-lsp :commands company-lsp)
      (use-package lsp-ivy :straight (lsp-ivy :type git :host github :repo "emacs-lsp/lsp-ivy"))
 
      (setq gc-cons-threshold 100000000)
@@ -502,79 +489,19 @@
      (global-set-key (kbd "C-c RET") 'gptel-send)
    #+END_SRC
 
-** Copilot
-
-   The Copilot package provides completions using GitHub Copilot. Use ~M-x
-   copilot-install-server~ and ~M-x copilot-login~ to get started.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     ;; (use-package copilot
-     ;;   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-     ;;   :ensure t)
-     ;; (add-hook 'prog-mode-hook 'copilot-mode)
-     ;; (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-     ;; (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
-
-     ;; (defun jkakar/no-copilot-mode ()
-     ;;   "Helper for `jkakar/no-copilot-modes'."
-     ;;   (copilot-mode -1))
-
-     ;; (defvar jkakar/no-copilot-modes '(shell-mode
-     ;;                                   inferior-python-mode
-     ;;                                   eshell-mode
-     ;;                                   term-mode
-     ;;                                   vterm-mode
-     ;;                                   comint-mode
-     ;;                                   compilation-mode
-     ;;                                   debugger-mode
-     ;;                                   dired-mode-hook
-     ;;                                   compilation-mode-hook
-     ;;                                   flutter-mode-hook
-     ;;                                   minibuffer-mode-hook)
-     ;;   "Modes in which copilot is inconvenient.")
-
-     ;; (defun jkakar/copilot-disable-predicate ()
-     ;;   "When copilot should not automatically show completions."
-     ;;   (or jkakar/copilot-manual-mode
-     ;;       (member major-mode jkakar/no-copilot-modes)
-     ;;       (company--active-p)))
-
-     ;; (add-to-list 'copilot-disable-predicates #'jkakar/copilot-disable-predicate)
-   #+END_SRC
-
-   [[https://robert.kra.hn/posts/2023-02-22-copilot-emacs-setup/]] has useful
-   information about customizing the copilot.el package.
-
-** Aidermacs
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     ;; (use-package aidermacs
-     ;;   :bind (("C-c a" . aidermacs-transient-menu))
-     ;;   :config
-     ;;   (setenv "ANTHROPIC_API_KEY" (getenv "ANTHROPIC_API_KEY"))
-     ;;   (setq exec-path (split-string (getenv "PATH") path-separator))
-     ;;   :custom
-     ;;   (aidermacs-use-architect-mode t)
-     ;;   (aidermacs-default-model "sonnet"))
-   #+END_SRC
-
 * Major modes and filetypes
 
 ** Dockerfile
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package dockerfile-mode
-       :config
-       (add-hook 'dockerfile-mode-hook 'highlight-80+-mode))
+     (use-package dockerfile-mode)
    #+END_SRC
 
 ** Elixir
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package elixir-mode
-       :commands elixir-mode
-       :config
-       (add-hook 'elixir-mode-hook 'highlight-80+-mode))
+       :commands elixir-mode)
    #+END_SRC
 
 ** Erlang
@@ -592,7 +519,6 @@
        (add-to-list 'auto-mode-alist '("\\.E\\'" . erlang-mode))
        (add-to-list 'auto-mode-alist '("\\.S\\'" . erlang-mode))
        :config
-       (add-hook 'erlang-mode-hook 'highlight-80+-mode)
        (add-hook 'erlang-mode-hook
          (lambda ()
            (setq mode-name "erl"
@@ -601,13 +527,6 @@
        (add-hook 'erlang-mode-hook #'lsp))
        ;; TODO Figure out how to turn this off for *.yrl files.
        (add-hook 'erlang-mode-hook 'erlfmt-on-save-mode))
-   #+END_SRC
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     ;;(use-package edts
-     ;;  :init
-     ;;  (setq edts-inhibit-package-check t
-     ;;        edts-man-root "~/.emacs.d/edts/doc/18.2.1"))
    #+END_SRC
 
 ** Flycheck
@@ -638,31 +557,20 @@
 ** [[https://github.com/dominikh/go-mode.el][Go]]
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun lsp-go-install-save-hooks ()
-       (add-hook 'before-save-hook #'lsp-format-buffer t t)
-       (add-hook 'before-save-hook #'lsp-organize-imports t t))
-
      (use-package go-mode
        :ensure t)
      (use-package go-ts-mode
-       :config
-       (setq gofmt-command "goimports")
-       (setq-default tab-width 4)
-       (add-hook 'go-ts-mode-hook #'lsp-deferred)
        :custom
        (gofmt-show-errors nil)
        :hook
-       (go-ts-mode . (lambda () (add-hook 'before-save-hook 'gofmt-before-save nil t)))
        (go-ts-mode . (lambda ()
                        (setq tab-width 4)
                        (setq go-ts-mode-indent-offset tab-width)
-                       (setq indent-tabs-mode t)))
-       :init
-       (add-hook 'go-ts-mode-hook (lambda () (setq tab-width 4)))
-       (add-hook 'go-ts-mode-hook 'highlight-80+-mode)
-       (add-hook 'go-ts-mode-hook #'lsp-deferred)
-       (add-hook 'go-ts-mode-hook #'lsp-go-install-save-hooks)
-       (add-hook 'go-ts-mode-local-vars-hook #'lsp!)
+                       (setq indent-tabs-mode t)
+                       (add-hook 'before-save-hook 'gofmt-before-save nil t)))
+       (go-ts-mode . lsp-deferred)
+       :config
+       (setq gofmt-command "goimports")
        :defer t)
    #+END_SRC
 
@@ -682,7 +590,6 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package graphviz-dot-mode
        :init
-       (add-hook 'graphviz-dot-mode-hook 'highlight-80+-mode)
        (add-hook 'graphviz-dot-mode-hook (lambda () (setq tab-width 4))))
    #+END_SRC
 
@@ -719,9 +626,6 @@
                                           (setq typescript-ts-mode-indent-offset 2)
                                           (setq indent-tabs-mode nil)))
      (add-hook 'typescript-ts-mode-hook #'lsp)
-     (add-hook 'tsx-ts-mode-hook 'auto-revert-mode)
-     (add-hook 'typescript-ts-mode-hook 'auto-revert-mode)
-     (add-hook 'js-ts-mode-hook 'auto-revert-mode)
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -776,9 +680,7 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package markdown-mode
        :custom
-       (markdown-hide-urls t)
-       :init
-       (add-hook 'markdown-mode-hook 'highlight-80+-mode))
+       (markdown-hide-urls t))
    #+END_SRC
 
 ** Protocol buffers
@@ -787,16 +689,13 @@
       (use-package protobuf-mode
         :init
         (defconst my-protobuf-style '((c-basic-offset . 2) (indent-tabs-mode . nil)))
-        (add-hook 'protobuf-mode-hook (lambda () (c-add-style "my-style" my-protobuf-style t)))
-        (add-hook 'protobuf-mode-hook 'highlight-80+-mode))
+        (add-hook 'protobuf-mode-hook (lambda () (c-add-style "my-style" my-protobuf-style t))))
    #+END_SRC
 
 ** Python
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package python-mode
-       :init
-       (add-hook 'python-mode-hook 'highlight-80+-mode))
+     (use-package python-mode)
    #+END_SRC
 
 ** Ruby
@@ -805,10 +704,8 @@
      (use-package ruby-mode
        :init
        (add-to-list 'auto-mode-alist '("\\.\\(?:cap\\|gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|rbi\\|ru\\|thor\\)\\'" . ruby-mode))
-       (add-hook 'ruby-mode-hook 'highlight-80+-mode)
        :config
        (setq ruby-insert-encoding-magic-comment nil))
-     ;; (add-hook 'ruby-mode-hook #'lsp)
    #+END_SRC
 
 ** [[https://github.com/rust-lang/rust-mode][Rust]]
@@ -869,9 +766,7 @@
 ** YAML
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package yaml-mode
-       :config
-       (add-hook 'yaml-mode-hook 'highlight-80+-mode))
+     (use-package yaml-mode)
    #+END_SRC
 
 ** Zig
