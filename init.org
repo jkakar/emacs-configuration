@@ -546,8 +546,8 @@
          (lambda ()
            (setq mode-name "erl"
                  erlang-compile-extra-opts '((i . "../include"))
-                 erlang-root-dir "/usr/local/lib/erlang"))
-       (add-hook 'erlang-mode-hook #'eglot-ensure))
+                 erlang-root-dir "/usr/local/lib/erlang")))
+       (add-hook 'erlang-mode-hook #'eglot-ensure)
        ;; TODO Figure out how to turn this off for *.yrl files.
        (add-hook 'erlang-mode-hook 'erlfmt-on-save-mode))
    #+END_SRC
@@ -563,7 +563,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package go-mode
-       :ensure t)
+       :defer t)
      (use-package go-ts-mode
        :custom
        (gofmt-show-errors nil)
