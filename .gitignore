@@ -4,6 +4,7 @@ auto-save-list/
 eln-cache/
 elpa/
 init.el
+history
 projectile-bookmarks.eld
 projectile.cache
 org-persist/

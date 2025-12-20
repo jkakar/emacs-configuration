@@ -147,9 +147,11 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package mood-line
+       :demand t
+       :init
+       (mood-line-mode)
        :config
-       (setq mood-line-glyph-alist mood-line-glyphs-unicode)
-       (mood-line-mode))
+       (setq mood-line-glyph-alist mood-line-glyphs-unicode))
    #+END_SRC
 
 ** Fonts and faces
@@ -366,6 +368,17 @@
      (use-package vertico
        :init
        (vertico-mode))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package vertico-directory
+       :after vertico
+       :straight (:type built-in)
+       :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+       :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
    #+END_SRC
 
    [[https://github.com/emacs-straight/savehist][Savehist]] persists minibuffer history across sessions, so frequently used
