@@ -141,6 +141,17 @@
        (plist-get base16-irblack-theme-colors id))
    #+END_SRC
 
+** Modeline
+
+   [[https://github.com/jessiehildebrandt/mood-line][mood-line]] provides a minimal, modern modeline.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package mood-line
+       :config
+       (setq mood-line-glyph-alist mood-line-glyphs-unicode)
+       (mood-line-mode))
+   #+END_SRC
+
 ** Fonts and faces
 
    I use ~set-face-attribute~ for global faces instead of ~custom-set-faces~
