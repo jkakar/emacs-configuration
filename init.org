@@ -141,19 +141,6 @@
        (plist-get base16-irblack-theme-colors id))
    #+END_SRC
 
-** Modeline
-
-   [[https://github.com/jessiehildebrandt/mood-line][mood-line]] provides a minimal, modern modeline.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package mood-line
-       :demand t
-       :init
-       (mood-line-mode)
-       :config
-       (setq mood-line-glyph-alist mood-line-glyphs-unicode))
-   #+END_SRC
-
 ** Fonts and faces
 
    I use ~set-face-attribute~ for global faces instead of ~custom-set-faces~
@@ -239,7 +226,9 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun close-all-buffers ()
        (interactive)
-       (mapc 'kill-buffer (buffer-list)))
+       (dolist (buffer (buffer-list))
+         (unless (member (buffer-name buffer) '("*scratch*" "*Messages*" " *Minibuf-0*" " *Minibuf-1*"))
+           (kill-buffer buffer))))
    #+END_SRC
 
    Show the full path to the file in the current buffer in the window title.
