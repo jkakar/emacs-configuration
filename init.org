@@ -379,7 +379,13 @@
        (ivy-mode 1))
    #+END_SRC
 
-   I mainly use projectile for fuzzy searching an entire project’s files and
+   Smex tracks M-x command usage and shows recently used commands first.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package smex)
+   #+END_SRC
+
+   I mainly use projectile for fuzzy searching an entire project's files and
    buffers. It’s quite refreshing to never think about which files are open and
    which ones aren’t. The concept of a root directory is also important for
    things like ~rg~ searching.
