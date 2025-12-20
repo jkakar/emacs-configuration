@@ -538,24 +538,6 @@
        (add-hook 'erlang-mode-hook 'erlfmt-on-save-mode))
    #+END_SRC
 
-** Flycheck
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package flycheck
-       :init
-       ;; (setq flycheck-ruby-executable (expand-file-name "~/.rbenv/shims/ruby"))
-       ;; (setq flycheck-ruby-rubocop-executable (expand-file-name "~/.rbenv/shims/rubocop"))
-       (setq flycheck-erlang-include-path '("../include"))
-       (setq flycheck-erlang-library-path '())
-       (add-hook 'ruby-mode-hook (lambda () (flycheck-disable-checker 'ruby-reek)))
-       :config
-       (setq-default flycheck-disabled-checkers
-                     (append flycheck-disabled-checkers
-                             '(javascript-jshint)
-                             '(json-jsonlist)))
-       (global-flycheck-mode))
-   #+END_SRC
-
 ** Gleam
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -722,11 +704,6 @@
        :custom
        (rust-format-on-save t)
        :defer t)
-   #+END_SRC
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package flycheck-rust
-       :hook (rust-mode . flycheck-rust-setup))
    #+END_SRC
 
 ** Scala
