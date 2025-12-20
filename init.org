@@ -695,12 +695,6 @@
         (add-hook 'protobuf-mode-hook (lambda () (c-add-style "my-style" my-protobuf-style t))))
    #+END_SRC
 
-** Python
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package python-mode)
-   #+END_SRC
-
 ** Ruby
 
    #+BEGIN_SRC emacs-lisp :tangle yes
