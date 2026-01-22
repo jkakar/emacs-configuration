@@ -771,7 +771,7 @@
        (setq web-mode-enable-css-colorization t)
        (add-hook 'before-save-hook 'delete-trailing-whitespace nil 'local)
        :mode ("\\.html?\\'" "\\.erb\\'" "\\.hbs\\'"
-              "\\.json\\'" "\\.s?css\\'" "\\.less\\'" "\\.sass\\'"))
+              "\\.s?css\\'" "\\.less\\'" "\\.sass\\'"))
    #+END_SRC
 
 ** YAML
