@@ -404,13 +404,19 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package consult
-       :bind (("C-s" . consult-line)
-              ("C-c f" . consult-find)
+       :bind (("C-c f" . consult-find)
               ("C-c k" . consult-ripgrep)
               ("C-x b" . consult-buffer))
        :config
        (setq consult-ripgrep-args
              "rg --null --line-buffered --color=never --max-columns=1000 --path-separator / --smart-case --no-heading --with-filename --line-number --search-zip"))
+   #+END_SRC
+
+   [[https://github.com/abo-abo/swiper][Swiper]] provides an interactive search with M-j to yank word at point.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package swiper
+       :bind (("C-s" . swiper)))
    #+END_SRC
 
    [[https://github.com/oantolin/embark][Embark]] provides context actions on minibuffer candidates and other targets.
