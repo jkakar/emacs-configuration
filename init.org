@@ -351,26 +351,38 @@
 
 ** Navigation
 
-   The Vertico stack provides a modern, modular completion system that uses
-   native Emacs completion APIs.
-
-   [[https://github.com/minad/vertico][Vertico]] provides a vertical completion UI.
+   Ivy, counsel and swiper provide a simple and unified way to quickly navigate
+   buffers, find files, etc.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package vertico
-       :init
-       (vertico-mode))
+     (use-package swiper
+       :config
+       (global-set-key (kbd "C-s") 'swiper))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package vertico-directory
-       :after vertico
-       :straight (:type built-in)
-       :bind (:map vertico-map
-              ("RET" . vertico-directory-enter)
-              ("DEL" . vertico-directory-delete-char)
-              ("M-DEL" . vertico-directory-delete-word))
-       :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+     (use-package counsel
+       :config
+       (global-set-key (kbd "M-x") 'counsel-M-x)
+       (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+       (global-set-key (kbd "C-c f") 'counsel-fzf)
+       (global-set-key (kbd "C-c k") 'counsel-rg)
+       (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+       (setenv "FZF_DEFAULT_COMMAND" "git ls-files --exclude-standard --others --cached")
+       (setq counsel-git-cmd "rg --files")
+       (setq counsel-async-filter-update-time 100000)
+       (setq counsel-rg-base-command "rg -i -M 120 --no-heading --line-number --color never %s ."))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package ivy
+       :init (setq ivy-use-virtual-buffers t
+                   ivy-count-format "(%d/%d) ")
+       :bind (("C-c C-r" . ivy-resume))
+       :config
+       (define-key ivy-minibuffer-map (kbd "RET") 'ivy-alt-done)
+       (setq ivy-height 15)
+       (ivy-mode 1))
    #+END_SRC
 
    [[https://github.com/emacs-straight/savehist][Savehist]] persists minibuffer history across sessions, so frequently used
@@ -383,56 +395,10 @@
        (savehist-mode))
    #+END_SRC
 
-   [[https://github.com/oantolin/orderless][Orderless]] provides flexible completion matching with space-separated patterns.
+   Smex tracks M-x command usage and shows recently used commands first.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package orderless
-       :custom
-       (completion-styles '(orderless basic))
-       (completion-category-overrides '((file (styles partial-completion)))))
-   #+END_SRC
-
-   [[https://github.com/minad/marginalia][Marginalia]] adds rich annotations to minibuffer completions.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package marginalia
-       :init
-       (marginalia-mode))
-   #+END_SRC
-
-   [[https://github.com/minad/consult][Consult]] provides enhanced search and navigation commands.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package consult
-       :bind (("C-c f" . consult-find)
-              ("C-c k" . consult-ripgrep)
-              ("C-x b" . consult-buffer))
-       :config
-       (setq consult-ripgrep-args
-             "rg --null --line-buffered --color=never --max-columns=1000 --path-separator / --smart-case --no-heading --with-filename --line-number --search-zip"))
-   #+END_SRC
-
-   [[https://github.com/abo-abo/swiper][Swiper]] provides an interactive search with M-j to yank word at point.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package swiper
-       :bind (("C-s" . swiper)))
-   #+END_SRC
-
-   [[https://github.com/oantolin/embark][Embark]] provides context actions on minibuffer candidates and other targets.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package embark
-       :bind (("C-." . embark-act)
-              ("C-;" . embark-dwim))
-       :init
-       (setq prefix-help-command #'embark-prefix-help-command))
-   #+END_SRC
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package embark-consult
-       :after (embark consult)
-       :hook (embark-collect-mode . consult-preview-at-point-mode))
+     (use-package smex)
    #+END_SRC
 
    I mainly use projectile for fuzzy searching an entire project's files and
@@ -450,6 +416,17 @@
        (setq projectile-enable-caching t)
        (setq projectile-indexing-method 'alien)
        (projectile-mode 1))
+   #+END_SRC
+
+   I want to be able to jump to any file quickly without having to navigate
+   through directories by hand. [[https://github.com/ericdanan/counsel-projectile][counsel-projectile]] provides a nice way to do
+   this.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package counsel-projectile
+      :demand t
+      :config
+      (counsel-projectile-mode 1))
    #+END_SRC
 
 ** Git
@@ -479,21 +456,22 @@
               ("M-g x" . dumb-jump-go-prefer-external)
               ("M-g z" . dumb-jump-go-prefer-external-other-window))
        :config (setq dumb-jump-force-searcher 'rg)
-               (setq dumb-jump-max-find-time 10))
+               (setq dumb-jump-max-find-time 10)
+               (setq dumb-jump-selector 'ivy))
    #+END_SRC
 
 ** Multi-line editing
 
-   [[https://melpa.org/#/wgrep][wgrep]] provides multi-line editing capabilities for grep-style buffers.
+   [[https://melpa.org/#/wgrep][wgrep]] integrates with ivy-occur to provide multi-line editing capabilities.
 
   #+BEGIN_SRC emacs-lisp :tangle yes
     (use-package wgrep)
   #+END_SRC
 
-  Search for text with ~C-c k~ (consult-ripgrep), then use ~C-.~ (embark-act)
-  followed by ~E~ (embark-export) to open matches in a grep buffer. Use ~C-c
-  C-p~ (wgrep-change-to-wgrep-mode) to switch into editing mode. Finally, use
-  ~C-c C-c~ (wgrep-finish-edit) to apply the changes.
+  Search for text you want to edit, hit C-o C-o (ivy-occur) to open the matches
+  in a buffer. Use C-x C-q (ivy-wgrep-change-to-wgrep-mode) in the buffer to
+  switch into editing mode. Finally, use C-c C-c (wgrep-finish-edit) to apply
+  the changes.
 
 ** Compilation buffers
 
