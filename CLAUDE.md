@@ -17,3 +17,8 @@ Or evaluate: `(org-babel-tangle-file "init.org")`
 ## Package Management
 
 Packages are managed with straight.el and use-package. Run `M-x straight-pull-all` to update packages, then `M-x straight-freeze-versions` to lock versions.
+
+## Coding Conventions
+
+- Custom elisp functions should use the `jkakar/` prefix (e.g., `jkakar/minibuffer-yank-word`)
+- Never run `org-babel-tangle` automatically. Always ask the user to run it manually after making changes to `init.org`.
