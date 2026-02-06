@@ -6,7 +6,6 @@
 - Checkout https://github.com/alphapapa/bufler.el
 - Checkout https://www.reddit.com/r/emacs/comments/bb3nw7/connecting_workflows_with_aws_redshift/
 - Checkout https://xenodium.com/a-chatgpt-emacs-shell/
-- Spellchecking
 
 ** Tangling
 
@@ -692,7 +691,23 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package markdown-mode
        :custom
-       (markdown-hide-urls t))
+       (markdown-hide-urls t)
+       :hook
+       (markdown-mode . (lambda () (setq-local corfu-auto nil))))
+   #+END_SRC
+
+** Spellchecking
+
+   Flyspell underlines misspelled words. Use ~M-$~ to check the word at point
+   with correction suggestions.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (use-package flyspell
+       :custom
+       (ispell-program-name "aspell")
+       :hook
+       (markdown-mode . flyspell-mode)
+       (flyspell-mode . flyspell-buffer))
    #+END_SRC
 
 ** Protocol buffers
