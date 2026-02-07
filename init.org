@@ -373,6 +373,22 @@
        (setq counsel-rg-base-command "rg -i -M 120 --no-heading --line-number --color never %s ."))
    #+END_SRC
 
+   When opening a file from a non-file buffer like =*scratch*=, default to the
+   directory of the most recently visited file buffer instead of =~/=.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (defun jkakar/default-directory-from-last-file (&rest _)
+       "Set default-directory to the most recent file buffer's directory."
+       (unless (buffer-file-name)
+         (let ((dir (cl-loop for buf in (buffer-list)
+                             when (buffer-file-name buf)
+                             return (file-name-directory (buffer-file-name buf)))))
+           (when dir
+             (setq default-directory dir)))))
+
+     (advice-add 'counsel-find-file :before #'jkakar/default-directory-from-last-file)
+   #+END_SRC
+
    #+BEGIN_SRC emacs-lisp :tangle yes
      (use-package ivy
        :init (setq ivy-use-virtual-buffers t
