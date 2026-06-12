@@ -130,17 +130,47 @@
 
 ** Theme
 
-   Modus Vivendi is a dark theme with excellent contrast and readability,
-   built into Emacs 28+.
+   The Modus themes ship with Emacs 28+ and provide a matched light
+   (~modus-operandi~) and dark (~modus-vivendi~) pair with excellent contrast
+   and readability. emacs-plus on macOS exposes the system appearance through
+   ~ns-system-appearance-change-functions~, an abnormal hook run at startup and
+   whenever macOS toggles between light and dark mode. Hooking into it keeps
+   Emacs in sync with the rest of the desktop.
+
+   ~jkakar/after-load-theme-hook~ runs after each switch so that faces whose
+   colors are pulled from the theme — the long-line and matching-paren
+   highlights configured further below — can be re-applied with the new palette.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
+     (defvar jkakar/after-load-theme-hook nil
+       "Hook run after `jkakar/apply-theme-for-appearance' loads a theme.")
+
+     (defun get-modus-color (name)
+       "Get color NAME from the active Modus theme."
+       (modus-themes-get-color-value name))
+
+     (defun jkakar/apply-theme-for-appearance (appearance)
+       "Load the Modus theme matching the system APPEARANCE (`light' or `dark')."
+       (mapc #'disable-theme custom-enabled-themes)
+       (load-theme (pcase appearance
+                     ('light 'modus-operandi)
+                     (_ 'modus-vivendi))
+                   t)
+       (run-hooks 'jkakar/after-load-theme-hook))
+
      (use-package modus-themes
        :straight (:type built-in)
        :init
-       (load-theme 'modus-vivendi t))
-     (defun get-modus-color (name)
-       "Get a color from modus-vivendi theme."
-       (modus-themes-get-color-value name))
+       (if (boundp 'ns-system-appearance-change-functions)
+           (progn
+             (add-hook 'ns-system-appearance-change-functions
+                       #'jkakar/apply-theme-for-appearance)
+             ;; In daemon sessions the hook only fires once a GUI frame exists;
+             ;; apply now if the appearance is already known.
+             (when ns-system-appearance
+               (jkakar/apply-theme-for-appearance ns-system-appearance)))
+         ;; Builds without the macOS appearance hook get the dark theme.
+         (jkakar/apply-theme-for-appearance 'dark)))
    #+END_SRC
 
 ** Fonts and faces
@@ -161,7 +191,7 @@
            ;;                                   :height 160)))
            ((eq system-type 'darwin)
             (set-face-attribute 'default nil :family "Source Code Pro"
-                                             :height 180)))
+                                             :height 140)))
      (set-face-attribute 'fixed-pitch nil :family 'unspecified
                                           :inherit 'default)
    #+END_SRC
@@ -293,8 +323,12 @@
               (yaml-mode . highlight-80+-mode))
        :config
        (setq highlight-80+-columns 81)
-       (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
-                                              :background (get-modus-color 'bg-dim)))
+       (defun jkakar/set-highlight-80+-face ()
+         "Set the `highlight-80+' background from the active Modus theme."
+         (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
+                                                :background (get-modus-color 'bg-dim)))
+       (add-hook 'jkakar/after-load-theme-hook #'jkakar/set-highlight-80+-face)
+       (jkakar/set-highlight-80+-face))
    #+END_SRC
 
    I don't want to leave trailing whitespace in files. [[https://github.com/lewang/ws-butler][ws-butler only]] deletes
@@ -341,8 +375,12 @@
    Highlight all the text between matching parentheses without any delay.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (set-face-attribute 'show-paren-match nil :foreground 'unspecified
-                                               :background (get-modus-color 'bg-paren-match))
+     (defun jkakar/set-show-paren-match-face ()
+       "Set the `show-paren-match' background from the active Modus theme."
+       (set-face-attribute 'show-paren-match nil :foreground 'unspecified
+                                                 :background (get-modus-color 'bg-paren-match)))
+     (add-hook 'jkakar/after-load-theme-hook #'jkakar/set-show-paren-match-face)
+     (jkakar/set-show-paren-match-face)
      (setq show-paren-delay 0)
      (setq show-paren-style (quote expression))
      (show-paren-mode 1)
