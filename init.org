@@ -596,8 +596,17 @@
    The GPTel package provides commands for interacting with LLMs to respond to
    prompts, explain snippets, generate tests, and more.
 
+   gptel carries its test suite as a git submodule, which straight clones and
+   then re-initialises on every pull. The submodule is of no use here and its
+   pinned revision drifts from the parent repository, which leaves the worktree
+   dirty and makes ~straight-freeze-versions~ complain. ~:nonrecursive~ tells
+   straight to leave submodules alone, and an uninitialised submodule is never
+   reported as a modification no matter where the parent moves its pointer.
+
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package gptel)
+     (use-package gptel
+       :straight (:type git :host github :repo "karthink/gptel"
+                        :nonrecursive t))
      (global-set-key (kbd "C-c RET") 'gptel-send)
    #+END_SRC
 
