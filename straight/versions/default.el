@@ -25,6 +25,7 @@
  ("llama" . "4d4024048053b898a01521046e0f063ee47615b0")
  ("markdown-mode" . "76cb4ffecfdf95ee769e5cb4608e04202c3c1521")
  ("melpa" . "7610dda278691fc7e5ff279265699c8db4c8a975")
+ ("modus-themes" . "b86cace43523b5809ac5d62ca5ab01e9eb2727bc")
  ("nongnu" . "67c49cfdf5a5a9f28792c500c8eb0017cfe74a3a")
  ("nongnu-elpa" . "d3cba693ba67ab9d41bfa1df06ce8738d3c1292c")
  ("otp" . "5abaf997eb7cff2ff4a5fc5f7b3f23746c1e2abe")
