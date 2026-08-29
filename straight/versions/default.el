@@ -8,6 +8,7 @@
  ("dash.el" . "d746dd9edcb67a108818beb0cdc78dc1cb466832")
  ("dockerfile-mode" . "97733ce074b1252c1270fd5e8a53d178b66668ed")
  ("dumb-jump" . "cf06b4ccdce6a39346c32f05139f9ee8b77ee229")
+ ("ef-themes" . "e1f617607a5f0692b398365dcd8412ba1e98ccb3")
  ("el-get" . "447b7efc9fca29a087f4ec29c5d8ccb580cd1c78")
  ("emacs-elixir" . "00d6580a040a750e019218f9392cf9a4c2dac23a")
  ("emacs-reformatter" . "c52e91d5438b9bf16b77b4384822e254f10a6b0a")

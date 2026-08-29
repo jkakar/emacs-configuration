@@ -151,18 +151,30 @@
 
 ** Theme
 
-   The Modus themes provide a matched light (~modus-operandi-tinted~) and dark
-   (~modus-vivendi-tinted~) pair with excellent contrast and readability. They
-   ship with Emacs 28+, but the bundled copy trails upstream by a wide margin —
-   Emacs 30.2 carries 4.4.0 against upstream's 5.3.0 — so straight tracks
-   ~protesilaos/modus-themes~ directly rather than using the built-in.
+   The [[https://github.com/protesilaos/ef-themes][ef-themes]] provide a matched light (~ef-elea-light~) and dark
+   (~ef-elea-dark~) pair. Elea is the green-tinted member of the family: a
+   pale sage paper and a warm near-black.
 
-   The tinted variants are used rather than the plain pair. They keep the
-   contrast — ~fg-main~ stays pure black and white — but move the background
-   off ~#ffffff~ and ~#000000~ to ~#fbf7f0~ and ~#0d0e1c~, which reads as less
-   stark without washing anything out. Ghostty is configured with the same two
-   themes, generated from this repository's checkout of the modus-themes
-   source, so the terminal and the editor match.
+   These replaced the tinted Modus themes, which were here for the same reason
+   and nearly worked. Modus holds ~fg-main~ at pure black and white, so tinting
+   the ground is the only move it has, and it is a small one — the tinted
+   grounds sit 2.64 and 4.37 L* off white and black. Elea moves the ink as well
+   as the paper, so it can put its grounds 4.50 and 14.35 off the extremes —
+   the dark is three times softer than Modus Vivendi Tinted — and still
+   measure 15.86 and 13.58 contrast against Modus's 19.66 and 19.15. Trading
+   a little contrast for a much softer ground is the whole point of the
+   change.
+
+   Since version 2.0.0 the ef-themes derive from the Modus themes and require
+   them, so straight pulls modus-themes in as a dependency and the Modus
+   palette API keeps working unchanged. ~ef-themes-get-color-value~ below is
+   an alias for ~modus-themes-get-color-value~.
+
+   Ghostty is configured with the same two themes, generated from this
+   repository's checkout of the ef-themes source by
+   ~~/.config/ghostty/themes/regenerate-ef.sh~, so the terminal and the editor
+   match.
+
    emacs-plus on macOS exposes the system appearance through
    ~ns-system-appearance-change-functions~, an abnormal hook run at startup and
    whenever macOS toggles between light and dark mode. Hooking into it keeps
@@ -176,21 +188,21 @@
      (defvar jkakar/after-load-theme-hook nil
        "Hook run after `jkakar/apply-theme-for-appearance' loads a theme.")
 
-     (defun jkakar/get-modus-color (name)
-       "Get color NAME from the active Modus theme."
-       (modus-themes-get-color-value name))
+     (defun jkakar/get-theme-color (name)
+       "Get color NAME from the active theme."
+       (ef-themes-get-color-value name))
 
      (defun jkakar/apply-theme-for-appearance (appearance)
-       "Load the Modus theme matching the system APPEARANCE (`light' or `dark')."
+       "Load the Ef theme matching the system APPEARANCE (`light' or `dark')."
        (mapc #'disable-theme custom-enabled-themes)
        (load-theme (pcase appearance
-                     ('light 'modus-operandi-tinted)
-                     (_ 'modus-vivendi-tinted))
+                     ('light 'ef-elea-light)
+                     (_ 'ef-elea-dark))
                    t)
        (run-hooks 'jkakar/after-load-theme-hook))
 
-     (use-package modus-themes
-       :straight (:type git :host github :repo "protesilaos/modus-themes")
+     (use-package ef-themes
+       :straight (:type git :host github :repo "protesilaos/ef-themes")
        :init
        (if (boundp 'ns-system-appearance-change-functions)
            (progn
@@ -357,9 +369,9 @@
        :config
        (setq highlight-80+-columns 81)
        (defun jkakar/set-highlight-80+-face ()
-         "Set the `highlight-80+' background from the active Modus theme."
+         "Set the `highlight-80+' background from the active theme."
          (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
-                                                :background (jkakar/get-modus-color 'bg-dim)))
+                                                :background (jkakar/get-theme-color 'bg-dim)))
        (add-hook 'jkakar/after-load-theme-hook #'jkakar/set-highlight-80+-face)
        (jkakar/set-highlight-80+-face))
    #+END_SRC
@@ -409,9 +421,9 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defun jkakar/set-show-paren-match-face ()
-       "Set the `show-paren-match' background from the active Modus theme."
+       "Set the `show-paren-match' background from the active theme."
        (set-face-attribute 'show-paren-match nil :foreground 'unspecified
-                                                 :background (jkakar/get-modus-color 'bg-paren-match)))
+                                                 :background (jkakar/get-theme-color 'bg-paren-match)))
      (add-hook 'jkakar/after-load-theme-hook #'jkakar/set-show-paren-match-face)
      (jkakar/set-show-paren-match-face)
      (setq show-paren-delay 0)
