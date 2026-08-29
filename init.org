@@ -280,10 +280,10 @@
 
    I like closing all buffers to reset emacs to a clean slate when I switch from
    one task to another. Using ~C-x C-b % n <ENTER> D~ is pretty tedious. ~M-x
-   jkakar/close-all-buffers~ is a touch easier.
+   close-all-buffers~ is a touch easier.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun jkakar/close-all-buffers ()
+     (defun close-all-buffers ()
        (interactive)
        (dolist (buffer (buffer-list))
          (unless (member (buffer-name buffer) '("*scratch*" "*Messages*" " *Minibuf-0*" " *Minibuf-1*"))
