@@ -151,11 +151,18 @@
 
 ** Theme
 
-   The Modus themes provide a matched light (~modus-operandi~) and dark
-   (~modus-vivendi~) pair with excellent contrast and readability. They ship
-   with Emacs 28+, but the bundled copy trails upstream by a wide margin —
+   The Modus themes provide a matched light (~modus-operandi-tinted~) and dark
+   (~modus-vivendi-tinted~) pair with excellent contrast and readability. They
+   ship with Emacs 28+, but the bundled copy trails upstream by a wide margin —
    Emacs 30.2 carries 4.4.0 against upstream's 5.3.0 — so straight tracks
    ~protesilaos/modus-themes~ directly rather than using the built-in.
+
+   The tinted variants are used rather than the plain pair. They keep the
+   contrast — ~fg-main~ stays pure black and white — but move the background
+   off ~#ffffff~ and ~#000000~ to ~#fbf7f0~ and ~#0d0e1c~, which reads as less
+   stark without washing anything out. Ghostty is configured with the same two
+   themes, generated from this repository's checkout of the modus-themes
+   source, so the terminal and the editor match.
    emacs-plus on macOS exposes the system appearance through
    ~ns-system-appearance-change-functions~, an abnormal hook run at startup and
    whenever macOS toggles between light and dark mode. Hooking into it keeps
@@ -177,8 +184,8 @@
        "Load the Modus theme matching the system APPEARANCE (`light' or `dark')."
        (mapc #'disable-theme custom-enabled-themes)
        (load-theme (pcase appearance
-                     ('light 'modus-operandi)
-                     (_ 'modus-vivendi))
+                     ('light 'modus-operandi-tinted)
+                     (_ 'modus-vivendi-tinted))
                    t)
        (run-hooks 'jkakar/after-load-theme-hook))
 
