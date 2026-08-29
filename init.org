@@ -39,7 +39,6 @@
      (setq straight-check-for-modifications '(find-when-checking))
      (setq straight-use-package-by-default t)
      (setq straight-cache-autoloads t)
-     (setq use-package-inject-hooks t)
 
      (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -93,7 +92,8 @@
    Run emacs as a server.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (server-start)
+     (unless (server-running-p)
+       (server-start))
    #+END_SRC
 
    I put an executable script in =~/bin= to invoke emacs from a shell and have
@@ -165,7 +165,7 @@
      (defvar jkakar/after-load-theme-hook nil
        "Hook run after `jkakar/apply-theme-for-appearance' loads a theme.")
 
-     (defun get-modus-color (name)
+     (defun jkakar/get-modus-color (name)
        "Get color NAME from the active Modus theme."
        (modus-themes-get-color-value name))
 
@@ -226,6 +226,9 @@
        :if (eq system-type 'darwin)
        :custom
        (exec-path-from-shell-check-startup-files nil)
+       ;; A login shell is enough; -i also runs the interactive rc files, which
+       ;; roughly doubles the time this takes at startup.
+       (exec-path-from-shell-arguments '("-l"))
        (exec-path-from-shell-variables '("PATH"
                                          "MANPATH"
                                          "GOPATH"
@@ -273,10 +276,10 @@
 
    I like closing all buffers to reset emacs to a clean slate when I switch from
    one task to another. Using ~C-x C-b % n <ENTER> D~ is pretty tedious. ~M-x
-   close-all-buffers~ is a touch easier.
+   jkakar/close-all-buffers~ is a touch easier.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun close-all-buffers ()
+     (defun jkakar/close-all-buffers ()
        (interactive)
        (dolist (buffer (buffer-list))
          (unless (member (buffer-name buffer) '("*scratch*" "*Messages*" " *Minibuf-0*" " *Minibuf-1*"))
@@ -323,8 +326,7 @@
      (setq sentence-end-double-space nil)
      (setq-default indent-tabs-mode nil)
      (setq-default fill-column 80)
-     (setq default-tab-width 4)
-     (setq tab-width 4)
+     (setq-default tab-width 4)
    #+END_SRC
 
    Ideally, formatting would be taken care of by tooling that limits length
@@ -346,7 +348,7 @@
        (defun jkakar/set-highlight-80+-face ()
          "Set the `highlight-80+' background from the active Modus theme."
          (set-face-attribute 'highlight-80+ nil :foreground 'unspecified
-                                                :background (get-modus-color 'bg-dim)))
+                                                :background (jkakar/get-modus-color 'bg-dim)))
        (add-hook 'jkakar/after-load-theme-hook #'jkakar/set-highlight-80+-face)
        (jkakar/set-highlight-80+-face))
    #+END_SRC
@@ -384,10 +386,10 @@
    this easier.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun join-next-line ()
+     (defun jkakar/join-next-line ()
        (interactive)
        (join-line t))
-     (global-set-key (kbd "C-j") 'join-next-line)
+     (global-set-key (kbd "C-j") 'jkakar/join-next-line)
    #+END_SRC
 
 ** Matching parentheses
@@ -398,7 +400,7 @@
      (defun jkakar/set-show-paren-match-face ()
        "Set the `show-paren-match' background from the active Modus theme."
        (set-face-attribute 'show-paren-match nil :foreground 'unspecified
-                                                 :background (get-modus-color 'bg-paren-match)))
+                                                 :background (jkakar/get-modus-color 'bg-paren-match)))
      (add-hook 'jkakar/after-load-theme-hook #'jkakar/set-show-paren-match-face)
      (jkakar/set-show-paren-match-face)
      (setq show-paren-delay 0)
@@ -551,11 +553,7 @@
    Enable ANSI colors in compilation buffers.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun colorize-compilation-buffer ()
-       (let ((inhibit-read-only t))
-         (ansi-color-apply-on-region compilation-filter-start (point))))
-
-     (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+     (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
    #+END_SRC
 
 ** Eglot
@@ -629,7 +627,7 @@
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (reformatter-define erlfmt
-       :program "/Users/jkakar/bin/erlfmt"
+       :program "erlfmt"
        :args '("-"))
    #+END_SRC
 
@@ -644,7 +642,7 @@
          (lambda ()
            (setq mode-name "erl"
                  erlang-compile-extra-opts '((i . "../include"))
-                 erlang-root-dir "/usr/local/lib/erlang")))
+                 erlang-root-dir "/opt/homebrew/lib/erlang")))
        (add-hook 'erlang-mode-hook #'eglot-ensure)
        ;; TODO Figure out how to turn this off for *.yrl files.
        (add-hook 'erlang-mode-hook 'erlfmt-on-save-mode))
@@ -653,33 +651,30 @@
 ** [[https://github.com/dominikh/go-mode.el][Go]]
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package go-mode
-       :defer t)
+     (reformatter-define goimports
+       :program "goimports")
+
      (use-package go-ts-mode
-       :custom
-       (gofmt-show-errors nil)
        :hook
        (go-ts-mode . (lambda ()
-                       (setq tab-width 4)
-                       (setq go-ts-mode-indent-offset tab-width)
-                       (setq indent-tabs-mode t)
-                       (add-hook 'before-save-hook 'gofmt-before-save nil t)))
+                       (setq-local tab-width 4)
+                       (setq-local go-ts-mode-indent-offset tab-width)
+                       (setq-local indent-tabs-mode t)))
        (go-ts-mode . eglot-ensure)
-       :config
-       (setq gofmt-command "goimports")
+       (go-ts-mode . goimports-on-save-mode)
        :defer t)
    #+END_SRC
 
-   We install ~go-mode~ because it defines the ~gofmt-before-save~ hook. We
-   don't want to add ~gofmt-before-save~ to the global ~before-save-hook~,
-   because that would cause ~go-mode~ to be loaded in every buffer, whether it
-   was a Go buffer or not. Instead we add to the local ~before-save-hook~. We
-   then have to explicitly request deferred loading. Normally ~:hook~ implies
-   ~:defer t~, but [[https://github.com/jwiegley/use-package/commit/b0e53b4][only]] if the target of the hook is a function symbol. If it's
-   a lambda, then ~use-package~ will resort to its default behavior of demanding
-   the package, to ensure that the package is loaded when the lambda runs. In
-   our case, we know the lambda doesn't need that, so we can safely ask for
-   deferral.
+   ~go-ts-mode~ is built in, so the only thing the ~go-mode~ package still
+   provided was ~gofmt-before-save~. ~reformatter~ already runs the Erlang and
+   JavaScript formatters, so defining ~goimports~ the same way drops that
+   dependency and leaves every formatter in this file working alike.
+
+   The indentation hook is a lambda, so deferral has to be requested
+   explicitly. Normally ~:hook~ implies ~:defer t~, but [[https://github.com/jwiegley/use-package/commit/b0e53b4][only]] if the target of
+   the hook is a function symbol. With a lambda, ~use-package~ falls back to
+   demanding the package so that it is loaded when the lambda runs, which is
+   not needed here.
 
 ** Graphviz
 
@@ -692,36 +687,23 @@
 ** Javascript and Typescript
 
    #+BEGIN_SRC emacs-lisp :tangle yes
-     (defun biome-format-and-save ()
-       "Format the current file with Biome and refresh the buffer."
-       (interactive)
-       (let ((current-file (buffer-file-name)))
-         (when current-file
-           (let ((exit-code (call-process "/opt/homebrew/bin/biome" nil nil nil "check" "--write" current-file)))
-             (if (eq exit-code 0)
-                 (progn
-                   (message "Formatting successful, reverting buffer.")
-                   (revert-buffer t t t))
-               (message "Error formatting file with Biome."))))))
+     (reformatter-define biome
+       :program "biome"
+       :args (list "check" "--write"
+                   (concat "--stdin-file-path="
+                           (or (buffer-file-name) "buffer.ts"))))
 
-     (defun setup-js-ts-modes ()
-       (add-hook 'after-save-hook 'biome-format-and-save nil t))
+     (defun jkakar/setup-js-ts-modes ()
+       "Two space indentation, eglot and Biome for JavaScript and TypeScript."
+       (setq-local js-indent-level 2)
+       (setq-local typescript-ts-mode-indent-offset 2)
+       (setq-local indent-tabs-mode nil)
+       (eglot-ensure)
+       (biome-on-save-mode))
 
-     ;; Apply this setup for js, ts, jsx, and tsx files
-     (add-hook 'js-ts-mode-hook 'setup-js-ts-modes)
-     (add-hook 'tsx-ts-mode-hook 'setup-js-ts-modes)
-     (add-hook 'typescript-ts-mode-hook 'setup-js-ts-modes)
-     (add-hook 'js-mode-hook 'setup-js-ts-modes)  ;; Assuming js-mode for JavaScript
-     (add-hook 'js-ts-mode-hook (lambda () (setq js-indent-level 2)))
-     (add-hook 'js-ts-mode-hook #'eglot-ensure)
-     (add-hook 'tsx-ts-mode-hook (lambda ()
-                                   (setq typescript-ts-mode-indent-offset 2)
-                                   (setq indent-tabs-mode nil)))
-     (add-hook 'tsx-ts-mode-hook #'eglot-ensure)
-     (add-hook 'typescript-ts-mode-hook (lambda ()
-                                          (setq typescript-ts-mode-indent-offset 2)
-                                          (setq indent-tabs-mode nil)))
-     (add-hook 'typescript-ts-mode-hook #'eglot-ensure)
+     (add-hook 'js-ts-mode-hook #'jkakar/setup-js-ts-modes)
+     (add-hook 'tsx-ts-mode-hook #'jkakar/setup-js-ts-modes)
+     (add-hook 'typescript-ts-mode-hook #'jkakar/setup-js-ts-modes)
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp :tangle yes
@@ -798,8 +780,10 @@
    #+BEGIN_SRC emacs-lisp :tangle yes
       (use-package protobuf-mode
         :init
-        (defconst my-protobuf-style '((c-basic-offset . 2) (indent-tabs-mode . nil)))
-        (add-hook 'protobuf-mode-hook (lambda () (c-add-style "my-style" my-protobuf-style t))))
+        (defconst jkakar/protobuf-style
+          '((c-basic-offset . 2) (indent-tabs-mode . nil)))
+        (add-hook 'protobuf-mode-hook
+                  (lambda () (c-add-style "jkakar" jkakar/protobuf-style t))))
    #+END_SRC
 
 ** Ruby
@@ -851,7 +835,10 @@
        (setq web-mode-code-indent-offset 2)
        (setq web-mode-enable-auto-pairing t)
        (setq web-mode-enable-css-colorization t)
-       (add-hook 'before-save-hook 'delete-trailing-whitespace nil 'local)
+       :hook
+       (web-mode . (lambda ()
+                     (add-hook 'before-save-hook
+                               #'delete-trailing-whitespace nil t)))
        :mode ("\\.html?\\'" "\\.erb\\'" "\\.hbs\\'"
               "\\.s?css\\'" "\\.less\\'" "\\.sass\\'"))
    #+END_SRC
