@@ -56,10 +56,27 @@
      (straight-use-package 'use-package)
    #+END_SRC
 
-   Run ~M-x straight-pull-all~ to update all packages, and then run ~M-x
+   ~straight-check-for-modifications~ drops ~find-at-startup~ from the default
+   and keeps only ~find-when-checking~, so startup does not scan every
+   repository for changes. That is a good trade for a configuration that is
+   started often and updated rarely, but it does mean straight will not notice
+   on its own that a pull has moved the code.
+
+   So updating takes three steps rather than two. Run ~M-x straight-pull-all~ to
+   fetch the latest revision of every package, then ~M-x straight-rebuild-all~
+   to relink and recompile them against what was just pulled, then ~M-x
    straight-freeze-versions~ to save the currently checked out revisions of all
    packages. The ~~/.emacs.d/straight/versions/default.el~ file, together with
    this file, define the package configuration.
+
+   Skipping the rebuild is what breaks. A build directory is a farm of symlinks
+   into the repository plus byte-compiled files from the last build, so a pull
+   swaps new code in through those symlinks while the set of links and the
+   ~.elc~ files stay behind. A package that gained a file upstream then fails on
+   the require for it, reporting ~Cannot open load file: No such file or
+   directory~ for a file that plainly exists under =straight/repos=. That is the
+   signature of a missed rebuild rather than a broken package, and ~M-x
+   straight-rebuild-all~ is the fix.
 
 ** Performance
 
