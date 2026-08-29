@@ -91,7 +91,11 @@
 
    Run emacs as a server.
 
+   ~server-start~ is autoloaded but ~server-running-p~ is not, so ~server~ has
+   to be required before the guard can run.
+
    #+BEGIN_SRC emacs-lisp :tangle yes
+     (require 'server)
      (unless (server-running-p)
        (server-start))
    #+END_SRC
