@@ -581,48 +581,6 @@
      (global-set-key (kbd "C-c RET") 'gptel-send)
    #+END_SRC
 
-** OpenCode
-
-   [[https://github.com/jdormit/emacs-opencode][emacs-opencode]] is an Emacs client for [[https://opencode.ai][OpenCode]], an agentic coding CLI. It
-   runs an OpenCode server per project and renders sessions into ordinary
-   buffers, so a transcript responds to isearch, motion commands and the kill
-   ring rather than being trapped in a terminal emulator.
-
-   It needs the ~opencode~ CLI on ~$PATH~. The package doesn't declare its
-   dependencies, so ~request~ has to be installed on its own.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes
-     (use-package request)
-
-     (use-package emacs-opencode
-       :straight (:type git :host github :repo "jdormit/emacs-opencode")
-       :bind (("C-c o o" . opencode)
-              ("C-c o a" . opencode-ask)
-              ("C-c o c" . opencode-ask-contextual)
-              ("C-c o s" . opencode-open-session)
-              ("C-c o A" . opencode-send-to-session)
-              ("C-c o C" . opencode-send-context-to-session)
-              ("C-c o q" . opencode-shutdown)))
-   #+END_SRC
-
-   Lowercase bindings start a new session and uppercase ones send to a session
-   that is already running. The contextual commands include the region, or the
-   ten lines around point, alongside the prompt.
-
-   Inside a session buffer C-c C-c sends input, C-c C-a switches agent, C-c C-l
-   switches model, C-c C-o runs a slash command, C-c C-f forks the session and
-   C-c C-x compacts it. Sessions live on the server, so opencode-open-session
-   resumes one instead of replaying it.
-
-   The default agent is ~plan~, which reads and proposes without editing. Tool
-   calls that touch the filesystem or run commands prompt in the minibuffer to
-   allow once, allow always, or deny, and quitting the prompt denies.
-
-   Providers are configured outside emacs with ~opencode auth login~, which
-   accepts Anthropic and OpenAI subscriptions as well as API keys. Since C-c C-l
-   switches model mid-session, one session can plan with one model and implement
-   with another.
-
 * Major modes and filetypes
 
 ** Dockerfile
