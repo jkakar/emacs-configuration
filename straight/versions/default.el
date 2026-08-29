@@ -17,7 +17,6 @@
  ("fbthrift" . "a56a22a638e7a784d95c33eda56b77c4acdd1eeb")
  ("git-link" . "ca01d013bd575710e2cd47001ee1ef6ee41667cf")
  ("gnu-elpa-mirror" . "f39608f7ff7a67cfd093635c6dcba36a6285de87")
- ("go-mode.el" . "3a71d28ab47df685e54ca6046a7a3dd3e28b682c")
  ("gptel" . "1f6556d9266c756a142337ccc82acfa5bba713ec")
  ("graphviz-dot-mode" . "516c151b845a3eb2da73eb4ee648ad99172087ac")
  ("hcl-mode" . "1da895ed75d28d9f87cbf9b74f075d90ba31c0ed")
