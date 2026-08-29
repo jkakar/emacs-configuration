@@ -6,6 +6,7 @@ elpa/
 init.el
 history
 projectile-bookmarks.eld
+projectile-frecency.eld
 projectile.cache
 org-persist/
 recentf
