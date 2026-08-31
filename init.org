@@ -151,57 +151,36 @@
 
 ** Theme
 
-   The Modus themes provide a matched light (~modus-operandi-tinted~) and dark
-   (~modus-vivendi-tinted~) pair with excellent contrast and readability. They
-   ship with Emacs 28+, but the bundled copy trails upstream by a wide margin —
-   Emacs 30.2 carries 4.4.0 against upstream's 5.3.0 — so straight tracks
+   Modus Vivendi Tinted provides excellent contrast and readability. It ships
+   with Emacs 28+, but the bundled copy trails upstream by a wide margin — Emacs
+   30.2 carries 4.4.0 against upstream's 5.3.0 — so straight tracks
    ~protesilaos/modus-themes~ directly rather than using the built-in.
 
-   The tinted variants are used rather than the plain pair. They keep the
-   contrast — ~fg-main~ stays pure black and white — but move the background
-   off ~#ffffff~ and ~#000000~ to ~#fbf7f0~ and ~#0d0e1c~, which reads as less
-   stark without washing anything out. Ghostty is configured with the same two
-   themes, generated from this repository's checkout of the modus-themes
-   source, so the terminal and the editor match.
-   emacs-plus on macOS exposes the system appearance through
-   ~ns-system-appearance-change-functions~, an abnormal hook run at startup and
-   whenever macOS toggles between light and dark mode. Hooking into it keeps
-   Emacs in sync with the rest of the desktop.
+   The tinted variant keeps the contrast — ~fg-main~ stays pure white — but
+   moves the background off ~#000000~ to ~#0d0e1c~, which reads as less stark
+   without washing anything out. Ghostty uses a theme generated from this
+   repository's checkout of the same modus-themes source, so the terminal and
+   editor match. Both applications stay dark when the operating system switches
+   between light and dark appearances.
 
-   ~jkakar/after-load-theme-hook~ runs after each switch so that faces whose
+   ~jkakar/after-load-theme-hook~ runs after the theme loads so that faces whose
    colors are pulled from the theme — the long-line and matching-paren
    highlights configured further below — can be re-applied with the new palette.
 
    #+BEGIN_SRC emacs-lisp :tangle yes
      (defvar jkakar/after-load-theme-hook nil
-       "Hook run after `jkakar/apply-theme-for-appearance' loads a theme.")
+       "Hook run after the Modus theme loads.")
 
      (defun jkakar/get-modus-color (name)
        "Get color NAME from the active Modus theme."
        (modus-themes-get-color-value name))
 
-     (defun jkakar/apply-theme-for-appearance (appearance)
-       "Load the Modus theme matching the system APPEARANCE (`light' or `dark')."
-       (mapc #'disable-theme custom-enabled-themes)
-       (load-theme (pcase appearance
-                     ('light 'modus-operandi-tinted)
-                     (_ 'modus-vivendi-tinted))
-                   t)
-       (run-hooks 'jkakar/after-load-theme-hook))
-
      (use-package modus-themes
        :straight (:type git :host github :repo "protesilaos/modus-themes")
        :init
-       (if (boundp 'ns-system-appearance-change-functions)
-           (progn
-             (add-hook 'ns-system-appearance-change-functions
-                       #'jkakar/apply-theme-for-appearance)
-             ;; In daemon sessions the hook only fires once a GUI frame exists;
-             ;; apply now if the appearance is already known.
-             (when ns-system-appearance
-               (jkakar/apply-theme-for-appearance ns-system-appearance)))
-         ;; Builds without the macOS appearance hook get the dark theme.
-         (jkakar/apply-theme-for-appearance 'dark)))
+       (mapc #'disable-theme custom-enabled-themes)
+       (load-theme 'modus-vivendi-tinted t)
+       (run-hooks 'jkakar/after-load-theme-hook))
    #+END_SRC
 
 ** Fonts and faces
