@@ -149,6 +149,14 @@
      (setq ring-bell-function #'ignore)
    #+END_SRC
 
+   Emacs always uses a dark theme, so its native macOS window chrome should
+   remain dark when the system appearance switches to light mode.
+
+   #+BEGIN_SRC emacs-lisp :tangle yes
+     (when (eq system-type 'darwin)
+       (add-to-list 'default-frame-alist '(ns-appearance . dark)))
+   #+END_SRC
+
 ** Theme
 
    Modus Vivendi Tinted provides excellent contrast and readability. It ships
